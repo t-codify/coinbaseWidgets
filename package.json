@@ -1,0 +1,29 @@
+{
+  "name": "coinbasewidgets",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t-codify/coinbaseWidgets.git"
+  },
+  "author": "Tanvi Nigam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/t-codify/coinbaseWidgets/issues"
+  },
+  "homepage": "https://github.com/t-codify/coinbaseWidgets#readme",
+  "dependencies": {
+    "parcel": "^2.12.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.0"
+  },
+  "devDependencies": {
+    "process": "^0.11.10"
+  }
+}
