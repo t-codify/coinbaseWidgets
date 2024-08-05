@@ -2,7 +2,7 @@
   "name": "coinbasewidgets",
   "version": "1.0.0",
   "description": "",
-  "main": "app.html",
+  "main": "app.js",
   "scripts": {
     "start": "parcel index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
