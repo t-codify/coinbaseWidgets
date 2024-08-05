@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* src/OrderBook.css */
+.table-container {
+  position: relative;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: right;
+}
+
+th {
+  background-color: #f2f2f2;
+  position: sticky;
+  top: 0;
+  z-index: 1; /* Ensure header is above the rest of the table content */
+  background: #fff; /* Ensure header background is solid */
+}
+
+/* Optional: Add some padding to the bottom of tables to avoid content hiding under the scrollbar */
+.table-container {
+  padding-bottom: 20px;
+}
