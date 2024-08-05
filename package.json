@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/t-codify/coinbaseWidgets/issues"
   },
-  "homepage": "https://t-codify.github.io/coinbaseWidgets",
+  "homepage": "https://t-codify.github.io/coinbaseWidgets/#",
   "dependencies": {
     "d3-scale": "^4.0.2",
     "d3-time-format": "^3.0.0",
