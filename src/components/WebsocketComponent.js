@@ -1,46 +1,19 @@
 // src/WebSocketComponent.js
 import React, { useState, useEffect, useContext } from "react";
 import { selectOptions } from "../utils/constants";
-import useGetProducts from "../utils/customHooks/useGetProducts";
 import TopOfBookComponent from "./TopOfBookComponent";
 import OrderBook from "./OrderBook";
 import RealTimePriceChart from "./RealTimePriceChart";
 import ProductContext from "../utils/ProductContext";
+import { useRef } from "react";
 const URI = "wss://ws-feed.exchange.coinbase.com";
-const CHANNEL = "level2";
-const PRODUCT_ID = "ETH-USD";
-/**
- * 
- * {
-  "type": "ticker",
-  "sequence": 64723489703,
-  "product_id": "ETH-USD",
-  "price": "2989.97",
-  "open_24h": "3150.85",
-  "volume_24h": "125009.93698097",
-  "low_24h": "2909.35",
-  "high_24h": "3180.09",
-  "volume_30d": "2516276.95279955",
-  "best_bid": "2989.82",
-  "best_bid_size": "1.08000006",
-  "best_ask": "2989.97",
-  "best_ask_size": "0.47637109",
-  "side": "buy",
-  "time": "2024-08-03T11:19:04.968123Z",
-  "trade_id": 543009615,
-  "last_size": "0.00052825"
-} 
- * 
- */
-
 const WebSocketComponent = () => {
-  const { ticker, setTickerData, l2update, setl2UpdateData } =
-    useContext(ProductContext);
+  const [ticker, setTickerData] = useState({});
+  const [l2update, setl2UpdateData] = useState({});
+  const [snapshot, setSnapshotData] = useState({});
   const [selectedCurr, setSelectedCurr] = useState("BTC-USD");
   const [selectedSubs, setSelectedSubs] = useState("subscribe");
-  //const product_ids = useGetProducts();
-  //product_ids = ["BTC-USD","ETH-USD", "LTC-USD", "BCH-USD"]
-
+  const canvasRef = useRef();
   useEffect(() => {
     const ws = new WebSocket(URI);
     const subscriptionType = selectedSubs;
@@ -49,7 +22,7 @@ const WebSocketComponent = () => {
         const subscribeMessage = JSON.stringify({
           type: subscriptionType,
           product_ids: [selectedCurr ?? selectedCurr],
-          channels: ["ticker"], //level2_batch
+          channels: ["ticker", "level2_batch"],
         });
         ws.send(subscribeMessage);
         console.log(
@@ -58,9 +31,11 @@ const WebSocketComponent = () => {
       };
 
       ws.onmessage = (event) => {
+        if (selectedSubs === "unsubscribe") {
+          ws.close();
+        }
         try {
           const jsonResponse = JSON.parse(event.data);
-
           switch (jsonResponse.type) {
             case "ticker": {
               setTickerData(jsonResponse);
@@ -68,6 +43,10 @@ const WebSocketComponent = () => {
             }
             case "l2update": {
               setl2UpdateData(jsonResponse);
+              break;
+            }
+            case "snapshot": {
+              setSnapshotData(jsonResponse);
               break;
             }
             default:
@@ -93,20 +72,20 @@ const WebSocketComponent = () => {
 
     return () => {
       // Clean up the WebSocket connection on component unmount
+      //setSelectedSubs("unsubscribe");
       ws.close();
     };
   }, [selectedCurr, selectedSubs]);
 
-  if (!ticker) return;
+  if (!ticker || !snapshot || !l2update) return;
   return (
-    <div>
-      <h2>WebSocket Data</h2>
-      <div className="flex flex-row mt-2">
-        <label>
+    <>
+      <div className="flex flex-row mt-5 justify-normal align-middle content-evenly">
+        <label className="mx-2 w-3/12 font-bold dark:text-white text-gray-400 ">
           <select
-            className=" px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block  rounded-md sm:text-sm focus:ring-1"
+            className=" px-3 py-2 w-40 bg-white dark:bg-inherit shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block  rounded-md sm:text-sm focus:ring-1"
             value={selectedCurr} // ...force the select's value to match the state variable...
-            onChange={(e, preVal) => {
+            onChange={(e) => {
               setSelectedCurr(e.target.value);
               setSelectedSubs("subscribe");
             }} // ... and update the state variable on any change!
@@ -120,21 +99,29 @@ const WebSocketComponent = () => {
             })}
           </select>
         </label>
-        <button
+        {/* <button
           className="bg-sky-500 hover:bg-sky-700 text-white rounded-lg px-2 mx-2"
           onClick={(e) => setSelectedSubs("unsubscribe")}
         >
           unsubscribe
-        </button>
+        </button> */}
+        <TopOfBookComponent {...{ ticker }} />
       </div>
-      <div className="flex flex-row">
-        <div className="flex flex-col w-9/12">
-          <TopOfBookComponent />
-          <RealTimePriceChart />
+      <div className="flex flex-row  dark:bg-slate-800 bg-white  dark:text-white text-gray-400">
+        <div className="flex flex-col w-9/12" ref={canvasRef}>
+          {canvasRef.current ? (
+            <RealTimePriceChart
+              ticker={ticker}
+              width={canvasRef.current.clientWidth}
+              height={canvasRef.current.offsetHeight}
+            />
+          ) : null}
         </div>
-        <div>{/* <OrderBook /> */}</div>
+        <div className="w-3/12">
+          <OrderBook {...{ snapshot: snapshot, l2update: l2update }} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

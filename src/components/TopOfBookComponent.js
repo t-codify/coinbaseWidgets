@@ -1,34 +1,33 @@
 import { useContext } from "react";
 import PriceBoxComponent from "./PriceBoxComponent";
 import ProductContext from "../utils/ProductContext";
-const TopOfBookComponent = () => {
-  const { ticker } = useContext(ProductContext);
+const TopOfBookComponent = ({ ticker }) => {
+  //const { ticker } = useContext(ProductContext);
+  const color = ticker.side === "buy" ? "text-[#00ff00]" : "text-[#ff0000]";
   if (!ticker) return;
   return (
-    // <div className="relative bg-white m-6 shadow-xl ring-1 ring-gray-900/5  sm:rounded-lg">
-    <div className="w-full sm:rounded-lg">
-      <div className="divide-y divide-gray-300/50">
-        <div className="grid grid-flow-col justify-stretch w-full">
-          <PriceBoxComponent
-            ticker={{
-              type: "Bid",
-              best: ticker.best_bid,
-              size: ticker.best_bid_size,
-              price: ticker.price,
-            }}
-          />
-          <PriceBoxComponent
-            ticker={{
-              type: "Ask",
-              best: ticker.best_ask,
-              size: ticker.best_ask_size,
-              price: ticker.price,
-            }}
-          />
-        </div>
-      </div>
+    <div>
+      <table className="table-fixed text-xs border-none w-8/12 ">
+        <tbody>
+          <tr className="font-semibold dark:text-white text-gray-400">
+            <td className="border-none">Best Bid</td>
+            <td className="border-none">Bid Size</td>
+            <td className="border-none">Best Ask</td>
+            <td className="border-none">Ask Size</td>
+            <td className="border-none">Price</td>
+            <td className="border-none">24hr Volume</td>
+          </tr>
+          <tr className="dark:text-slate-400 border-none text-gray-800">
+            <td className="border-none">{ticker.best_bid}</td>
+            <td className="border-none">{ticker.best_bid_size}</td>
+            <td className="border-none">{ticker.best_ask}</td>
+            <td className="border-none">{ticker.best_ask_size}</td>
+            <td className={color + " border-none"}>{ticker.price}</td>
+            <td className="border-none">{ticker.volume_24h}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    // </div>
   );
 };
 

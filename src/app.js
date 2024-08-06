@@ -8,6 +8,7 @@ import OrderBook from "./components/OrderBook";
 const AppLayout = () => {
   const [tickerData, setTickerData] = useState();
   const [l2UpdateData, setl2UpdateData] = useState();
+  const [snapshotData, setSnapshotData] = useState();
   return (
     <ProductContext.Provider
       value={{
@@ -15,11 +16,13 @@ const AppLayout = () => {
         setTickerData,
         l2update: l2UpdateData,
         setl2UpdateData,
+        snapshot: snapshotData,
+        setSnapshotData,
       }}
     >
       <div>
-        {/* <WebSocketComponent /> */}
-        <OrderBook />
+        <WebSocketComponent />
+        {/* <OrderBook /> */}
       </div>
     </ProductContext.Provider>
   );

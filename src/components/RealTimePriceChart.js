@@ -11,6 +11,8 @@ import {
   MouseCoordinateY,
   MovingAverageTooltip,
   CurrentCoordinate,
+  lastVisibleItemBasedZoomAnchor,
+  ZoomButtons,
 } from "react-financial-charts";
 import { scaleTime, scaleLinear } from "d3-scale";
 import { timeFormat } from "d3-time-format";
@@ -19,8 +21,9 @@ import ProductContext from "../utils/ProductContext";
 const formatDate = timeFormat("%Y-%m-%d %H:%M:%S");
 //const pricesDisplayFormat = format(".2f");
 
-const RealTimePriceChart = () => {
-  const { ticker } = useContext(ProductContext);
+const RealTimePriceChart = ({ ticker, width, height }) => {
+  //const { ticker } = useContext(ProductContext);
+  const maxPoints = 50;
   const [chartData, setChartData] = useState([
     {
       ask: parseFloat(ticker?.best_ask),
@@ -28,9 +31,6 @@ const RealTimePriceChart = () => {
       x: new Date(ticker?.time),
     },
   ]);
-  const interval = 500;
-  const maxPoints = 100;
-  // Simulate live data update
   useEffect(() => {
     const addData = () => {
       const newData = [
@@ -50,10 +50,10 @@ const RealTimePriceChart = () => {
       setChartData(newData);
     };
 
-    const intervalId = setInterval(addData, interval);
+    addData();
 
-    return () => clearInterval(intervalId);
-  }, [chartData, interval, maxPoints]);
+    return () => {};
+  }, [ticker]);
 
   // Define accessors for y-values
   const yAccessorBid = (d) => d?.bid;
@@ -76,66 +76,89 @@ const RealTimePriceChart = () => {
     }
     return ticks;
   };
-  if (!chartData) return;
+  //if (!chartData) return;
   return (
-    // <div className="relative w-full h-full overflow-auto">
-    <ChartCanvas
-      height={400}
-      width={800}
-      ratio={3}
-      seriesName="Real-Time Data"
-      data={chartData}
-      xAccessor={(d) => d?.x}
-      xScale={scaleTime()}
-      yScale={scaleLinear()}
-      xExtents={xExtents}
-    >
-      <Chart id={1} yExtents={(d) => [d.bid, d.ask]}>
-        <XAxis
-          showGridLines
-          tickValues={getXTicks(chartData, 5)} // Display 5 ticks
-          tickFormat={formatDate}
-        />
-        <YAxis showGridLines tickPadding={2} />
-        <LineSeries
-          yAccessor={yAccessorBid}
-          strokeStyle="#ff0000"
-          strokeWidth={1}
-        />
-        <CurrentCoordinate yAccessor={yAccessorBid} fillStyle="#ff0000" />
-        <LineSeries
-          yAccessor={yAccessorAsk}
-          strokeStyle="#00ff00"
-          strokeWidth={1}
-        />
-        <CurrentCoordinate yAccessor={yAccessorAsk} fillStyle="#00ff00" />
+    <div className="relative w-full h-full overflow-auto">
+      <ChartCanvas
+        height={height}
+        width={width}
+        margin={{
+          top: 0,
+          right: 80,
+          bottom: 40,
+          left: 20,
+        }}
+        ratio={1}
+        seriesName="Real-Time Data"
+        data={chartData}
+        xAccessor={(d) => d?.x}
+        xScale={scaleTime()}
+        yScale={scaleLinear()}
+        xExtents={xExtents}
+        maintainPointsPerPixelOnResize={true}
+        zoomMultiplier={2}
+        zoomAnchor={lastVisibleItemBasedZoomAnchor}
+      >
+        <Chart id={1} yExtents={(d) => [d.bid, d.ask]}>
+          <XAxis
+            showGridLines
+            tickValues={getXTicks(chartData, 5)} // Display 5 ticks
+            tickFormat={formatDate}
+            tickStrokeStyle="#ff0000"
+            tickLabelFill="#94a3b8"
+            gridLinesStrokeStyle="#94a3b8"
+            zoomEnabled={true}
+            tickSize={5}
+          />
+          <YAxis
+            showGridLines
+            tickStrokeStyle="#00ff00"
+            tickLabelFill="#94a3b8"
+            tickSize={5}
+            zoomEnabled={true}
+          />
+          <LineSeries
+            yAccessor={yAccessorBid}
+            strokeStyle="#00ff00"
+            strokeWidth={2}
+          />
+          <CurrentCoordinate yAccessor={yAccessorBid} fillStyle="#00ff00" />
+          <LineSeries
+            yAccessor={yAccessorAsk}
+            strokeStyle="#ff0000"
+            strokeWidth={2}
+          />
+          <CurrentCoordinate yAccessor={yAccessorAsk} fillStyle="#ff0000" />
 
-        <MouseCoordinateX
-          displayFormat={formatDate} // Format mouse X coordinate display
-        />
-        <MouseCoordinateY
-          displayFormat={(d) => d.toFixed(2)} // Format mouse Y coordinate display
-        />
-        <MovingAverageTooltip
-          origin={[8, 24]}
-          options={[
-            {
-              yAccessor: yAccessorBid,
-              type: "Bid",
-              stroke: "#ff0000",
-              windowSize: 2,
-            },
-            {
-              yAccessor: yAccessorAsk,
-              type: "Ask",
-              stroke: "#00ff00",
-              windowSize: 2,
-            },
-          ]}
-        />
-      </Chart>
-      <CrossHairCursor />
-    </ChartCanvas>
+          <MouseCoordinateX
+            displayFormat={formatDate} // Format mouse X coordinate display
+          />
+          <MouseCoordinateY
+            displayFormat={(d) => d.toFixed(2)} // Format mouse Y coordinate display
+          />
+          <MovingAverageTooltip
+            origin={[8, 24]}
+            textFill="#94a3b8"
+            options={[
+              {
+                yAccessor: yAccessorBid,
+                type: "Bid",
+                stroke: "#00ff00",
+                windowSize: 2,
+              },
+              {
+                yAccessor: yAccessorAsk,
+                type: "Ask",
+                stroke: "#ff0000",
+                windowSize: 2,
+              },
+            ]}
+          />
+          <ZoomButtons />
+        </Chart>
+        <CrossHairCursor />
+      </ChartCanvas>
+    </div>
   );
 };
 
