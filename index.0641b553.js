@@ -2964,43 +2964,70 @@ var _productContext = require("./utils/ProductContext");
 var _productContextDefault = parcelHelpers.interopDefault(_productContext);
 var _orderBook = require("./components/OrderBook");
 var _orderBookDefault = parcelHelpers.interopDefault(_orderBook);
+var _useWebSocket = require("./utils/customHooks/useWebSocket");
+var _useWebSocketDefault = parcelHelpers.interopDefault(_useWebSocket);
 var _s = $RefreshSig$();
 const AppLayout = ()=>{
     _s();
+    var _s1 = $RefreshSig$();
     const [tickerData, setTickerData] = (0, _react.useState)();
     const [l2UpdateData, setl2UpdateData] = (0, _react.useState)();
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _productContextDefault.default).Provider, {
-        value: {
-            ticker: tickerData,
-            setTickerData,
-            l2update: l2UpdateData,
-            setl2UpdateData
-        },
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _orderBookDefault.default), {}, void 0, false, {
+    const [snapshotData, setSnapshotData] = (0, _react.useState)();
+    (0, _react.useEffect)(_s1(()=>{
+        _s1();
+        const ws = (0, _useWebSocketDefault.default)("BTC-USD", "subscribe");
+        ws.then((res)=>{
+            switch(res.type){
+                case "ticker":
+                    setTickerData(res);
+                    break;
+                case "snapshot":
+                    setSnapshotData(res);
+                    break;
+                case "ticker":
+                    setl2UpdateData(res);
+                    break;
+            }
+        });
+    }, "qU6zTc1f2SLo6KIr8UjygKizZ8o=", false, function() {
+        return [
+            (0, _useWebSocketDefault.default)
+        ];
+    }), []);
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _productContextDefault.default).Provider, {
+            value: {
+                ticker: tickerData,
+                setTickerData,
+                l2update: l2UpdateData,
+                setl2UpdateData,
+                snapshot: snapshotData,
+                setSnapshotData
+            },
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _websocketComponentDefault.default), {}, void 0, false, {
                 fileName: "src/app.js",
-                lineNumber: 22,
+                lineNumber: 44,
                 columnNumber: 9
             }, undefined)
         }, void 0, false, {
             fileName: "src/app.js",
-            lineNumber: 20,
+            lineNumber: 34,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/app.js",
-        lineNumber: 12,
+        lineNumber: 33,
         columnNumber: 5
     }, undefined);
 };
-_s(AppLayout, "i/oO0HzabahlUbs0s+pXs9032UU=");
+_s(AppLayout, "6NdaIEhG/Q9ZXcDY2Mt08hbHTcg=");
 _c = AppLayout;
 const appRouter = (0, _reactRouterDom.createBrowserRouter)([
     {
         path: "/",
         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(AppLayout, {}, void 0, false, {
             fileName: "src/app.js",
-            lineNumber: 31,
+            lineNumber: 54,
             columnNumber: 14
         }, undefined)
     }
@@ -3010,7 +3037,7 @@ rootEle.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Rout
     router: appRouter
 }, void 0, false, {
     fileName: "src/app.js",
-    lineNumber: 35,
+    lineNumber: 58,
     columnNumber: 16
 }, undefined));
 var _c;
@@ -3021,7 +3048,7 @@ $RefreshReg$(_c, "AppLayout");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./components/WebsocketComponent":"9Queg","react-router-dom":"9xmpe","./utils/ProductContext":"ah0dq","./components/OrderBook":"abTom","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./components/WebsocketComponent":"9Queg","react-router-dom":"9xmpe","./utils/ProductContext":"ah0dq","./components/OrderBook":"abTom","./utils/customHooks/useWebSocket":"f6ihu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27278,8 +27305,6 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _constants = require("../utils/constants");
-var _useGetProducts = require("../utils/customHooks/useGetProducts");
-var _useGetProductsDefault = parcelHelpers.interopDefault(_useGetProducts);
 var _topOfBookComponent = require("./TopOfBookComponent");
 var _topOfBookComponentDefault = parcelHelpers.interopDefault(_topOfBookComponent);
 var _orderBook = require("./OrderBook");
@@ -27288,109 +27313,37 @@ var _realTimePriceChart = require("./RealTimePriceChart");
 var _realTimePriceChartDefault = parcelHelpers.interopDefault(_realTimePriceChart);
 var _productContext = require("../utils/ProductContext");
 var _productContextDefault = parcelHelpers.interopDefault(_productContext);
+var _useWebSocket = require("../utils/customHooks/useWebSocket");
+var _useWebSocketDefault = parcelHelpers.interopDefault(_useWebSocket);
 var _s = $RefreshSig$();
 const URI = "wss://ws-feed.exchange.coinbase.com";
-const CHANNEL = "level2";
-const PRODUCT_ID = "ETH-USD";
-/**
- * 
- * {
-  "type": "ticker",
-  "sequence": 64723489703,
-  "product_id": "ETH-USD",
-  "price": "2989.97",
-  "open_24h": "3150.85",
-  "volume_24h": "125009.93698097",
-  "low_24h": "2909.35",
-  "high_24h": "3180.09",
-  "volume_30d": "2516276.95279955",
-  "best_bid": "2989.82",
-  "best_bid_size": "1.08000006",
-  "best_ask": "2989.97",
-  "best_ask_size": "0.47637109",
-  "side": "buy",
-  "time": "2024-08-03T11:19:04.968123Z",
-  "trade_id": 543009615,
-  "last_size": "0.00052825"
-} 
- * 
- */ const WebSocketComponent = ()=>{
+const WebSocketComponent = ()=>{
     _s();
-    const { ticker, setTickerData, l2update, setl2UpdateData } = (0, _react.useContext)((0, _productContextDefault.default));
+    const [ticker, setTickerData] = (0, _react.useState)({});
+    const [l2update, setl2UpdateData] = (0, _react.useState)({});
+    const [snapshot, setSnapshotData] = (0, _react.useState)({});
     const [selectedCurr, setSelectedCurr] = (0, _react.useState)("BTC-USD");
     const [selectedSubs, setSelectedSubs] = (0, _react.useState)("subscribe");
-    //const product_ids = useGetProducts();
-    //product_ids = ["BTC-USD","ETH-USD", "LTC-USD", "BCH-USD"]
+    const canvasRef = (0, _react.useRef)();
+    const ws = (0, _useWebSocketDefault.default);
     (0, _react.useEffect)(()=>{
-        const ws = new WebSocket(URI);
-        const subscriptionType = selectedSubs;
-        const connectWebSocket = async ()=>{
-            ws.onopen = ()=>{
-                const subscribeMessage = JSON.stringify({
-                    type: subscriptionType,
-                    product_ids: [
-                        selectedCurr ?? selectedCurr
-                    ],
-                    channels: [
-                        "ticker"
-                    ]
-                });
-                ws.send(subscribeMessage);
-                console.log(`${subscriptionType} to ticker and l2Batch channel for product ${selectedCurr}`);
-            };
-            ws.onmessage = (event)=>{
-                try {
-                    const jsonResponse = JSON.parse(event.data);
-                    switch(jsonResponse.type){
-                        case "ticker":
-                            setTickerData(jsonResponse);
-                            break;
-                        case "l2update":
-                            setl2UpdateData(jsonResponse);
-                            break;
-                        default:
-                            break;
-                    }
-                } catch (error) {
-                    console.error("Failed to decode JSON response:", event.data);
-                }
-            };
-            ws.onclose = ()=>{
-                console.warn("Connection closed, retrying...");
-                setTimeout(connectWebSocket, 1000);
-            };
-            ws.onerror = (error)=>{
-                console.error("Unexpected error:", error);
-                setTimeout(connectWebSocket, 1000);
-            };
-        };
-        connectWebSocket();
-        return ()=>{
-            // Clean up the WebSocket connection on component unmount
-            ws.close();
-        };
+        ws(selectedCurr, selectedSubs);
     }, [
         selectedCurr,
         selectedSubs
     ]);
-    if (!ticker) return;
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+    if (!ticker || !snapshot || !l2update) return;
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                children: "WebSocket Data"
-            }, void 0, false, {
-                fileName: "src/components/WebsocketComponent.js",
-                lineNumber: 103,
-                columnNumber: 7
-            }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "flex flex-row mt-2",
+                className: "flex flex-row mt-5 justify-normal align-middle content-evenly",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                        className: "mx-2 w-3/12 font-bold dark:text-white text-gray-400 ",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
-                            className: " px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block  rounded-md sm:text-sm focus:ring-1",
+                            className: " px-3 py-2 w-40 bg-white dark:bg-inherit shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block  rounded-md sm:text-sm focus:ring-1",
                             value: selectedCurr,
-                            onChange: (e, preVal)=>{
+                            onChange: (e)=>{
                                 setSelectedCurr(e.target.value);
                                 setSelectedSubs("subscribe");
                             },
@@ -27400,76 +27353,78 @@ const PRODUCT_ID = "ETH-USD";
                                     children: opts
                                 }, opts, false, {
                                     fileName: "src/components/WebsocketComponent.js",
-                                    lineNumber: 116,
+                                    lineNumber: 38,
                                     columnNumber: 17
                                 }, undefined);
                             })
                         }, void 0, false, {
                             fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 106,
+                            lineNumber: 28,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 105,
+                        lineNumber: 27,
                         columnNumber: 9
                     }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
-                        className: "bg-sky-500 hover:bg-sky-700 text-white rounded-lg px-2 mx-2",
-                        onClick: (e)=>setSelectedSubs("unsubscribe"),
-                        children: "unsubscribe"
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _topOfBookComponentDefault.default), {
+                        ticker
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 123,
+                        lineNumber: 51,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/WebsocketComponent.js",
-                lineNumber: 104,
+                lineNumber: 26,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "flex flex-row",
+                className: "flex flex-row  dark:bg-slate-800 bg-white  dark:text-white text-gray-400",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                         className: "flex flex-col w-9/12",
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _topOfBookComponentDefault.default), {}, void 0, false, {
-                                fileName: "src/components/WebsocketComponent.js",
-                                lineNumber: 132,
-                                columnNumber: 11
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _realTimePriceChartDefault.default), {}, void 0, false, {
-                                fileName: "src/components/WebsocketComponent.js",
-                                lineNumber: 133,
-                                columnNumber: 11
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
+                        ref: canvasRef,
+                        children: canvasRef.current ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _realTimePriceChartDefault.default), {
+                            ticker: ticker,
+                            width: canvasRef.current.clientWidth,
+                            height: canvasRef.current.offsetHeight
+                        }, void 0, false, {
+                            fileName: "src/components/WebsocketComponent.js",
+                            lineNumber: 56,
+                            columnNumber: 13
+                        }, undefined) : null
+                    }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 131,
+                        lineNumber: 54,
                         columnNumber: 9
                     }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {}, void 0, false, {
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        className: "w-3/12",
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _orderBookDefault.default), {
+                            snapshot: snapshot,
+                            l2update: l2update
+                        }, void 0, false, {
+                            fileName: "src/components/WebsocketComponent.js",
+                            lineNumber: 64,
+                            columnNumber: 11
+                        }, undefined)
+                    }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 135,
+                        lineNumber: 63,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/WebsocketComponent.js",
-                lineNumber: 130,
+                lineNumber: 53,
                 columnNumber: 7
             }, undefined)
         ]
-    }, void 0, true, {
-        fileName: "src/components/WebsocketComponent.js",
-        lineNumber: 102,
-        columnNumber: 5
-    }, undefined);
+    }, void 0, true);
 };
-_s(WebSocketComponent, "AbMO2ShWAdV+cOE8ap4U/5lBDVw=");
+_s(WebSocketComponent, "qtDoxlP7ADcg9TbOF8T3EqnAs0A=");
 _c = WebSocketComponent;
 exports.default = WebSocketComponent;
 var _c;
@@ -27480,7 +27435,7 @@ $RefreshReg$(_c, "WebSocketComponent");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/constants":"hB8jg","../utils/customHooks/useGetProducts":"l13R4","./TopOfBookComponent":"Pff3S","./OrderBook":"abTom","./RealTimePriceChart":"25Tos","../utils/ProductContext":"ah0dq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hB8jg":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/constants":"hB8jg","./TopOfBookComponent":"Pff3S","./OrderBook":"abTom","./RealTimePriceChart":"25Tos","../utils/ProductContext":"ah0dq","../utils/customHooks/useWebSocket":"f6ihu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hB8jg":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "selectOptions", ()=>selectOptions);
@@ -27523,19 +27478,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"l13R4":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _constants = require("../constants");
-const useGetProducts = async ()=>{
-    const getProducts = await fetch((0, _constants.GET_PRODUCTS_URL));
-    products = await getProducts.json();
-    console.log(products);
-    return products;
-};
-exports.default = useGetProducts;
-
-},{"../constants":"hB8jg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"Pff3S":[function(require,module,exports) {
+},{}],"Pff3S":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$4e64 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27550,39 +27493,125 @@ var _priceBoxComponent = require("./PriceBoxComponent");
 var _priceBoxComponentDefault = parcelHelpers.interopDefault(_priceBoxComponent);
 var _productContext = require("../utils/ProductContext");
 var _productContextDefault = parcelHelpers.interopDefault(_productContext);
-var _s = $RefreshSig$();
-const TopOfBookComponent = ()=>{
-    _s();
-    const { ticker } = (0, _react.useContext)((0, _productContextDefault.default));
+const TopOfBookComponent = ({ ticker })=>{
+    //const { ticker } = useContext(ProductContext);
+    const color = ticker.side === "buy" ? "text-[#00ff00]" : "text-[#ff0000]";
     if (!ticker) return;
-    return(// <div className="relative bg-white m-6 shadow-xl ring-1 ring-gray-900/5  sm:rounded-lg">
-    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "w-full sm:rounded-lg",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            className: "divide-y divide-gray-300/50",
-            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "grid grid-flow-col justify-stretch w-full",
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("table", {
+            className: "table-fixed text-xs border-none w-8/12 ",
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tbody", {
                 children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _priceBoxComponentDefault.default), {
-                        ticker: {
-                            type: "Bid",
-                            best: ticker.best_bid,
-                            size: ticker.best_bid_size,
-                            price: ticker.price
-                        }
-                    }, void 0, false, {
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
+                        className: "font-semibold dark:text-white text-gray-400",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                className: "border-none",
+                                children: "Best Bid"
+                            }, void 0, false, {
+                                fileName: "src/components/TopOfBookComponent.js",
+                                lineNumber: 13,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                className: "border-none",
+                                children: "Bid Size"
+                            }, void 0, false, {
+                                fileName: "src/components/TopOfBookComponent.js",
+                                lineNumber: 14,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                className: "border-none",
+                                children: "Best Ask"
+                            }, void 0, false, {
+                                fileName: "src/components/TopOfBookComponent.js",
+                                lineNumber: 15,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                className: "border-none",
+                                children: "Ask Size"
+                            }, void 0, false, {
+                                fileName: "src/components/TopOfBookComponent.js",
+                                lineNumber: 16,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                className: "border-none",
+                                children: "Price"
+                            }, void 0, false, {
+                                fileName: "src/components/TopOfBookComponent.js",
+                                lineNumber: 17,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                className: "border-none",
+                                children: "24hr Volume"
+                            }, void 0, false, {
+                                fileName: "src/components/TopOfBookComponent.js",
+                                lineNumber: 18,
+                                columnNumber: 13
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
                         fileName: "src/components/TopOfBookComponent.js",
                         lineNumber: 12,
                         columnNumber: 11
                     }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _priceBoxComponentDefault.default), {
-                        ticker: {
-                            type: "Ask",
-                            best: ticker.best_ask,
-                            size: ticker.best_ask_size,
-                            price: ticker.price
-                        }
-                    }, void 0, false, {
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
+                        className: "dark:text-slate-400 border-none text-gray-800",
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                className: "border-none",
+                                children: ticker.best_bid
+                            }, void 0, false, {
+                                fileName: "src/components/TopOfBookComponent.js",
+                                lineNumber: 21,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                className: "border-none",
+                                children: ticker.best_bid_size
+                            }, void 0, false, {
+                                fileName: "src/components/TopOfBookComponent.js",
+                                lineNumber: 22,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                className: "border-none",
+                                children: ticker.best_ask
+                            }, void 0, false, {
+                                fileName: "src/components/TopOfBookComponent.js",
+                                lineNumber: 23,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                className: "border-none",
+                                children: ticker.best_ask_size
+                            }, void 0, false, {
+                                fileName: "src/components/TopOfBookComponent.js",
+                                lineNumber: 24,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                className: color + " border-none",
+                                children: ticker.price
+                            }, void 0, false, {
+                                fileName: "src/components/TopOfBookComponent.js",
+                                lineNumber: 25,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                className: "border-none",
+                                children: ticker.volume_24h
+                            }, void 0, false, {
+                                fileName: "src/components/TopOfBookComponent.js",
+                                lineNumber: 26,
+                                columnNumber: 13
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
                         fileName: "src/components/TopOfBookComponent.js",
                         lineNumber: 20,
                         columnNumber: 11
@@ -27602,9 +27631,8 @@ const TopOfBookComponent = ()=>{
         fileName: "src/components/TopOfBookComponent.js",
         lineNumber: 9,
         columnNumber: 5
-    }, undefined));
+    }, undefined);
 };
-_s(TopOfBookComponent, "Eq6k6xpCrmDRLPaTi8yQdgv7qqs=");
 _c = TopOfBookComponent;
 exports.default = TopOfBookComponent;
 var _c;
@@ -27896,40 +27924,9 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
 const ProductContext = /*#__PURE__*/ (0, _react.createContext)({
-    ticker: {
-    },
-    l2update: {
-        type: "l2update",
-        product_id: "LTC-USD",
-        changes: [
-            [
-                "buy",
-                "61.85",
-                "10.50000000"
-            ],
-            [
-                "buy",
-                "61.89",
-                "189.78525315"
-            ],
-            [
-                "sell",
-                "61.87",
-                "0.00000000"
-            ],
-            [
-                "sell",
-                "62.02",
-                "227.56116214"
-            ],
-            [
-                "sell",
-                "61.88",
-                "61.58119361"
-            ]
-        ],
-        time: "2024-08-04T18:33:06.716506Z"
-    }
+    ticker: {},
+    snapshot: {},
+    l2update: {}
 });
 exports.default = ProductContext;
 
@@ -27950,78 +27947,60 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+var _productContext = require("../utils/ProductContext");
+var _productContextDefault = parcelHelpers.interopDefault(_productContext);
 var _s = $RefreshSig$();
-const OrderBook = ()=>{
+const OrderBook = ({ l2update, snapshot })=>{
     _s();
     const [bids, setBids] = (0, _react.useState)(new Map());
     const [asks, setAsks] = (0, _react.useState)(new Map());
     const [loading, setLoading] = (0, _react.useState)(true);
-    const ws = (0, _react.useRef)(null);
+    //console.log("initial snapshot: ", snapshot);
+    //const { l2update, snapshot } = useContext(ProductContext);
     (0, _react.useEffect)(()=>{
-        // Create WebSocket connection
-        ws.current = new WebSocket("wss://ws-feed.exchange.coinbase.com");
-        // Handle incoming messages
-        ws.current.onmessage = (event)=>{
-            const data = JSON.parse(event.data);
-            if (data.type === "snapshot") {
-                // Initialize the order book with snapshot data
-                const newBids = new Map();
-                const newAsks = new Map();
-                data.bids.forEach(([price, size])=>{
-                    if (parseFloat(size) > 0) newBids.set(price, size);
-                });
-                data.asks.forEach(([price, size])=>{
-                    if (parseFloat(size) > 0) newAsks.set(price, size);
-                });
-                setBids(newBids);
-                setAsks(newAsks);
-                setLoading(false);
-            } else if (data.type === "l2update") {
-                // Update the order book with incremental updates
-                const newBids = new Map(bids);
-                const newAsks = new Map(asks);
-                data.changes.forEach(([side, price, size])=>{
-                    if (side === "buy") {
-                        if (parseFloat(size) === 0) newBids.delete(price);
-                        else newBids.set(price, size);
-                    } else if (side === "sell") {
-                        if (parseFloat(size) === 0) newAsks.delete(price);
-                        else newAsks.set(price, size);
-                    }
-                });
-                setBids(newBids);
-                setAsks(newAsks);
+        // Initialize the order book with snapshot data
+        const newBids = new Map();
+        const newAsks = new Map();
+        snapshot?.bids?.forEach(([price, size])=>{
+            if (parseFloat(size) > 0) newBids.set(price, size);
+        });
+        snapshot?.asks?.forEach(([price, size])=>{
+            if (parseFloat(size) > 0) newAsks.set(price, size);
+        });
+        setBids(newBids);
+        setAsks(newAsks);
+        setLoading(false);
+    }, []);
+    (0, _react.useEffect)(()=>{
+        // Update the order book with incremental updates
+        const newBids = new Map(bids);
+        const newAsks = new Map(asks);
+        l2update?.changes?.forEach(([side, price, size])=>{
+            if (side === "buy") {
+                if (parseFloat(size) === 0) newBids.delete(price);
+                else newBids.set(price, size);
+            } else if (side === "sell") {
+                if (parseFloat(size) === 0) newAsks.delete(price);
+                else newAsks.set(price, size);
             }
-        };
-        // Send subscription request
-        ws.current.onopen = ()=>{
-            ws.current.send(JSON.stringify({
-                type: "subscribe",
-                channels: [
-                    {
-                        name: "level2_batch",
-                        product_ids: [
-                            "BTC-USD"
-                        ]
-                    }
-                ]
-            }));
-        };
-        // Clean up on component unmount
-        return ()=>{
-            if (ws.current) ws.current.close();
-        };
+        });
+        setBids(newBids);
+        setAsks(newAsks);
     }, [
-        bids,
-        asks
+        l2update
     ]);
+    //console.log(snapshot);
     // Get the latest 10 entries for bids and asks
     const getLatestEntries = (entries)=>{
         return Array.from(entries.entries()).sort((a, b)=>parseFloat(b[0]) - parseFloat(a[0])) // Sort in descending order for bids
         .slice(0, 10); // Limit to latest 10 entries
     };
+    const getAskLatestEntries = (entries)=>{
+        return Array.from(entries.entries()).sort((a, b)=>parseFloat(a[0]) - parseFloat(b[0])) // Sort in descending order for bids
+        .slice(0, 10); // Limit to latest 10 entries
+    };
     const bidArray = getLatestEntries(bids);
-    const askArray = getLatestEntries(asks);
+    const askArray = getAskLatestEntries(asks);
     // Calculate average price based on last ask and first bid
     const calculateAveragePrice = (bidArray, askArray)=>{
         const lastAskPrice = askArray.length > 0 ? parseFloat(askArray[askArray.length - 1][0]) : 0;
@@ -28035,61 +28014,69 @@ const OrderBook = ()=>{
         return lastAskPrice - firstBidPrice;
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                children: "Order Book"
-            }, void 0, false, {
-                fileName: "src/components/OrderBook.js",
-                lineNumber: 110,
-                columnNumber: 7
-            }, undefined),
-            loading ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                children: "Loading snapshot..."
-            }, void 0, false, {
-                fileName: "src/components/OrderBook.js",
-                lineNumber: 112,
-                columnNumber: 9
-            }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        style: {
-                            marginBottom: "20px",
-                            overflowY: "auto",
-                            maxHeight: "400px"
-                        },
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(OrderBookSide, {
-                            title: "Asks",
-                            orders: askArray,
-                            fixedHeader: true
-                        }, void 0, false, {
-                            fileName: "src/components/OrderBook.js",
-                            lineNumber: 122,
-                            columnNumber: 13
-                        }, undefined)
-                    }, void 0, false, {
+        className: "table-container text-xs",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("table", {
+            className: "table-fixed",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("thead", {
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
+                                className: "bg-inherit",
+                                children: "Price"
+                            }, void 0, false, {
+                                fileName: "src/components/OrderBook.js",
+                                lineNumber: 93,
+                                columnNumber: 13
+                            }, undefined),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
+                                className: "bg-transparent",
+                                children: "Size"
+                            }, void 0, false, {
+                                fileName: "src/components/OrderBook.js",
+                                lineNumber: 94,
+                                columnNumber: 13
+                            }, undefined)
+                        ]
+                    }, void 0, true, {
                         fileName: "src/components/OrderBook.js",
-                        lineNumber: 115,
+                        lineNumber: 92,
                         columnNumber: 11
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        style: {
-                            marginBottom: "20px",
-                            display: "flex",
-                            justifyContent: "space-between"
-                        },
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                            style: {
-                                width: "48%"
-                            },
+                    }, undefined)
+                }, void 0, false, {
+                    fileName: "src/components/OrderBook.js",
+                    lineNumber: 91,
+                    columnNumber: 9
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tbody", {
+                    children: [
+                        askArray.map(([price, size], index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
+                                children: [
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                        className: "text-[#ff0000]",
+                                        children: parseFloat(price)
+                                    }, void 0, false, {
+                                        fileName: "src/components/OrderBook.js",
+                                        lineNumber: 100,
+                                        columnNumber: 15
+                                    }, undefined),
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                        children: parseFloat(size)
+                                    }, void 0, false, {
+                                        fileName: "src/components/OrderBook.js",
+                                        lineNumber: 101,
+                                        columnNumber: 15
+                                    }, undefined)
+                                ]
+                            }, "ask" + index, true, {
+                                fileName: "src/components/OrderBook.js",
+                                lineNumber: 99,
+                                columnNumber: 13
+                            }, undefined)),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
+                            className: "dark:text-slate-400 text-xs text-gray-800",
                             children: [
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                    children: "Statistics"
-                                }, void 0, false, {
-                                    fileName: "src/components/OrderBook.js",
-                                    lineNumber: 132,
-                                    columnNumber: 15
-                                }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                     children: [
                                         "Average Price:",
                                         " ",
@@ -28097,167 +28084,79 @@ const OrderBook = ()=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/OrderBook.js",
-                                    lineNumber: 133,
-                                    columnNumber: 15
+                                    lineNumber: 105,
+                                    columnNumber: 13
                                 }, undefined),
-                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                     children: [
                                         "Spread: ",
-                                        calculateSpread(bidArray, askArray).toFixed(2)
+                                        calculateSpread(bidArray, askArray).toFixed(2),
+                                        " "
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/OrderBook.js",
-                                    lineNumber: 137,
-                                    columnNumber: 15
+                                    lineNumber: 109,
+                                    columnNumber: 13
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/OrderBook.js",
-                            lineNumber: 131,
-                            columnNumber: 13
-                        }, undefined)
-                    }, void 0, false, {
-                        fileName: "src/components/OrderBook.js",
-                        lineNumber: 124,
-                        columnNumber: 11
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        style: {
-                            overflowY: "auto",
-                            maxHeight: "400px"
-                        },
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(OrderBookSide, {
-                            title: "Bids",
-                            orders: bidArray,
-                            fixedHeader: true
-                        }, void 0, false, {
-                            fileName: "src/components/OrderBook.js",
-                            lineNumber: 141,
-                            columnNumber: 13
-                        }, undefined)
-                    }, void 0, false, {
-                        fileName: "src/components/OrderBook.js",
-                        lineNumber: 140,
-                        columnNumber: 11
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/OrderBook.js",
-                lineNumber: 114,
-                columnNumber: 9
-            }, undefined)
-        ]
-    }, void 0, true, {
-        fileName: "src/components/OrderBook.js",
-        lineNumber: 109,
-        columnNumber: 5
-    }, undefined);
-};
-_s(OrderBook, "izIlww/m25r/L863ahAZdd+g+yg=");
-_c = OrderBook;
-const OrderBookSide = ({ title, orders, fixedHeader })=>{
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        style: {
-            width: "100%"
-        },
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                children: title
-            }, void 0, false, {
-                fileName: "src/components/OrderBook.js",
-                lineNumber: 152,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "table-container",
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("table", {
-                    children: [
-                        fixedHeader && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("thead", {
-                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
+                            lineNumber: 104,
+                            columnNumber: 11
+                        }, undefined),
+                        bidArray.map(([price, size], index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
                                 children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
-                                        children: "Price"
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                        className: "text-[#00ff00]",
+                                        children: parseFloat(price)
                                     }, void 0, false, {
                                         fileName: "src/components/OrderBook.js",
-                                        lineNumber: 158,
-                                        columnNumber: 17
+                                        lineNumber: 113,
+                                        columnNumber: 15
                                     }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
-                                        children: "Size"
+                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                        children: parseFloat(size)
                                     }, void 0, false, {
                                         fileName: "src/components/OrderBook.js",
-                                        lineNumber: 159,
-                                        columnNumber: 17
+                                        lineNumber: 114,
+                                        columnNumber: 15
                                     }, undefined)
                                 ]
-                            }, void 0, true, {
+                            }, "bid" + index, true, {
                                 fileName: "src/components/OrderBook.js",
-                                lineNumber: 157,
-                                columnNumber: 15
-                            }, undefined)
-                        }, void 0, false, {
-                            fileName: "src/components/OrderBook.js",
-                            lineNumber: 156,
-                            columnNumber: 13
-                        }, undefined),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tbody", {
-                            children: orders.map(([price, size], index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
-                                    children: [
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
-                                            children: parseFloat(price)
-                                        }, void 0, false, {
-                                            fileName: "src/components/OrderBook.js",
-                                            lineNumber: 166,
-                                            columnNumber: 17
-                                        }, undefined),
-                                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
-                                            children: parseFloat(size)
-                                        }, void 0, false, {
-                                            fileName: "src/components/OrderBook.js",
-                                            lineNumber: 167,
-                                            columnNumber: 17
-                                        }, undefined)
-                                    ]
-                                }, index, true, {
-                                    fileName: "src/components/OrderBook.js",
-                                    lineNumber: 165,
-                                    columnNumber: 15
-                                }, undefined))
-                        }, void 0, false, {
-                            fileName: "src/components/OrderBook.js",
-                            lineNumber: 163,
-                            columnNumber: 11
-                        }, undefined)
+                                lineNumber: 112,
+                                columnNumber: 13
+                            }, undefined))
                     ]
                 }, void 0, true, {
                     fileName: "src/components/OrderBook.js",
-                    lineNumber: 154,
+                    lineNumber: 97,
                     columnNumber: 9
                 }, undefined)
-            }, void 0, false, {
-                fileName: "src/components/OrderBook.js",
-                lineNumber: 153,
-                columnNumber: 7
-            }, undefined)
-        ]
-    }, void 0, true, {
+            ]
+        }, void 0, true, {
+            fileName: "src/components/OrderBook.js",
+            lineNumber: 90,
+            columnNumber: 7
+        }, undefined)
+    }, void 0, false, {
         fileName: "src/components/OrderBook.js",
-        lineNumber: 151,
+        lineNumber: 89,
         columnNumber: 5
     }, undefined);
 };
-_c1 = OrderBookSide;
+_s(OrderBook, "eSMNwflfSoYzAqbESmy54pVC3aI=");
+_c = OrderBook;
 exports.default = OrderBook;
-var _c, _c1;
+var _c;
 $RefreshReg$(_c, "OrderBook");
-$RefreshReg$(_c1, "OrderBookSide");
 
   $parcel$ReactRefreshHelpers$b76d.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"25Tos":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/ProductContext":"ah0dq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"25Tos":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$d4a5 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -28279,9 +28178,10 @@ var _s = $RefreshSig$();
 // Format for X Axis labels
 const formatDate = (0, _d3TimeFormat.timeFormat)("%Y-%m-%d %H:%M:%S");
 //const pricesDisplayFormat = format(".2f");
-const RealTimePriceChart = ()=>{
+const RealTimePriceChart = ({ ticker, width, height })=>{
     _s();
-    const { ticker } = (0, _react.useContext)((0, _productContextDefault.default));
+    //const { ticker } = useContext(ProductContext);
+    const maxPoints = 50;
     const [chartData, setChartData] = (0, _react.useState)([
         {
             ask: parseFloat(ticker?.best_ask),
@@ -28289,9 +28189,6 @@ const RealTimePriceChart = ()=>{
             x: new Date(ticker?.time)
         }
     ]);
-    const interval = 500;
-    const maxPoints = 100;
-    // Simulate live data update
     (0, _react.useEffect)(()=>{
         const addData = ()=>{
             const newData = [
@@ -28306,12 +28203,10 @@ const RealTimePriceChart = ()=>{
             if (newData.length > maxPoints) newData.shift(); // Remove the oldest data point
             setChartData(newData);
         };
-        const intervalId = setInterval(addData, interval);
-        return ()=>clearInterval(intervalId);
+        addData();
+        return ()=>{};
     }, [
-        chartData,
-        interval,
-        maxPoints
+        ticker
     ]);
     // Define accessors for y-values
     const yAccessorBid = (d)=>d?.bid;
@@ -28333,134 +28228,163 @@ const RealTimePriceChart = ()=>{
         for(let i = 0; i < tickCount; i++)ticks.push(new Date(minDate + i * step));
         return ticks;
     };
-    if (!chartData) return;
-    return(// <div className="relative w-full h-full overflow-auto">
-    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.ChartCanvas), {
-        height: 400,
-        width: 800,
-        ratio: 3,
-        seriesName: "Real-Time Data",
-        data: chartData,
-        xAccessor: (d)=>d?.x,
-        xScale: (0, _d3Scale.scaleTime)(),
-        yScale: (0, _d3Scale.scaleLinear)(),
-        xExtents: xExtents,
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.Chart), {
-                id: 1,
-                yExtents: (d)=>[
-                        d.bid,
-                        d.ask
-                    ],
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.XAxis), {
-                        showGridLines: true,
-                        tickValues: getXTicks(chartData, 5),
-                        tickFormat: formatDate
-                    }, void 0, false, {
-                        fileName: "src/components/RealTimePriceChart.js",
-                        lineNumber: 94,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.YAxis), {
-                        showGridLines: true,
-                        tickPadding: 2
-                    }, void 0, false, {
-                        fileName: "src/components/RealTimePriceChart.js",
-                        lineNumber: 99,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.LineSeries), {
-                        yAccessor: yAccessorBid,
-                        strokeStyle: "#ff0000",
-                        strokeWidth: 1
-                    }, void 0, false, {
-                        fileName: "src/components/RealTimePriceChart.js",
-                        lineNumber: 100,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CurrentCoordinate), {
-                        yAccessor: yAccessorBid,
-                        fillStyle: "#ff0000"
-                    }, void 0, false, {
-                        fileName: "src/components/RealTimePriceChart.js",
-                        lineNumber: 105,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.LineSeries), {
-                        yAccessor: yAccessorAsk,
-                        strokeStyle: "#00ff00",
-                        strokeWidth: 1
-                    }, void 0, false, {
-                        fileName: "src/components/RealTimePriceChart.js",
-                        lineNumber: 106,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CurrentCoordinate), {
-                        yAccessor: yAccessorAsk,
-                        fillStyle: "#00ff00"
-                    }, void 0, false, {
-                        fileName: "src/components/RealTimePriceChart.js",
-                        lineNumber: 111,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MouseCoordinateX), {
-                        displayFormat: formatDate
-                    }, void 0, false, {
-                        fileName: "src/components/RealTimePriceChart.js",
-                        lineNumber: 113,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MouseCoordinateY), {
-                        displayFormat: (d)=>d.toFixed(2)
-                    }, void 0, false, {
-                        fileName: "src/components/RealTimePriceChart.js",
-                        lineNumber: 116,
-                        columnNumber: 9
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MovingAverageTooltip), {
-                        origin: [
-                            8,
-                            24
+    //if (!chartData) return;
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "relative w-full h-full overflow-auto",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.ChartCanvas), {
+            height: height,
+            width: width,
+            margin: {
+                top: 0,
+                right: 80,
+                bottom: 40,
+                left: 20
+            },
+            ratio: 1,
+            seriesName: "Real-Time Data",
+            data: chartData,
+            xAccessor: (d)=>d?.x,
+            xScale: (0, _d3Scale.scaleTime)(),
+            yScale: (0, _d3Scale.scaleLinear)(),
+            xExtents: xExtents,
+            maintainPointsPerPixelOnResize: true,
+            zoomMultiplier: 2,
+            zoomAnchor: (0, _reactFinancialCharts.lastVisibleItemBasedZoomAnchor),
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.Chart), {
+                    id: 1,
+                    yExtents: (d)=>[
+                            d.bid,
+                            d.ask
                         ],
-                        options: [
-                            {
-                                yAccessor: yAccessorBid,
-                                type: "Bid",
-                                stroke: "#ff0000",
-                                windowSize: 2
-                            },
-                            {
-                                yAccessor: yAccessorAsk,
-                                type: "Ask",
-                                stroke: "#00ff00",
-                                windowSize: 2
-                            }
-                        ]
-                    }, void 0, false, {
-                        fileName: "src/components/RealTimePriceChart.js",
-                        lineNumber: 119,
-                        columnNumber: 9
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/RealTimePriceChart.js",
-                lineNumber: 93,
-                columnNumber: 7
-            }, undefined),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CrossHairCursor), {}, void 0, false, {
-                fileName: "src/components/RealTimePriceChart.js",
-                lineNumber: 137,
-                columnNumber: 7
-            }, undefined)
-        ]
-    }, void 0, true, {
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.XAxis), {
+                            showGridLines: true,
+                            tickValues: getXTicks(chartData, 5),
+                            tickFormat: formatDate,
+                            tickStrokeStyle: "#ff0000",
+                            tickLabelFill: "#94a3b8",
+                            gridLinesStrokeStyle: "#94a3b8",
+                            zoomEnabled: true,
+                            tickSize: 5
+                        }, void 0, false, {
+                            fileName: "src/components/RealTimePriceChart.js",
+                            lineNumber: 103,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.YAxis), {
+                            showGridLines: true,
+                            tickStrokeStyle: "#00ff00",
+                            tickLabelFill: "#94a3b8",
+                            tickSize: 5,
+                            zoomEnabled: true
+                        }, void 0, false, {
+                            fileName: "src/components/RealTimePriceChart.js",
+                            lineNumber: 113,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.LineSeries), {
+                            yAccessor: yAccessorBid,
+                            strokeStyle: "#00ff00",
+                            strokeWidth: 2
+                        }, void 0, false, {
+                            fileName: "src/components/RealTimePriceChart.js",
+                            lineNumber: 120,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CurrentCoordinate), {
+                            yAccessor: yAccessorBid,
+                            fillStyle: "#00ff00"
+                        }, void 0, false, {
+                            fileName: "src/components/RealTimePriceChart.js",
+                            lineNumber: 125,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.LineSeries), {
+                            yAccessor: yAccessorAsk,
+                            strokeStyle: "#ff0000",
+                            strokeWidth: 2
+                        }, void 0, false, {
+                            fileName: "src/components/RealTimePriceChart.js",
+                            lineNumber: 126,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CurrentCoordinate), {
+                            yAccessor: yAccessorAsk,
+                            fillStyle: "#ff0000"
+                        }, void 0, false, {
+                            fileName: "src/components/RealTimePriceChart.js",
+                            lineNumber: 131,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MouseCoordinateX), {
+                            displayFormat: formatDate
+                        }, void 0, false, {
+                            fileName: "src/components/RealTimePriceChart.js",
+                            lineNumber: 133,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MouseCoordinateY), {
+                            displayFormat: (d)=>d.toFixed(2)
+                        }, void 0, false, {
+                            fileName: "src/components/RealTimePriceChart.js",
+                            lineNumber: 136,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MovingAverageTooltip), {
+                            origin: [
+                                8,
+                                24
+                            ],
+                            textFill: "#94a3b8",
+                            options: [
+                                {
+                                    yAccessor: yAccessorBid,
+                                    type: "Bid",
+                                    stroke: "#00ff00",
+                                    windowSize: 2
+                                },
+                                {
+                                    yAccessor: yAccessorAsk,
+                                    type: "Ask",
+                                    stroke: "#ff0000",
+                                    windowSize: 2
+                                }
+                            ]
+                        }, void 0, false, {
+                            fileName: "src/components/RealTimePriceChart.js",
+                            lineNumber: 139,
+                            columnNumber: 11
+                        }, undefined),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.ZoomButtons), {}, void 0, false, {
+                            fileName: "src/components/RealTimePriceChart.js",
+                            lineNumber: 157,
+                            columnNumber: 11
+                        }, undefined)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/components/RealTimePriceChart.js",
+                    lineNumber: 102,
+                    columnNumber: 9
+                }, undefined),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CrossHairCursor), {}, void 0, false, {
+                    fileName: "src/components/RealTimePriceChart.js",
+                    lineNumber: 159,
+                    columnNumber: 9
+                }, undefined)
+            ]
+        }, void 0, true, {
+            fileName: "src/components/RealTimePriceChart.js",
+            lineNumber: 82,
+            columnNumber: 7
+        }, undefined)
+    }, void 0, false, {
         fileName: "src/components/RealTimePriceChart.js",
-        lineNumber: 82,
+        lineNumber: 81,
         columnNumber: 5
-    }, undefined));
+    }, undefined);
 };
-_s(RealTimePriceChart, "xAt/SLfPVpSXuG5P+G3UJVbjoAk=");
+_s(RealTimePriceChart, "xfVyESJej3xLA0mO0UZhA70xLII=");
 _c = RealTimePriceChart;
 exports.default = RealTimePriceChart;
 var _c;
@@ -28495,7 +28419,7 @@ parcelHelpers.exportAll(_tooltip, exports);
 var _utils = require("@react-financial-charts/utils");
 parcelHelpers.exportAll(_utils, exports);
 
-},{"@react-financial-charts/annotations":false,"@react-financial-charts/axes":"efKWn","@react-financial-charts/coordinates":"6LxA3","@react-financial-charts/core":"dRjOe","@react-financial-charts/indicators":false,"@react-financial-charts/interactive":false,"@react-financial-charts/scales":false,"@react-financial-charts/series":"ax0TW","@react-financial-charts/tooltip":"hvhHT","@react-financial-charts/utils":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"efKWn":[function(require,module,exports) {
+},{"@react-financial-charts/annotations":false,"@react-financial-charts/axes":"efKWn","@react-financial-charts/coordinates":"6LxA3","@react-financial-charts/core":"dRjOe","@react-financial-charts/indicators":false,"@react-financial-charts/interactive":"g2DA1","@react-financial-charts/scales":false,"@react-financial-charts/series":"ax0TW","@react-financial-charts/tooltip":"hvhHT","@react-financial-charts/utils":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"efKWn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _axis = require("./Axis");
@@ -28790,7 +28714,7 @@ parcelHelpers.exportAll(_utils, exports);
 var _zoom = require("./zoom");
 parcelHelpers.exportAll(_zoom, exports);
 
-},{"./ChartCanvas":"ge8XY","./Chart":"e4Bhf","./GenericChartComponent":"7rho8","./GenericComponent":"6J2G4","./MoreProps":false,"./utils":"gu5pL","./zoom":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ge8XY":[function(require,module,exports) {
+},{"./ChartCanvas":"ge8XY","./Chart":"e4Bhf","./GenericChartComponent":"7rho8","./GenericComponent":"6J2G4","./MoreProps":false,"./utils":"gu5pL","./zoom":"9R9j6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ge8XY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "chartCanvasContextDefaultValue", ()=>chartCanvasContextDefaultValue);
@@ -37630,7 +37554,254 @@ function getYCoordinate(y, coordinate, props, moreProps) {
     return coordinateProps;
 }
 
-},{"react":"21dqq","@react-financial-charts/core":"dRjOe","./EdgeCoordinateV3":"eCTqQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ax0TW":[function(require,module,exports) {
+},{"react":"21dqq","@react-financial-charts/core":"dRjOe","./EdgeCoordinateV3":"eCTqQ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"g2DA1":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "TrendLine", ()=>(0, _trendLine.TrendLine));
+parcelHelpers.export(exports, "FibonacciRetracement", ()=>(0, _fibonacciRetracement.FibonacciRetracement));
+parcelHelpers.export(exports, "EquidistantChannel", ()=>(0, _equidistantChannel.EquidistantChannel));
+parcelHelpers.export(exports, "StandardDeviationChannel", ()=>(0, _standardDeviationChannel.StandardDeviationChannel));
+parcelHelpers.export(exports, "GannFan", ()=>(0, _gannFan.GannFan));
+parcelHelpers.export(exports, "ClickCallback", ()=>(0, _clickCallback.ClickCallback));
+parcelHelpers.export(exports, "Brush", ()=>(0, _brush.Brush));
+parcelHelpers.export(exports, "InteractiveText", ()=>(0, _interactiveText.InteractiveText));
+parcelHelpers.export(exports, "InteractiveYCoordinate", ()=>(0, _interactiveYCoordinate.InteractiveYCoordinate));
+parcelHelpers.export(exports, "DrawingObjectSelector", ()=>(0, _drawingObjectSelector.DrawingObjectSelector));
+parcelHelpers.export(exports, "ZoomButtons", ()=>(0, _zoomButtons.ZoomButtons));
+var _trendLine = require("./TrendLine");
+var _fibonacciRetracement = require("./FibonacciRetracement");
+var _equidistantChannel = require("./EquidistantChannel");
+var _standardDeviationChannel = require("./StandardDeviationChannel");
+var _gannFan = require("./GannFan");
+var _clickCallback = require("./ClickCallback");
+var _brush = require("./Brush");
+var _interactiveText = require("./InteractiveText");
+var _interactiveYCoordinate = require("./InteractiveYCoordinate");
+var _drawingObjectSelector = require("./DrawingObjectSelector");
+var _zoomButtons = require("./ZoomButtons");
+var _utils = require("./utils");
+parcelHelpers.exportAll(_utils, exports);
+
+},{"./TrendLine":false,"./FibonacciRetracement":false,"./EquidistantChannel":false,"./StandardDeviationChannel":false,"./GannFan":false,"./ClickCallback":false,"./Brush":false,"./InteractiveText":false,"./InteractiveYCoordinate":false,"./DrawingObjectSelector":false,"./ZoomButtons":"fXkrP","./utils":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"fXkrP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ZoomButtons", ()=>ZoomButtons);
+var _core = require("@react-financial-charts/core");
+var _d3Interpolate = require("d3-interpolate");
+var _react = require("react");
+class ZoomButtons extends _react.Component {
+    constructor(){
+        super(...arguments);
+        this.handleZoomIn = ()=>{
+            if (this.interval) return;
+            this.zoom(-1);
+        };
+        this.handleZoomOut = ()=>{
+            if (this.interval) return;
+            this.zoom(1);
+        };
+        this.zoom = (direction)=>{
+            const { xAxisZoom, xScale, plotData, xAccessor } = this.context;
+            const cx = xScale(xAccessor((0, _core.last)(plotData)));
+            const { zoomMultiplier } = this.props;
+            const c = direction > 0 ? 1 * zoomMultiplier : 1 / zoomMultiplier;
+            const [start, end] = xScale.domain();
+            const [newStart, newEnd] = xScale.range().map((x)=>cx + (x - cx) * c).map(xScale.invert);
+            const left = (0, _d3Interpolate.interpolateNumber)(start, newStart);
+            const right = (0, _d3Interpolate.interpolateNumber)(end, newEnd);
+            const foo = [
+                0.25,
+                0.3,
+                0.5,
+                0.6,
+                0.75,
+                1
+            ].map((i)=>{
+                return [
+                    left(i),
+                    right(i)
+                ];
+            });
+            this.interval = window.setInterval(()=>{
+                xAxisZoom(foo.shift());
+                if (foo.length === 0) {
+                    clearInterval(this.interval);
+                    delete this.interval;
+                }
+            }, 10);
+        };
+    }
+    render() {
+        const { chartConfig } = this.context;
+        const { width, height } = chartConfig;
+        const { heightFromBase, r, fill, fillOpacity, onReset, stroke, strokeWidth, textFill } = this.props;
+        const centerX = Math.round(width / 2);
+        const y = height - heightFromBase;
+        const zoomOutX = centerX - 16 - r * 2;
+        const zoomInX = centerX - 8;
+        const resetX = centerX + 16 + r * 2;
+        return _react.createElement("g", {
+            className: "react-financial-charts-zoom-buttons"
+        }, _react.createElement("circle", {
+            className: "react-financial-charts-button",
+            cx: zoomOutX - r / 2,
+            cy: y + r / 2,
+            fill: fill,
+            fillOpacity: fillOpacity,
+            stroke: stroke,
+            strokeWidth: strokeWidth,
+            r: r
+        }), _react.createElement("g", {
+            transform: `translate (${zoomOutX - 20}, ${y - 8 + r / 4})`
+        }, _react.createElement("path", {
+            d: "M19,13H5V11H19V13Z",
+            fill: textFill
+        })), _react.createElement("circle", {
+            className: "react-financial-charts-button",
+            cx: zoomInX - r / 2,
+            cy: y + r / 2,
+            fill: fill,
+            fillOpacity: fillOpacity,
+            stroke: stroke,
+            strokeWidth: strokeWidth,
+            r: r
+        }), _react.createElement("g", {
+            transform: `translate (${zoomInX - 20}, ${y - 8 + r / 4})`
+        }, _react.createElement("path", {
+            d: "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z",
+            fill: textFill
+        })), _react.createElement("circle", {
+            className: "react-financial-charts-button",
+            cx: resetX - r / 2,
+            cy: y + r / 2,
+            fill: fill,
+            fillOpacity: fillOpacity,
+            stroke: stroke,
+            strokeWidth: strokeWidth,
+            r: r
+        }), _react.createElement("g", {
+            transform: `translate (${resetX - r}, ${y - 4 + r / 4})`
+        }, _react.createElement("path", {
+            d: "M2.35 2.35A7.958 7.958 0 018 0a8 8 0 110 16c-3.73 0-6.84-2.55-7.73-6h2.08c.82 2.33 3.04 4 5.65 4A6 6 0 108 2c-1.66 0-3.14.69-4.22 1.78L7 7H0V0l2.35 2.35z",
+            fill: textFill
+        })), _react.createElement("circle", {
+            className: "react-financial-charts-enable-interaction out",
+            onClick: this.handleZoomOut,
+            cx: zoomOutX - r / 2,
+            cy: y + r / 2,
+            r: r,
+            fill: "none"
+        }), _react.createElement("circle", {
+            className: "react-financial-charts-enable-interaction in",
+            onClick: this.handleZoomIn,
+            cx: zoomInX - r / 2,
+            cy: y + r / 2,
+            r: r,
+            fill: "none"
+        }), _react.createElement("circle", {
+            className: "react-financial-charts-enable-interaction reset",
+            onClick: onReset,
+            cx: resetX - r / 2,
+            cy: y + r / 2,
+            r: r,
+            fill: "none"
+        }));
+    }
+}
+ZoomButtons.defaultProps = {
+    fill: "#ffffff",
+    fillOpacity: 0.75,
+    heightFromBase: 32,
+    r: 16,
+    stroke: "#e0e3eb",
+    strokeWidth: 1,
+    textFill: "#000000",
+    zoomMultiplier: 1.5
+};
+ZoomButtons.contextType = (0, _core.ChartContext);
+
+},{"@react-financial-charts/core":"dRjOe","d3-interpolate":"4S4RB","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4S4RB":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "interpolate", ()=>(0, _valueJsDefault.default));
+parcelHelpers.export(exports, "interpolateArray", ()=>(0, _arrayJsDefault.default));
+parcelHelpers.export(exports, "interpolateBasis", ()=>(0, _basisJsDefault.default));
+parcelHelpers.export(exports, "interpolateBasisClosed", ()=>(0, _basisClosedJsDefault.default));
+parcelHelpers.export(exports, "interpolateDate", ()=>(0, _dateJsDefault.default));
+parcelHelpers.export(exports, "interpolateDiscrete", ()=>(0, _discreteJsDefault.default));
+parcelHelpers.export(exports, "interpolateHue", ()=>(0, _hueJsDefault.default));
+parcelHelpers.export(exports, "interpolateNumber", ()=>(0, _numberJsDefault.default));
+parcelHelpers.export(exports, "interpolateNumberArray", ()=>(0, _numberArrayJsDefault.default));
+parcelHelpers.export(exports, "interpolateObject", ()=>(0, _objectJsDefault.default));
+parcelHelpers.export(exports, "interpolateRound", ()=>(0, _roundJsDefault.default));
+parcelHelpers.export(exports, "interpolateString", ()=>(0, _stringJsDefault.default));
+parcelHelpers.export(exports, "interpolateTransformCss", ()=>(0, _indexJs.interpolateTransformCss));
+parcelHelpers.export(exports, "interpolateTransformSvg", ()=>(0, _indexJs.interpolateTransformSvg));
+parcelHelpers.export(exports, "interpolateZoom", ()=>(0, _zoomJsDefault.default));
+parcelHelpers.export(exports, "interpolateRgb", ()=>(0, _rgbJsDefault.default));
+parcelHelpers.export(exports, "interpolateRgbBasis", ()=>(0, _rgbJs.rgbBasis));
+parcelHelpers.export(exports, "interpolateRgbBasisClosed", ()=>(0, _rgbJs.rgbBasisClosed));
+parcelHelpers.export(exports, "interpolateHsl", ()=>(0, _hslJsDefault.default));
+parcelHelpers.export(exports, "interpolateHslLong", ()=>(0, _hslJs.hslLong));
+parcelHelpers.export(exports, "interpolateLab", ()=>(0, _labJsDefault.default));
+parcelHelpers.export(exports, "interpolateHcl", ()=>(0, _hclJsDefault.default));
+parcelHelpers.export(exports, "interpolateHclLong", ()=>(0, _hclJs.hclLong));
+parcelHelpers.export(exports, "interpolateCubehelix", ()=>(0, _cubehelixJsDefault.default));
+parcelHelpers.export(exports, "interpolateCubehelixLong", ()=>(0, _cubehelixJs.cubehelixLong));
+parcelHelpers.export(exports, "piecewise", ()=>(0, _piecewiseJsDefault.default));
+parcelHelpers.export(exports, "quantize", ()=>(0, _quantizeJsDefault.default));
+var _valueJs = require("./value.js");
+var _valueJsDefault = parcelHelpers.interopDefault(_valueJs);
+var _arrayJs = require("./array.js");
+var _arrayJsDefault = parcelHelpers.interopDefault(_arrayJs);
+var _basisJs = require("./basis.js");
+var _basisJsDefault = parcelHelpers.interopDefault(_basisJs);
+var _basisClosedJs = require("./basisClosed.js");
+var _basisClosedJsDefault = parcelHelpers.interopDefault(_basisClosedJs);
+var _dateJs = require("./date.js");
+var _dateJsDefault = parcelHelpers.interopDefault(_dateJs);
+var _discreteJs = require("./discrete.js");
+var _discreteJsDefault = parcelHelpers.interopDefault(_discreteJs);
+var _hueJs = require("./hue.js");
+var _hueJsDefault = parcelHelpers.interopDefault(_hueJs);
+var _numberJs = require("./number.js");
+var _numberJsDefault = parcelHelpers.interopDefault(_numberJs);
+var _numberArrayJs = require("./numberArray.js");
+var _numberArrayJsDefault = parcelHelpers.interopDefault(_numberArrayJs);
+var _objectJs = require("./object.js");
+var _objectJsDefault = parcelHelpers.interopDefault(_objectJs);
+var _roundJs = require("./round.js");
+var _roundJsDefault = parcelHelpers.interopDefault(_roundJs);
+var _stringJs = require("./string.js");
+var _stringJsDefault = parcelHelpers.interopDefault(_stringJs);
+var _indexJs = require("./transform/index.js");
+var _zoomJs = require("./zoom.js");
+var _zoomJsDefault = parcelHelpers.interopDefault(_zoomJs);
+var _rgbJs = require("./rgb.js");
+var _rgbJsDefault = parcelHelpers.interopDefault(_rgbJs);
+var _hslJs = require("./hsl.js");
+var _hslJsDefault = parcelHelpers.interopDefault(_hslJs);
+var _labJs = require("./lab.js");
+var _labJsDefault = parcelHelpers.interopDefault(_labJs);
+var _hclJs = require("./hcl.js");
+var _hclJsDefault = parcelHelpers.interopDefault(_hclJs);
+var _cubehelixJs = require("./cubehelix.js");
+var _cubehelixJsDefault = parcelHelpers.interopDefault(_cubehelixJs);
+var _piecewiseJs = require("./piecewise.js");
+var _piecewiseJsDefault = parcelHelpers.interopDefault(_piecewiseJs);
+var _quantizeJs = require("./quantize.js");
+var _quantizeJsDefault = parcelHelpers.interopDefault(_quantizeJs);
+
+},{"./value.js":false,"./array.js":false,"./basis.js":false,"./basisClosed.js":false,"./date.js":false,"./discrete.js":false,"./hue.js":false,"./number.js":"4kPiK","./numberArray.js":false,"./object.js":false,"./round.js":false,"./string.js":false,"./transform/index.js":false,"./zoom.js":false,"./rgb.js":false,"./hsl.js":false,"./lab.js":false,"./hcl.js":false,"./cubehelix.js":false,"./piecewise.js":false,"./quantize.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4kPiK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>function(a, b) {
+        return a = +a, b = +b, function(t) {
+            return a * (1 - t) + b * t;
+        };
+    });
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ax0TW":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "StackedBarSeries", ()=>(0, _stackedBarSeries.StackedBarSeries));
@@ -41786,7 +41957,69 @@ function nice(domain, interval) {
     return domain;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9xmpe":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f6ihu":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _constants = require("../constants");
+const URI = "wss://ws-feed.exchange.coinbase.com";
+const useWebSocket = async ({ selectedCurr, selectedSubs })=>{
+    const ws = new WebSocket(URI);
+    const subscriptionType = selectedSubs;
+    const connectWebSocket = async ()=>{
+        ws.onopen = ()=>{
+            const subscribeMessage = JSON.stringify({
+                type: subscriptionType,
+                product_ids: [
+                    selectedCurr ?? selectedCurr
+                ],
+                channels: [
+                    "ticker",
+                    "level2_batch"
+                ]
+            });
+            ws.send(subscribeMessage);
+            console.log(`${subscriptionType} to ticker and l2Batch channel for product ${selectedCurr}`);
+        };
+        ws.onmessage = (event)=>{
+            if (selectedSubs === "unsubscribe") ws.close();
+            try {
+                const jsonResponse = JSON.parse(event.data);
+                switch(jsonResponse.type){
+                    case "ticker":
+                        setTickerData(jsonResponse);
+                        break;
+                    case "l2update":
+                        setl2UpdateData(jsonResponse);
+                        break;
+                    case "snapshot":
+                        setSnapshotData(jsonResponse);
+                        break;
+                    default:
+                        break;
+                }
+            } catch (error) {
+                console.error("Failed to decode JSON response:", event.data);
+            }
+        };
+        ws.onclose = ()=>{
+            console.warn("Connection closed, retrying...");
+            setTimeout(connectWebSocket, 1000);
+        };
+        ws.onerror = (error)=>{
+            console.error("Unexpected error:", error);
+            setTimeout(connectWebSocket, 1000);
+        };
+    };
+    connectWebSocket();
+    return ()=>{
+        // Clean up the WebSocket connection on component unmount
+        //setSelectedSubs("unsubscribe");
+        ws.close();
+    };
+};
+exports.default = useWebSocket;
+
+},{"../constants":"hB8jg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9xmpe":[function(require,module,exports) {
 /**
  * React Router DOM v6.26.0
  *
