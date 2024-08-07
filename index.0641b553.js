@@ -27316,7 +27316,6 @@ var _productContextDefault = parcelHelpers.interopDefault(_productContext);
 var _useWebSocket = require("../utils/customHooks/useWebSocket");
 var _useWebSocketDefault = parcelHelpers.interopDefault(_useWebSocket);
 var _s = $RefreshSig$();
-const URI = "wss://ws-feed.exchange.coinbase.com";
 const WebSocketComponent = ()=>{
     _s();
     const [ticker, setTickerData] = (0, _react.useState)({});
@@ -27353,31 +27352,31 @@ const WebSocketComponent = ()=>{
                                     children: opts
                                 }, opts, false, {
                                     fileName: "src/components/WebsocketComponent.js",
-                                    lineNumber: 38,
+                                    lineNumber: 37,
                                     columnNumber: 17
                                 }, undefined);
                             })
                         }, void 0, false, {
                             fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 28,
+                            lineNumber: 27,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 27,
+                        lineNumber: 26,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _topOfBookComponentDefault.default), {
                         ticker
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 51,
+                        lineNumber: 50,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/WebsocketComponent.js",
-                lineNumber: 26,
+                lineNumber: 25,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27392,12 +27391,12 @@ const WebSocketComponent = ()=>{
                             height: canvasRef.current.offsetHeight
                         }, void 0, false, {
                             fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 56,
+                            lineNumber: 55,
                             columnNumber: 13
                         }, undefined) : null
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 54,
+                        lineNumber: 53,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27407,18 +27406,18 @@ const WebSocketComponent = ()=>{
                             l2update: l2update
                         }, void 0, false, {
                             fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 64,
+                            lineNumber: 63,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 63,
+                        lineNumber: 62,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/WebsocketComponent.js",
-                lineNumber: 53,
+                lineNumber: 52,
                 columnNumber: 7
             }, undefined)
         ]
