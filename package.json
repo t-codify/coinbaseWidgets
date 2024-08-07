@@ -2,19 +2,12 @@
   "name": "coinbasewidgets",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    {
-  "name": "coinbasewidgets",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build ./src/index.js --public-url .",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-    "start": "parcel index.html",
-    "build": "react-scripts build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -42,36 +35,17 @@
     "postcss": "^8.4.40",
     "process": "^0.11.10",
     "tailwindcss": "^3.4.7"
-  }
-}
-    "start": "parcel index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/t-codify/coinbaseWidgets.git"
-  },
-  "author": "Tanvi Nigam",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/t-codify/coinbaseWidgets/issues"
-  },
-  "homepage": "https://t-codify.github.io/coinbaseWidgets/#",
-  "dependencies": {
-    "d3-scale": "^4.0.2",
-    "d3-time-format": "^3.0.0",
-    "moment": "^2.30.1",
-    "parcel": "^2.12.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-financial-charts": "^2.0.1",
-    "react-router-dom": "^6.26.0"
-  },
-  "devDependencies": {
-    "d3": "^7.9.0",
-    "gh-pages": "^6.1.1",
-    "postcss": "^8.4.40",
-    "process": "^0.11.10",
-    "tailwindcss": "^3.4.7"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 5 safari version"
+    ]
   }
 }

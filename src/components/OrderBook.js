@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import ProductContext from "../utils/ProductContext";
 
-const OrderBook = ({ l2update, snapshot }) => {
+const OrderBook = () => {
   const [bids, setBids] = useState(new Map());
   const [asks, setAsks] = useState(new Map());
   const [loading, setLoading] = useState(true);
   //console.log("initial snapshot: ", snapshot);
-  //const { l2update, snapshot } = useContext(ProductContext);
+  const { l2update, snapshot } = useContext(ProductContext);
+
   useEffect(() => {
     // Initialize the order book with snapshot data
     const newBids = new Map();
@@ -25,8 +26,7 @@ const OrderBook = ({ l2update, snapshot }) => {
 
     setBids(newBids);
     setAsks(newAsks);
-    setLoading(false);
-  }, []);
+  }, [snapshot]);
   useEffect(() => {
     // Update the order book with incremental updates
     const newBids = new Map(bids);
@@ -50,6 +50,7 @@ const OrderBook = ({ l2update, snapshot }) => {
 
     setBids(newBids);
     setAsks(newAsks);
+    //console.log(newBids.size, newAsks.size);
   }, [l2update]);
   //console.log(snapshot);
   // Get the latest 10 entries for bids and asks

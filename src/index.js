@@ -1,36 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import WebSocketComponent from "./components/WebsocketComponent";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import ProductContext from "./utils/ProductContext";
 import OrderBook from "./components/OrderBook";
-
+import useWebSocket from "./utils/customHooks/useWebSocket";
 const AppLayout = () => {
   const [tickerData, setTickerData] = useState();
   const [l2UpdateData, setl2UpdateData] = useState();
   const [snapshotData, setSnapshotData] = useState();
   return (
-    <ProductContext.Provider
-      value={{
-        ticker: tickerData,
-        setTickerData,
-        l2update: l2UpdateData,
-        setl2UpdateData,
-        snapshot: snapshotData,
-        setSnapshotData,
-      }}
-    >
-      <div>
+    <div>
+      <ProductContext.Provider
+        value={{
+          ticker: tickerData,
+          setTickerData,
+          l2update: l2UpdateData,
+          setl2UpdateData,
+          snapshot: snapshotData,
+          setSnapshotData,
+        }}
+      >
         <WebSocketComponent />
         {/* <OrderBook /> */}
-      </div>
-    </ProductContext.Provider>
+      </ProductContext.Provider>
+    </div>
   );
 };
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
+    element: <AppLayout />,
+  },
+  {
+    path: "/coinbaseWidgets/",
     element: <AppLayout />,
   },
 ]);
