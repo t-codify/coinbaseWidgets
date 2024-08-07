@@ -3030,6 +3030,14 @@ const appRouter = (0, _reactRouterDom.createBrowserRouter)([
             lineNumber: 54,
             columnNumber: 14
         }, undefined)
+    },
+    {
+        path: "/coinbaseWidgets/",
+        element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(AppLayout, {}, void 0, false, {
+            fileName: "src/index.js",
+            lineNumber: 58,
+            columnNumber: 14
+        }, undefined)
     }
 ]);
 const rootEle = (0, _clientDefault.default).createRoot(document.getElementById("root"));
@@ -3037,7 +3045,7 @@ rootEle.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Rout
     router: appRouter
 }, void 0, false, {
     fileName: "src/index.js",
-    lineNumber: 58,
+    lineNumber: 62,
     columnNumber: 16
 }, undefined));
 var _c;
