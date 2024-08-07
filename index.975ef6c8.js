@@ -2969,31 +2969,9 @@ var _useWebSocketDefault = parcelHelpers.interopDefault(_useWebSocket);
 var _s = $RefreshSig$();
 const AppLayout = ()=>{
     _s();
-    var _s1 = $RefreshSig$();
     const [tickerData, setTickerData] = (0, _react.useState)();
     const [l2UpdateData, setl2UpdateData] = (0, _react.useState)();
     const [snapshotData, setSnapshotData] = (0, _react.useState)();
-    (0, _react.useEffect)(_s1(()=>{
-        _s1();
-        const ws = (0, _useWebSocketDefault.default)("BTC-USD", "subscribe");
-        ws.then((res)=>{
-            switch(res.type){
-                case "ticker":
-                    setTickerData(res);
-                    break;
-                case "snapshot":
-                    setSnapshotData(res);
-                    break;
-                case "ticker":
-                    setl2UpdateData(res);
-                    break;
-            }
-        });
-    }, "qU6zTc1f2SLo6KIr8UjygKizZ8o=", false, function() {
-        return [
-            (0, _useWebSocketDefault.default)
-        ];
-    }), []);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _productContextDefault.default).Provider, {
             value: {
@@ -3006,28 +2984,28 @@ const AppLayout = ()=>{
             },
             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _websocketComponentDefault.default), {}, void 0, false, {
                 fileName: "src/index.js",
-                lineNumber: 44,
+                lineNumber: 24,
                 columnNumber: 9
             }, undefined)
         }, void 0, false, {
             fileName: "src/index.js",
-            lineNumber: 34,
+            lineNumber: 14,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/index.js",
-        lineNumber: 33,
+        lineNumber: 13,
         columnNumber: 5
     }, undefined);
 };
-_s(AppLayout, "6NdaIEhG/Q9ZXcDY2Mt08hbHTcg=");
+_s(AppLayout, "tnLOavat/47ma6yePo2u/Zuz6HQ=");
 _c = AppLayout;
 const appRouter = (0, _reactRouterDom.createBrowserRouter)([
     {
         path: "/",
         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(AppLayout, {}, void 0, false, {
             fileName: "src/index.js",
-            lineNumber: 54,
+            lineNumber: 34,
             columnNumber: 14
         }, undefined)
     },
@@ -3035,7 +3013,7 @@ const appRouter = (0, _reactRouterDom.createBrowserRouter)([
         path: "/coinbaseWidgets/",
         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(AppLayout, {}, void 0, false, {
             fileName: "src/index.js",
-            lineNumber: 58,
+            lineNumber: 38,
             columnNumber: 14
         }, undefined)
     }
@@ -3045,7 +3023,7 @@ rootEle.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Rout
     router: appRouter
 }, void 0, false, {
     fileName: "src/index.js",
-    lineNumber: 62,
+    lineNumber: 42,
     columnNumber: 16
 }, undefined));
 var _c;
@@ -27306,7 +27284,6 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$f3e5.prelude(module);
 
 try {
-// src/WebSocketComponent.js
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
@@ -27326,20 +27303,46 @@ var _useWebSocketDefault = parcelHelpers.interopDefault(_useWebSocket);
 var _s = $RefreshSig$();
 const WebSocketComponent = ()=>{
     _s();
-    const [ticker, setTickerData] = (0, _react.useState)({});
-    const [l2update, setl2UpdateData] = (0, _react.useState)({});
-    const [snapshot, setSnapshotData] = (0, _react.useState)({});
+    const { ticker, setTickerData, l2update, setl2UpdateData, snapshot, setSnapshotData } = (0, _react.useContext)((0, _productContextDefault.default));
     const [selectedCurr, setSelectedCurr] = (0, _react.useState)("BTC-USD");
     const [selectedSubs, setSelectedSubs] = (0, _react.useState)("subscribe");
     const canvasRef = (0, _react.useRef)();
-    const ws = (0, _useWebSocketDefault.default);
+    const { data, isConnected } = (0, _useWebSocketDefault.default)(selectedCurr, selectedSubs);
     (0, _react.useEffect)(()=>{
-        ws(selectedCurr, selectedSubs);
+        if (!data) return;
+        try {
+            const jsonResponse = JSON.parse(data);
+            switch(jsonResponse?.type){
+                case "ticker":
+                    setTickerData(jsonResponse);
+                    break;
+                case "snapshot":
+                    console.log("snapshot changed");
+                    setSnapshotData(jsonResponse);
+                    break;
+                case "l2update":
+                    setl2UpdateData(jsonResponse);
+                    break;
+                default:
+                    console.warn("Unhandled message type:", jsonResponse?.type);
+                    break;
+            }
+        } catch (error) {
+            console.error("Failed to decode JSON response:", data, error);
+        }
     }, [
-        selectedCurr,
-        selectedSubs
+        data,
+        setTickerData,
+        setSnapshotData,
+        setl2UpdateData
     ]);
-    if (!ticker || !snapshot || !l2update) return;
+    (0, _react.useEffect)(()=>{
+        if (!isConnected) setTickerData({});
+    }, [
+        isConnected,
+        setTickerData
+    ]);
+    if (!ticker || !snapshot || !l2update) return null; // Return null to avoid rendering if data is missing
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27348,90 +27351,88 @@ const WebSocketComponent = ()=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
                         className: "mx-2 w-3/12 font-bold dark:text-white text-gray-400 ",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
-                            className: " px-3 py-2 w-40 bg-white dark:bg-inherit shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block  rounded-md sm:text-sm focus:ring-1",
+                            className: "px-3 py-2 w-40 bg-white dark:bg-inherit shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block rounded-md sm:text-sm focus:ring-1",
                             value: selectedCurr,
                             onChange: (e)=>{
                                 setSelectedCurr(e.target.value);
                                 setSelectedSubs("subscribe");
                             },
-                            children: (0, _constants.selectOptions).map((opts)=>{
-                                return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                            children: (0, _constants.selectOptions).map((opts)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
                                     value: opts,
                                     children: opts
                                 }, opts, false, {
                                     fileName: "src/components/WebsocketComponent.js",
-                                    lineNumber: 37,
-                                    columnNumber: 17
-                                }, undefined);
-                            })
+                                    lineNumber: 71,
+                                    columnNumber: 15
+                                }, undefined))
                         }, void 0, false, {
                             fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 27,
+                            lineNumber: 62,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 26,
+                        lineNumber: 61,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _topOfBookComponentDefault.default), {
                         ticker
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 50,
+                        lineNumber: 83,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/WebsocketComponent.js",
-                lineNumber: 25,
+                lineNumber: 60,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "flex flex-row  dark:bg-slate-800 bg-white  dark:text-white text-gray-400",
+                className: "flex flex-row dark:bg-slate-800 bg-white dark:text-white text-gray-400",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                         className: "flex flex-col w-9/12",
                         ref: canvasRef,
-                        children: canvasRef.current ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _realTimePriceChartDefault.default), {
-                            ticker: ticker,
+                        children: canvasRef.current && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _realTimePriceChartDefault.default), {
                             width: canvasRef.current.clientWidth,
                             height: canvasRef.current.offsetHeight
                         }, void 0, false, {
                             fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 55,
+                            lineNumber: 88,
                             columnNumber: 13
-                        }, undefined) : null
+                        }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 53,
+                        lineNumber: 86,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                         className: "w-3/12",
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _orderBookDefault.default), {
-                            snapshot: snapshot,
-                            l2update: l2update
-                        }, void 0, false, {
+                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _orderBookDefault.default), {}, void 0, false, {
                             fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 63,
+                            lineNumber: 95,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 62,
+                        lineNumber: 94,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/WebsocketComponent.js",
-                lineNumber: 52,
+                lineNumber: 85,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true);
 };
-_s(WebSocketComponent, "qtDoxlP7ADcg9TbOF8T3EqnAs0A=");
+_s(WebSocketComponent, "sy+1nzn5aSTM8rFh/2MEveSCiD4=", false, function() {
+    return [
+        (0, _useWebSocketDefault.default)
+    ];
+});
 _c = WebSocketComponent;
 exports.default = WebSocketComponent;
 var _c;
@@ -27957,13 +27958,13 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _productContext = require("../utils/ProductContext");
 var _productContextDefault = parcelHelpers.interopDefault(_productContext);
 var _s = $RefreshSig$();
-const OrderBook = ({ l2update, snapshot })=>{
+const OrderBook = ()=>{
     _s();
     const [bids, setBids] = (0, _react.useState)(new Map());
     const [asks, setAsks] = (0, _react.useState)(new Map());
     const [loading, setLoading] = (0, _react.useState)(true);
     //console.log("initial snapshot: ", snapshot);
-    //const { l2update, snapshot } = useContext(ProductContext);
+    const { l2update, snapshot } = (0, _react.useContext)((0, _productContextDefault.default));
     (0, _react.useEffect)(()=>{
         // Initialize the order book with snapshot data
         const newBids = new Map();
@@ -27976,8 +27977,9 @@ const OrderBook = ({ l2update, snapshot })=>{
         });
         setBids(newBids);
         setAsks(newAsks);
-        setLoading(false);
-    }, []);
+    }, [
+        snapshot
+    ]);
     (0, _react.useEffect)(()=>{
         // Update the order book with incremental updates
         const newBids = new Map(bids);
@@ -27993,6 +27995,7 @@ const OrderBook = ({ l2update, snapshot })=>{
         });
         setBids(newBids);
         setAsks(newAsks);
+    //console.log(newBids.size, newAsks.size);
     }, [
         l2update
     ]);
@@ -28033,7 +28036,7 @@ const OrderBook = ({ l2update, snapshot })=>{
                                 children: "Price"
                             }, void 0, false, {
                                 fileName: "src/components/OrderBook.js",
-                                lineNumber: 93,
+                                lineNumber: 94,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
@@ -28041,18 +28044,18 @@ const OrderBook = ({ l2update, snapshot })=>{
                                 children: "Size"
                             }, void 0, false, {
                                 fileName: "src/components/OrderBook.js",
-                                lineNumber: 94,
+                                lineNumber: 95,
                                 columnNumber: 13
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/OrderBook.js",
-                        lineNumber: 92,
+                        lineNumber: 93,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/OrderBook.js",
-                    lineNumber: 91,
+                    lineNumber: 92,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tbody", {
@@ -28064,20 +28067,20 @@ const OrderBook = ({ l2update, snapshot })=>{
                                         children: parseFloat(price)
                                     }, void 0, false, {
                                         fileName: "src/components/OrderBook.js",
-                                        lineNumber: 100,
+                                        lineNumber: 101,
                                         columnNumber: 15
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                         children: parseFloat(size)
                                     }, void 0, false, {
                                         fileName: "src/components/OrderBook.js",
-                                        lineNumber: 101,
+                                        lineNumber: 102,
                                         columnNumber: 15
                                     }, undefined)
                                 ]
                             }, "ask" + index, true, {
                                 fileName: "src/components/OrderBook.js",
-                                lineNumber: 99,
+                                lineNumber: 100,
                                 columnNumber: 13
                             }, undefined)),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
@@ -28091,7 +28094,7 @@ const OrderBook = ({ l2update, snapshot })=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/OrderBook.js",
-                                    lineNumber: 105,
+                                    lineNumber: 106,
                                     columnNumber: 13
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -28102,13 +28105,13 @@ const OrderBook = ({ l2update, snapshot })=>{
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/OrderBook.js",
-                                    lineNumber: 109,
+                                    lineNumber: 110,
                                     columnNumber: 13
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/OrderBook.js",
-                            lineNumber: 104,
+                            lineNumber: 105,
                             columnNumber: 11
                         }, undefined),
                         bidArray.map(([price, size], index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
@@ -28118,41 +28121,41 @@ const OrderBook = ({ l2update, snapshot })=>{
                                         children: parseFloat(price)
                                     }, void 0, false, {
                                         fileName: "src/components/OrderBook.js",
-                                        lineNumber: 113,
+                                        lineNumber: 114,
                                         columnNumber: 15
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                         children: parseFloat(size)
                                     }, void 0, false, {
                                         fileName: "src/components/OrderBook.js",
-                                        lineNumber: 114,
+                                        lineNumber: 115,
                                         columnNumber: 15
                                     }, undefined)
                                 ]
                             }, "bid" + index, true, {
                                 fileName: "src/components/OrderBook.js",
-                                lineNumber: 112,
+                                lineNumber: 113,
                                 columnNumber: 13
                             }, undefined))
                     ]
                 }, void 0, true, {
                     fileName: "src/components/OrderBook.js",
-                    lineNumber: 97,
+                    lineNumber: 98,
                     columnNumber: 9
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/OrderBook.js",
-            lineNumber: 90,
+            lineNumber: 91,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/OrderBook.js",
-        lineNumber: 89,
+        lineNumber: 90,
         columnNumber: 5
     }, undefined);
 };
-_s(OrderBook, "eSMNwflfSoYzAqbESmy54pVC3aI=");
+_s(OrderBook, "4imZLfkXa/K/LvDm2b0b91r0CHs=");
 _c = OrderBook;
 exports.default = OrderBook;
 var _c;
@@ -28170,7 +28173,6 @@ var prevRefreshSig = window.$RefreshSig$;
 $parcel$ReactRefreshHelpers$d4a5.prelude(module);
 
 try {
-// src/components/RealTimePriceChart.js
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
@@ -28182,22 +28184,14 @@ var _d3TimeFormat = require("d3-time-format");
 var _productContext = require("../utils/ProductContext");
 var _productContextDefault = parcelHelpers.interopDefault(_productContext);
 var _s = $RefreshSig$();
-// Format for X Axis labels
 const formatDate = (0, _d3TimeFormat.timeFormat)("%Y-%m-%d %H:%M:%S");
-//const pricesDisplayFormat = format(".2f");
-const RealTimePriceChart = ({ ticker, width, height })=>{
+const RealTimePriceChart = ({ width, height })=>{
     _s();
-    //const { ticker } = useContext(ProductContext);
-    const maxPoints = 50;
-    const [chartData, setChartData] = (0, _react.useState)([
-        {
-            ask: parseFloat(ticker?.best_ask),
-            bid: parseFloat(ticker?.best_bid),
-            x: new Date(ticker?.time)
-        }
-    ]);
+    const { ticker } = (0, _react.useContext)((0, _productContextDefault.default));
+    const maxPoints = 100;
+    const [chartData, setChartData] = (0, _react.useState)([]);
     (0, _react.useEffect)(()=>{
-        const addData = ()=>{
+        if (ticker?.best_ask && ticker?.best_bid && ticker?.time) {
             const newData = [
                 ...chartData,
                 {
@@ -28209,33 +28203,29 @@ const RealTimePriceChart = ({ ticker, width, height })=>{
             // Keep only the most recent `maxPoints` data points
             if (newData.length > maxPoints) newData.shift(); // Remove the oldest data point
             setChartData(newData);
-        };
-        addData();
-        return ()=>{};
+        // Trigger a redraw
+        // setRedrawKey((prevKey) => prevKey + 1);
+        } else setChartData([]);
     }, [
         ticker
     ]);
-    // Define accessors for y-values
     const yAccessorBid = (d)=>d?.bid;
     const yAccessorAsk = (d)=>d?.ask;
-    // Define the extent of data to be displayed based on the current view
     const xExtents = [
         chartData[0]?.x,
         chartData[chartData.length - 1]?.x
     ];
-    // Calculate X-axis ticks manually
     const getXTicks = (data, tickCount)=>{
         if (data.length === 0) return [];
         const [minDate, maxDate] = [
-            Math.min(...data.map((d)=>d.x)),
-            Math.max(...data.map((d)=>d.x))
+            Math.min(...data.map((d)=>d?.x)),
+            Math.max(...data.map((d)=>d?.x))
         ];
         const step = (maxDate - minDate) / (tickCount - 1);
-        const ticks = [];
-        for(let i = 0; i < tickCount; i++)ticks.push(new Date(minDate + i * step));
-        return ticks;
+        return Array.from({
+            length: tickCount
+        }, (_, i)=>new Date(minDate + i * step));
     };
-    //if (!chartData) return;
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "relative w-full h-full overflow-auto",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.ChartCanvas), {
@@ -28276,7 +28266,7 @@ const RealTimePriceChart = ({ ticker, width, height })=>{
                             tickSize: 5
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 103,
+                            lineNumber: 94,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.YAxis), {
@@ -28287,7 +28277,7 @@ const RealTimePriceChart = ({ ticker, width, height })=>{
                             zoomEnabled: true
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 113,
+                            lineNumber: 104,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.LineSeries), {
@@ -28296,7 +28286,7 @@ const RealTimePriceChart = ({ ticker, width, height })=>{
                             strokeWidth: 2
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 120,
+                            lineNumber: 111,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CurrentCoordinate), {
@@ -28304,7 +28294,7 @@ const RealTimePriceChart = ({ ticker, width, height })=>{
                             fillStyle: "#00ff00"
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 125,
+                            lineNumber: 116,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.LineSeries), {
@@ -28313,7 +28303,7 @@ const RealTimePriceChart = ({ ticker, width, height })=>{
                             strokeWidth: 2
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 126,
+                            lineNumber: 117,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CurrentCoordinate), {
@@ -28321,21 +28311,21 @@ const RealTimePriceChart = ({ ticker, width, height })=>{
                             fillStyle: "#ff0000"
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 131,
+                            lineNumber: 122,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MouseCoordinateX), {
                             displayFormat: formatDate
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 133,
+                            lineNumber: 123,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MouseCoordinateY), {
                             displayFormat: (d)=>d.toFixed(2)
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 136,
+                            lineNumber: 126,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MovingAverageTooltip), {
@@ -28360,38 +28350,38 @@ const RealTimePriceChart = ({ ticker, width, height })=>{
                             ]
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 139,
+                            lineNumber: 129,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.ZoomButtons), {}, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 157,
+                            lineNumber: 147,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/RealTimePriceChart.js",
-                    lineNumber: 102,
+                    lineNumber: 93,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CrossHairCursor), {}, void 0, false, {
                     fileName: "src/components/RealTimePriceChart.js",
-                    lineNumber: 159,
+                    lineNumber: 149,
                     columnNumber: 9
                 }, undefined)
             ]
-        }, void 0, true, {
+        }, true, true, {
             fileName: "src/components/RealTimePriceChart.js",
-            lineNumber: 82,
+            lineNumber: 72,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/RealTimePriceChart.js",
-        lineNumber: 81,
+        lineNumber: 71,
         columnNumber: 5
     }, undefined);
 };
-_s(RealTimePriceChart, "xfVyESJej3xLA0mO0UZhA70xLII=");
+_s(RealTimePriceChart, "i/qJi2yC1dCKLadj7EXEwPtIOpI=");
 _c = RealTimePriceChart;
 exports.default = RealTimePriceChart;
 var _c;
@@ -41965,15 +41955,82 @@ function nice(domain, interval) {
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"f6ihu":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$79e5 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$79e5.prelude(module);
+
+try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _constants = require("../constants");
+// const useWebSocket = async () => {
+//   const ws = new WebSocket(URI);
+//   //const connectWebSocket = async () => {
+//   ws.onopen = ({ selectedCurr, selectedSubs }) => {
+//     const subscriptionType = selectedSubs;
+//     const subscribeMessage = JSON.stringify({
+//       type: subscriptionType,
+//       product_ids: [selectedCurr ?? selectedCurr],
+//       channels: ["ticker", "level2_batch"],
+//     });
+//     ws.send(subscribeMessage);
+//     console.log(
+//       `${subscriptionType} to ticker and l2Batch channel for product ${selectedCurr}`
+//     );
+//   };
+//   ws.onmessage = (event) => {
+//     if (selectedSubs === "unsubscribe") {
+//       ws.close();
+//     }
+//     try {
+//       const jsonResponse = JSON.parse(event.data);
+//       switch (jsonResponse.type) {
+//         case "ticker": {
+//           setTickerData(jsonResponse);
+//           break;
+//         }
+//         case "l2update": {
+//           setl2UpdateData(jsonResponse);
+//           break;
+//         }
+//         case "snapshot": {
+//           setSnapshotData(jsonResponse);
+//           break;
+//         }
+//         default:
+//           break;
+//       }
+//     } catch (error) {
+//       console.error("Failed to decode JSON response:", event.data);
+//     }
+//   };
+//   ws.onclose = () => {
+//     console.warn("Connection closed, retrying...");
+//     setTimeout(connectWebSocket, 1000);
+//   };
+//   ws.onerror = (error) => {
+//     console.error("Unexpected error:", error);
+//     setTimeout(connectWebSocket, 1000);
+//   };
+//   //connectWebSocket();
+//   return ws;
+// };
+var _react = require("react");
+var _s = $RefreshSig$();
 const URI = "wss://ws-feed.exchange.coinbase.com";
-const useWebSocket = async ({ selectedCurr, selectedSubs })=>{
-    const ws = new WebSocket(URI);
-    const subscriptionType = selectedSubs;
-    const connectWebSocket = async ()=>{
+const useWebSocket = (selectedCurr, selectedSubs)=>{
+    _s();
+    const [data, setData] = (0, _react.useState)(null);
+    const [isConnected, setIsConnected] = (0, _react.useState)(false);
+    const wsRef = (0, _react.useRef)(null);
+    (0, _react.useEffect)(()=>{
+        // Initialize WebSocket connection
+        wsRef.current = new WebSocket(URI);
+        const ws = wsRef.current;
+        // Handle WebSocket events directly
         ws.onopen = ()=>{
+            const subscriptionType = selectedSubs;
             const subscribeMessage = JSON.stringify({
                 type: subscriptionType,
                 product_ids: [
@@ -41986,47 +42043,44 @@ const useWebSocket = async ({ selectedCurr, selectedSubs })=>{
             });
             ws.send(subscribeMessage);
             console.log(`${subscriptionType} to ticker and l2Batch channel for product ${selectedCurr}`);
-        };
-        ws.onmessage = (event)=>{
-            if (selectedSubs === "unsubscribe") ws.close();
-            try {
-                const jsonResponse = JSON.parse(event.data);
-                switch(jsonResponse.type){
-                    case "ticker":
-                        setTickerData(jsonResponse);
-                        break;
-                    case "l2update":
-                        setl2UpdateData(jsonResponse);
-                        break;
-                    case "snapshot":
-                        setSnapshotData(jsonResponse);
-                        break;
-                    default:
-                        break;
-                }
-            } catch (error) {
-                console.error("Failed to decode JSON response:", event.data);
-            }
+            setIsConnected(true);
         };
         ws.onclose = ()=>{
-            console.warn("Connection closed, retrying...");
-            setTimeout(connectWebSocket, 1000);
+            console.log("WebSocket disconnected");
+            setIsConnected(false);
+        };
+        ws.onmessage = (event)=>{
+            if (selectedSubs === "unsubscribe") {
+                setIsConnected(false);
+                ws.close();
+            }
+            setData(event.data);
         };
         ws.onerror = (error)=>{
-            console.error("Unexpected error:", error);
-            setTimeout(connectWebSocket, 1000);
+            console.error("WebSocket error", error);
         };
-    };
-    connectWebSocket();
-    return ()=>{
-        // Clean up the WebSocket connection on component unmount
-        //setSelectedSubs("unsubscribe");
-        ws.close();
+        // Clean up WebSocket connection on component unmount
+        return ()=>{
+            if (ws) ws.close();
+        };
+    }, [
+        selectedCurr,
+        selectedSubs
+    ]);
+    return {
+        data,
+        isConnected
     };
 };
+_s(useWebSocket, "qVy7QAiqSz4LVbSHXNo+41ExdcU=");
 exports.default = useWebSocket;
 
-},{"../constants":"hB8jg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9xmpe":[function(require,module,exports) {
+  $parcel$ReactRefreshHelpers$79e5.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"../constants":"hB8jg","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9xmpe":[function(require,module,exports) {
 /**
  * React Router DOM v6.26.0
  *
