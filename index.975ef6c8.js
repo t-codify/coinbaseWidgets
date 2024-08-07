@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"gbXMy":[function(require,module,exports) {
+})({"farZc":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
 var HMR_USE_SSE = false;
-module.bundle.HMR_BUNDLE_ID = "fe4256060641b553";
+module.bundle.HMR_BUNDLE_ID = "890e741a975ef6c8";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -2944,11 +2944,11 @@ process.umask = function() {
     return 0;
 };
 
-},{}],"bNKaB":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$f79a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{}],"8lqZg":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$20e5 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$f79a.prelude(module);
+$parcel$ReactRefreshHelpers$20e5.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -3005,17 +3005,17 @@ const AppLayout = ()=>{
                 setSnapshotData
             },
             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _websocketComponentDefault.default), {}, void 0, false, {
-                fileName: "src/app.js",
+                fileName: "src/index.js",
                 lineNumber: 44,
                 columnNumber: 9
             }, undefined)
         }, void 0, false, {
-            fileName: "src/app.js",
+            fileName: "src/index.js",
             lineNumber: 34,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
-        fileName: "src/app.js",
+        fileName: "src/index.js",
         lineNumber: 33,
         columnNumber: 5
     }, undefined);
@@ -3026,7 +3026,7 @@ const appRouter = (0, _reactRouterDom.createBrowserRouter)([
     {
         path: "/",
         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(AppLayout, {}, void 0, false, {
-            fileName: "src/app.js",
+            fileName: "src/index.js",
             lineNumber: 54,
             columnNumber: 14
         }, undefined)
@@ -3036,14 +3036,14 @@ const rootEle = (0, _clientDefault.default).createRoot(document.getElementById("
 rootEle.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.RouterProvider), {
     router: appRouter
 }, void 0, false, {
-    fileName: "src/app.js",
+    fileName: "src/index.js",
     lineNumber: 58,
     columnNumber: 16
 }, undefined));
 var _c;
 $RefreshReg$(_c, "AppLayout");
 
-  $parcel$ReactRefreshHelpers$f79a.postlude(module);
+  $parcel$ReactRefreshHelpers$20e5.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
@@ -49148,6 +49148,6 @@ function persistAppliedTransitions(_window, transitions) {
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["gbXMy","1xC6H","bNKaB"], "bNKaB", "parcelRequiree903")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["farZc","1xC6H","8lqZg"], "8lqZg", "parcelRequiree903")
 
-//# sourceMappingURL=index.0641b553.js.map
+//# sourceMappingURL=index.975ef6c8.js.map
