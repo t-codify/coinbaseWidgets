@@ -42018,7 +42018,7 @@ var _constants = require("../constants");
 // };
 var _react = require("react");
 var _s = $RefreshSig$();
-const URI = "wss://ws-feed.exchange.coinbase.com";
+const URI = "ws://ws-feed.exchange.coinbase.com";
 const useWebSocket = (selectedCurr, selectedSubs)=>{
     _s();
     const [data, setData] = (0, _react.useState)(null);
@@ -42061,7 +42061,7 @@ const useWebSocket = (selectedCurr, selectedSubs)=>{
         };
         // Clean up WebSocket connection on component unmount
         return ()=>{
-            if (ws) ws.close();
+            if (wsRef.current) wsRef.current.close();
         };
     }, [
         selectedCurr,
