@@ -28222,9 +28222,9 @@ const RealTimePriceChart = ({ width, height })=>{
             Math.max(...data.map((d)=>d?.x))
         ];
         const step = (maxDate - minDate) / (tickCount - 1);
-        return Array.from({
-            length: tickCount
-        }, (_, i)=>new Date(minDate + i * step));
+        const ticks = [];
+        for(let i = 0; i < tickCount; i++)ticks.push(new Date(minDate + i * step));
+        return ticks;
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "relative w-full h-full overflow-auto",
@@ -28266,7 +28266,7 @@ const RealTimePriceChart = ({ width, height })=>{
                             tickSize: 5
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 94,
+                            lineNumber: 95,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.YAxis), {
@@ -28277,7 +28277,7 @@ const RealTimePriceChart = ({ width, height })=>{
                             zoomEnabled: true
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 104,
+                            lineNumber: 105,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.LineSeries), {
@@ -28286,7 +28286,7 @@ const RealTimePriceChart = ({ width, height })=>{
                             strokeWidth: 2
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 111,
+                            lineNumber: 112,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CurrentCoordinate), {
@@ -28294,7 +28294,7 @@ const RealTimePriceChart = ({ width, height })=>{
                             fillStyle: "#00ff00"
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 116,
+                            lineNumber: 117,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.LineSeries), {
@@ -28303,7 +28303,7 @@ const RealTimePriceChart = ({ width, height })=>{
                             strokeWidth: 2
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 117,
+                            lineNumber: 118,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CurrentCoordinate), {
@@ -28311,21 +28311,21 @@ const RealTimePriceChart = ({ width, height })=>{
                             fillStyle: "#ff0000"
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 122,
+                            lineNumber: 123,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MouseCoordinateX), {
                             displayFormat: formatDate
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 123,
+                            lineNumber: 124,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MouseCoordinateY), {
                             displayFormat: (d)=>d.toFixed(2)
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 126,
+                            lineNumber: 127,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MovingAverageTooltip), {
@@ -28350,34 +28350,34 @@ const RealTimePriceChart = ({ width, height })=>{
                             ]
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 129,
+                            lineNumber: 130,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.ZoomButtons), {}, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 147,
+                            lineNumber: 148,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/RealTimePriceChart.js",
-                    lineNumber: 93,
+                    lineNumber: 94,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CrossHairCursor), {}, void 0, false, {
                     fileName: "src/components/RealTimePriceChart.js",
-                    lineNumber: 149,
+                    lineNumber: 150,
                     columnNumber: 9
                 }, undefined)
             ]
         }, true, true, {
             fileName: "src/components/RealTimePriceChart.js",
-            lineNumber: 72,
+            lineNumber: 73,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/RealTimePriceChart.js",
-        lineNumber: 71,
+        lineNumber: 72,
         columnNumber: 5
     }, undefined);
 };
@@ -42018,7 +42018,7 @@ var _constants = require("../constants");
 // };
 var _react = require("react");
 var _s = $RefreshSig$();
-const URI = "ws://ws-feed.exchange.coinbase.com";
+const URI = "wss://ws-feed.exchange.coinbase.com";
 const useWebSocket = (selectedCurr, selectedSubs)=>{
     _s();
     const [data, setData] = (0, _react.useState)(null);
@@ -42026,7 +42026,18 @@ const useWebSocket = (selectedCurr, selectedSubs)=>{
     const wsRef = (0, _react.useRef)(null);
     (0, _react.useEffect)(()=>{
         // Initialize WebSocket connection
-        wsRef.current = new WebSocket(URI);
+        wsRef.current = new WebSocket(URI, null, {
+            headers: {
+                "Access-Control-Allow-Origin": "*"
+            }
+        });
+        // wsRef.current = new WebSocket(URI, [
+        //   {
+        //     headers: {
+        //       "Access-Control-Allow-Origin": "https://t-codify.github.io",
+        //     },
+        //   },
+        // ]);
         const ws = wsRef.current;
         // Handle WebSocket events directly
         ws.onopen = ()=>{
