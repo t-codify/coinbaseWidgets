@@ -42026,11 +42026,12 @@ const useWebSocket = (selectedCurr, selectedSubs)=>{
     const wsRef = (0, _react.useRef)(null);
     (0, _react.useEffect)(()=>{
         // Initialize WebSocket connection
-        wsRef.current = new WebSocket(URI, null, {
-            headers: {
-                "Access-Control-Allow-Origin": "*"
-            }
-        });
+        wsRef.current = new WebSocket(URI);
+        //, null, {
+        //   headers: {
+        //     "Access-Control-Allow-Origin": "*",
+        //   },
+        // });
         // wsRef.current = new WebSocket(URI, [
         //   {
         //     headers: {
