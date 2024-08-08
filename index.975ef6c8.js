@@ -27306,8 +27306,10 @@ const WebSocketComponent = ()=>{
     const { ticker, setTickerData, l2update, setl2UpdateData, snapshot, setSnapshotData } = (0, _react.useContext)((0, _productContextDefault.default));
     const [selectedCurr, setSelectedCurr] = (0, _react.useState)("BTC-USD");
     const [selectedSubs, setSelectedSubs] = (0, _react.useState)("subscribe");
-    const canvasRef = (0, _react.useRef)();
+    const [processSnapshot, setProcessSnapshot] = (0, _react.useState)(true); // Reset snapshot processing
+    const canvasRef = (0, _react.useRef)(null);
     const { data, isConnected } = (0, _useWebSocketDefault.default)(selectedCurr, selectedSubs);
+    // Handle incoming WebSocket data
     (0, _react.useEffect)(()=>{
         if (!data) return;
         try {
@@ -27317,14 +27319,20 @@ const WebSocketComponent = ()=>{
                     setTickerData(jsonResponse);
                     break;
                 case "snapshot":
-                    console.log("snapshot changed");
-                    setSnapshotData(jsonResponse);
-                    break;
+                    {
+                        const newSnap = {};
+                        newSnap[selectedCurr] = jsonResponse;
+                        setSnapshotData((prevState)=>({
+                                ...prevState,
+                                [selectedCurr]: jsonResponse
+                            }));
+                        break;
+                    }
                 case "l2update":
-                    setl2UpdateData(jsonResponse);
+                    if (snapshot?.[selectedCurr]) setl2UpdateData(jsonResponse);
+                    else console.warn("L2 update received before snapshot");
                     break;
                 default:
-                    console.warn("Unhandled message type:", jsonResponse?.type);
                     break;
             }
         } catch (error) {
@@ -27336,56 +27344,80 @@ const WebSocketComponent = ()=>{
         setSnapshotData,
         setl2UpdateData
     ]);
+    // Handle WebSocket connection status
     (0, _react.useEffect)(()=>{
-        if (!isConnected) setTickerData({});
+        if (!isConnected) {
+            setTickerData({});
+            //setSnapshotData({});
+            setl2UpdateData({});
+            setProcessSnapshot(true); // Reset snapshot processing
+        }
     }, [
-        isConnected,
-        setTickerData
+        isConnected
     ]);
-    if (!ticker || !snapshot || !l2update) return null; // Return null to avoid rendering if data is missing
+    // Handle currency change
+    (0, _react.useEffect)(()=>{
+        // Reset WebSocket connection when currency changes
+        if (selectedCurr) setSelectedSubs("subscribe");
+    }, [
+        selectedCurr
+    ]);
+    // Handle subscription/unsubscription
+    const handleSubscriptionChange = (0, _react.useCallback)((action)=>{
+        setSelectedSubs(action);
+    }, []);
+    if (!ticker && !snapshot && !l2update) return null; // Avoid rendering if data is missing
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                 className: "flex flex-row mt-5 justify-normal align-middle content-evenly",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                        className: "mx-2 w-3/12 font-bold dark:text-white text-gray-400 ",
+                        className: "mx-2 w-3/12 font-bold dark:text-white text-gray-400",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
                             className: "px-3 py-2 w-40 bg-white dark:bg-inherit shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block rounded-md sm:text-sm focus:ring-1",
                             value: selectedCurr,
                             onChange: (e)=>{
                                 setSelectedCurr(e.target.value);
-                                setSelectedSubs("subscribe");
                             },
                             children: (0, _constants.selectOptions).map((opts)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
                                     value: opts,
                                     children: opts
                                 }, opts, false, {
                                     fileName: "src/components/WebsocketComponent.js",
-                                    lineNumber: 71,
+                                    lineNumber: 107,
                                     columnNumber: 15
                                 }, undefined))
                         }, void 0, false, {
                             fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 62,
+                            lineNumber: 99,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 61,
+                        lineNumber: 98,
                         columnNumber: 9
                     }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _topOfBookComponentDefault.default), {
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                        className: "bg-sky-500 hover:bg-sky-700 text-white rounded-lg px-2 mx-2",
+                        onClick: ()=>handleSubscriptionChange("unsubscribe"),
+                        children: "Unsubscribe"
+                    }, void 0, false, {
+                        fileName: "src/components/WebsocketComponent.js",
+                        lineNumber: 113,
+                        columnNumber: 9
+                    }, undefined),
+                    ticker && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _topOfBookComponentDefault.default), {
                         ticker
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 83,
-                        columnNumber: 9
+                        lineNumber: 119,
+                        columnNumber: 20
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/WebsocketComponent.js",
-                lineNumber: 60,
+                lineNumber: 97,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27394,41 +27426,43 @@ const WebSocketComponent = ()=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                         className: "flex flex-col w-9/12",
                         ref: canvasRef,
-                        children: canvasRef.current && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _realTimePriceChartDefault.default), {
+                        children: canvasRef.current && ticker && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _realTimePriceChartDefault.default), {
                             width: canvasRef.current.clientWidth,
                             height: canvasRef.current.offsetHeight
                         }, void 0, false, {
                             fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 88,
+                            lineNumber: 124,
                             columnNumber: 13
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 86,
+                        lineNumber: 122,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                         className: "w-3/12",
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _orderBookDefault.default), {}, void 0, false, {
+                        children: snapshot?.[selectedCurr] && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _orderBookDefault.default), {
+                            processSnapshot: processSnapshot
+                        }, void 0, false, {
                             fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 95,
-                            columnNumber: 11
+                            lineNumber: 132,
+                            columnNumber: 13
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 94,
+                        lineNumber: 130,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/WebsocketComponent.js",
-                lineNumber: 85,
+                lineNumber: 121,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true);
 };
-_s(WebSocketComponent, "sy+1nzn5aSTM8rFh/2MEveSCiD4=", false, function() {
+_s(WebSocketComponent, "EAkaV712X2/u2PhvoQDdc3iaMOc=", false, function() {
     return [
         (0, _useWebSocketDefault.default)
     ];
@@ -27958,71 +27992,80 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _productContext = require("../utils/ProductContext");
 var _productContextDefault = parcelHelpers.interopDefault(_productContext);
 var _s = $RefreshSig$();
-const OrderBook = ()=>{
+const OrderBook = ({ processSnapshot, curr })=>{
     _s();
+    var _s1 = $RefreshSig$();
     const [bids, setBids] = (0, _react.useState)(new Map());
     const [asks, setAsks] = (0, _react.useState)(new Map());
-    const [loading, setLoading] = (0, _react.useState)(true);
-    //console.log("initial snapshot: ", snapshot);
+    const [snapshotProcessed, setSnapshotProcessed] = (0, _react.useState)(!processSnapshot); // Track if snapshot has been processed
     const { l2update, snapshot } = (0, _react.useContext)((0, _productContextDefault.default));
     (0, _react.useEffect)(()=>{
         // Initialize the order book with snapshot data
-        const newBids = new Map();
-        const newAsks = new Map();
-        snapshot?.bids?.forEach(([price, size])=>{
-            if (parseFloat(size) > 0) newBids.set(price, size);
-        });
-        snapshot?.asks?.forEach(([price, size])=>{
-            if (parseFloat(size) > 0) newAsks.set(price, size);
-        });
-        setBids(newBids);
-        setAsks(newAsks);
+        if (processSnapshot) {
+            const newBids = new Map();
+            const newAsks = new Map();
+            snapshot?.[curr]?.bids?.forEach(([price, size])=>{
+                if (parseFloat(size) > 0) newBids.set(price, size);
+            });
+            snapshot?.[curr]?.asks?.forEach(([price, size])=>{
+                if (parseFloat(size) > 0) newAsks.set(price, size);
+            });
+            setBids(newBids);
+            setAsks(newAsks);
+            setSnapshotProcessed(true); // Mark snapshot as processed
+        }
     }, [
-        snapshot
+        snapshot,
+        snapshotProcessed
     ]);
     (0, _react.useEffect)(()=>{
-        // Update the order book with incremental updates
-        const newBids = new Map(bids);
-        const newAsks = new Map(asks);
-        l2update?.changes?.forEach(([side, price, size])=>{
-            if (side === "buy") {
-                if (parseFloat(size) === 0) newBids.delete(price);
-                else newBids.set(price, size);
-            } else if (side === "sell") {
-                if (parseFloat(size) === 0) newAsks.delete(price);
-                else newAsks.set(price, size);
-            }
-        });
-        setBids(newBids);
-        setAsks(newAsks);
-    //console.log(newBids.size, newAsks.size);
+        // Apply l2 updates
+        if (snapshotProcessed && l2update) {
+            const newBids = new Map(bids);
+            const newAsks = new Map(asks);
+            l2update.changes?.forEach(([side, price, size])=>{
+                if (side === "buy") {
+                    if (parseFloat(size) === 0) newBids.delete(price);
+                    else newBids.set(price, size);
+                } else if (side === "sell") {
+                    if (parseFloat(size) === 0) newAsks.delete(price);
+                    else newAsks.set(price, size);
+                }
+            });
+            setBids(newBids);
+            setAsks(newAsks);
+        }
     }, [
-        l2update
+        l2update,
+        snapshotProcessed
     ]);
-    //console.log(snapshot);
-    // Get the latest 10 entries for bids and asks
-    const getLatestEntries = (entries)=>{
-        return Array.from(entries.entries()).sort((a, b)=>parseFloat(b[0]) - parseFloat(a[0])) // Sort in descending order for bids
-        .slice(0, 10); // Limit to latest 10 entries
+    const getLatestEntries = (entries, isBid = true)=>{
+        _s1();
+        return (0, _react.useMemo)(()=>{
+            return Array.from(entries.entries()).sort(([aPrice], [bPrice])=>isBid ? parseFloat(bPrice) - parseFloat(aPrice) : parseFloat(aPrice) - parseFloat(bPrice)).slice(0, 10);
+        }, [
+            entries
+        ]);
     };
-    const getAskLatestEntries = (entries)=>{
-        return Array.from(entries.entries()).sort((a, b)=>parseFloat(a[0]) - parseFloat(b[0])) // Sort in descending order for bids
-        .slice(0, 10); // Limit to latest 10 entries
-    };
-    const bidArray = getLatestEntries(bids);
-    const askArray = getAskLatestEntries(asks);
-    // Calculate average price based on last ask and first bid
-    const calculateAveragePrice = (bidArray, askArray)=>{
+    _s1(getLatestEntries, "nwk+m61qLgjDVUp4IGV/072DDN4=");
+    const bidArray = getLatestEntries(bids, true);
+    const askArray = getLatestEntries(asks, false);
+    const calculateAveragePrice = (0, _react.useMemo)(()=>{
         const lastAskPrice = askArray.length > 0 ? parseFloat(askArray[askArray.length - 1][0]) : 0;
         const firstBidPrice = bidArray.length > 0 ? parseFloat(bidArray[0][0]) : 0;
         return (lastAskPrice + firstBidPrice) / 2 || 0;
-    };
-    // Calculate spread between last ask and first bid
-    const calculateSpread = (bidArray, askArray)=>{
+    }, [
+        bidArray,
+        askArray
+    ]);
+    const calculateSpread = (0, _react.useMemo)(()=>{
         const lastAskPrice = askArray.length > 0 ? parseFloat(askArray[askArray.length - 1][0]) : 0;
         const firstBidPrice = bidArray.length > 0 ? parseFloat(bidArray[0][0]) : 0;
         return lastAskPrice - firstBidPrice;
-    };
+    }, [
+        bidArray,
+        askArray
+    ]);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "table-container text-xs",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("table", {
@@ -28036,7 +28079,7 @@ const OrderBook = ()=>{
                                 children: "Price"
                             }, void 0, false, {
                                 fileName: "src/components/OrderBook.js",
-                                lineNumber: 94,
+                                lineNumber: 91,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
@@ -28044,18 +28087,18 @@ const OrderBook = ()=>{
                                 children: "Size"
                             }, void 0, false, {
                                 fileName: "src/components/OrderBook.js",
-                                lineNumber: 95,
+                                lineNumber: 92,
                                 columnNumber: 13
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/OrderBook.js",
-                        lineNumber: 93,
+                        lineNumber: 90,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/OrderBook.js",
-                    lineNumber: 92,
+                    lineNumber: 89,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tbody", {
@@ -28067,20 +28110,20 @@ const OrderBook = ()=>{
                                         children: parseFloat(price)
                                     }, void 0, false, {
                                         fileName: "src/components/OrderBook.js",
-                                        lineNumber: 101,
+                                        lineNumber: 98,
                                         columnNumber: 15
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                         children: parseFloat(size)
                                     }, void 0, false, {
                                         fileName: "src/components/OrderBook.js",
-                                        lineNumber: 102,
+                                        lineNumber: 99,
                                         columnNumber: 15
                                     }, undefined)
                                 ]
                             }, "ask" + index, true, {
                                 fileName: "src/components/OrderBook.js",
-                                lineNumber: 100,
+                                lineNumber: 97,
                                 columnNumber: 13
                             }, undefined)),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
@@ -28088,30 +28131,29 @@ const OrderBook = ()=>{
                             children: [
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                     children: [
-                                        "Average Price:",
-                                        " ",
-                                        calculateAveragePrice(bidArray, askArray).toFixed(2)
+                                        "Average Price: ",
+                                        calculateAveragePrice.toFixed(2)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/OrderBook.js",
-                                    lineNumber: 106,
+                                    lineNumber: 103,
                                     columnNumber: 13
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                     children: [
                                         "Spread: ",
-                                        calculateSpread(bidArray, askArray).toFixed(2),
+                                        calculateSpread.toFixed(2),
                                         " "
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/OrderBook.js",
-                                    lineNumber: 110,
+                                    lineNumber: 104,
                                     columnNumber: 13
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/OrderBook.js",
-                            lineNumber: 105,
+                            lineNumber: 102,
                             columnNumber: 11
                         }, undefined),
                         bidArray.map(([price, size], index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
@@ -28121,41 +28163,41 @@ const OrderBook = ()=>{
                                         children: parseFloat(price)
                                     }, void 0, false, {
                                         fileName: "src/components/OrderBook.js",
-                                        lineNumber: 114,
+                                        lineNumber: 108,
                                         columnNumber: 15
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                         children: parseFloat(size)
                                     }, void 0, false, {
                                         fileName: "src/components/OrderBook.js",
-                                        lineNumber: 115,
+                                        lineNumber: 109,
                                         columnNumber: 15
                                     }, undefined)
                                 ]
                             }, "bid" + index, true, {
                                 fileName: "src/components/OrderBook.js",
-                                lineNumber: 113,
+                                lineNumber: 107,
                                 columnNumber: 13
                             }, undefined))
                     ]
                 }, void 0, true, {
                     fileName: "src/components/OrderBook.js",
-                    lineNumber: 98,
+                    lineNumber: 95,
                     columnNumber: 9
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/OrderBook.js",
-            lineNumber: 91,
+            lineNumber: 88,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/OrderBook.js",
-        lineNumber: 90,
+        lineNumber: 87,
         columnNumber: 5
     }, undefined);
 };
-_s(OrderBook, "4imZLfkXa/K/LvDm2b0b91r0CHs=");
+_s(OrderBook, "pp+6bwDOjmeK0l3RzqYYwAKxBBM=");
 _c = OrderBook;
 exports.default = OrderBook;
 var _c;
@@ -41963,59 +42005,6 @@ $parcel$ReactRefreshHelpers$79e5.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-var _constants = require("../constants");
-// const useWebSocket = async () => {
-//   const ws = new WebSocket(URI);
-//   //const connectWebSocket = async () => {
-//   ws.onopen = ({ selectedCurr, selectedSubs }) => {
-//     const subscriptionType = selectedSubs;
-//     const subscribeMessage = JSON.stringify({
-//       type: subscriptionType,
-//       product_ids: [selectedCurr ?? selectedCurr],
-//       channels: ["ticker", "level2_batch"],
-//     });
-//     ws.send(subscribeMessage);
-//     console.log(
-//       `${subscriptionType} to ticker and l2Batch channel for product ${selectedCurr}`
-//     );
-//   };
-//   ws.onmessage = (event) => {
-//     if (selectedSubs === "unsubscribe") {
-//       ws.close();
-//     }
-//     try {
-//       const jsonResponse = JSON.parse(event.data);
-//       switch (jsonResponse.type) {
-//         case "ticker": {
-//           setTickerData(jsonResponse);
-//           break;
-//         }
-//         case "l2update": {
-//           setl2UpdateData(jsonResponse);
-//           break;
-//         }
-//         case "snapshot": {
-//           setSnapshotData(jsonResponse);
-//           break;
-//         }
-//         default:
-//           break;
-//       }
-//     } catch (error) {
-//       console.error("Failed to decode JSON response:", event.data);
-//     }
-//   };
-//   ws.onclose = () => {
-//     console.warn("Connection closed, retrying...");
-//     setTimeout(connectWebSocket, 1000);
-//   };
-//   ws.onerror = (error) => {
-//     console.error("Unexpected error:", error);
-//     setTimeout(connectWebSocket, 1000);
-//   };
-//   //connectWebSocket();
-//   return ws;
-// };
 var _react = require("react");
 var _s = $RefreshSig$();
 const URI = "wss://ws-feed.exchange.coinbase.com";
@@ -42027,18 +42016,6 @@ const useWebSocket = (selectedCurr, selectedSubs)=>{
     (0, _react.useEffect)(()=>{
         // Initialize WebSocket connection
         wsRef.current = new WebSocket(URI);
-        //, null, {
-        //   headers: {
-        //     "Access-Control-Allow-Origin": "*",
-        //   },
-        // });
-        // wsRef.current = new WebSocket(URI, [
-        //   {
-        //     headers: {
-        //       "Access-Control-Allow-Origin": "https://t-codify.github.io",
-        //     },
-        //   },
-        // ]);
         const ws = wsRef.current;
         // Handle WebSocket events directly
         ws.onopen = ()=>{
@@ -42092,7 +42069,7 @@ exports.default = useWebSocket;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"../constants":"hB8jg","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9xmpe":[function(require,module,exports) {
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"9xmpe":[function(require,module,exports) {
 /**
  * React Router DOM v6.26.0
  *
