@@ -1,90 +1,87 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useMemo } from "react";
 import ProductContext from "../utils/ProductContext";
 
-const OrderBook = () => {
+const OrderBook = ({ processSnapshot, curr }) => {
   const [bids, setBids] = useState(new Map());
   const [asks, setAsks] = useState(new Map());
-  const [loading, setLoading] = useState(true);
-  //console.log("initial snapshot: ", snapshot);
+  const [snapshotProcessed, setSnapshotProcessed] = useState(!processSnapshot); // Track if snapshot has been processed
   const { l2update, snapshot } = useContext(ProductContext);
 
   useEffect(() => {
     // Initialize the order book with snapshot data
-    const newBids = new Map();
-    const newAsks = new Map();
+    if (processSnapshot) {
+      const newBids = new Map();
+      const newAsks = new Map();
 
-    snapshot?.bids?.forEach(([price, size]) => {
-      if (parseFloat(size) > 0) {
-        newBids.set(price, size);
-      }
-    });
-    snapshot?.asks?.forEach(([price, size]) => {
-      if (parseFloat(size) > 0) {
-        newAsks.set(price, size);
-      }
-    });
-
-    setBids(newBids);
-    setAsks(newAsks);
-  }, [snapshot]);
-  useEffect(() => {
-    // Update the order book with incremental updates
-    const newBids = new Map(bids);
-    const newAsks = new Map(asks);
-
-    l2update?.changes?.forEach(([side, price, size]) => {
-      if (side === "buy") {
-        if (parseFloat(size) === 0) {
-          newBids.delete(price);
-        } else {
+      snapshot?.[curr]?.bids?.forEach(([price, size]) => {
+        if (parseFloat(size) > 0) {
           newBids.set(price, size);
         }
-      } else if (side === "sell") {
-        if (parseFloat(size) === 0) {
-          newAsks.delete(price);
-        } else {
+      });
+      snapshot?.[curr]?.asks?.forEach(([price, size]) => {
+        if (parseFloat(size) > 0) {
           newAsks.set(price, size);
         }
-      }
-    });
+      });
+      setBids(newBids);
+      setAsks(newAsks);
+      setSnapshotProcessed(true); // Mark snapshot as processed
+    }
+  }, [snapshot, snapshotProcessed]);
+  useEffect(() => {
+    // Apply l2 updates
+    if (snapshotProcessed && l2update) {
+      const newBids = new Map(bids);
+      const newAsks = new Map(asks);
 
-    setBids(newBids);
-    setAsks(newAsks);
-    //console.log(newBids.size, newAsks.size);
-  }, [l2update]);
-  //console.log(snapshot);
-  // Get the latest 10 entries for bids and asks
-  const getLatestEntries = (entries) => {
-    return Array.from(entries.entries())
-      .sort((a, b) => parseFloat(b[0]) - parseFloat(a[0])) // Sort in descending order for bids
-      .slice(0, 10); // Limit to latest 10 entries
+      l2update.changes?.forEach(([side, price, size]) => {
+        if (side === "buy") {
+          if (parseFloat(size) === 0) {
+            newBids.delete(price);
+          } else {
+            newBids.set(price, size);
+          }
+        } else if (side === "sell") {
+          if (parseFloat(size) === 0) {
+            newAsks.delete(price);
+          } else {
+            newAsks.set(price, size);
+          }
+        }
+      });
+      setBids(newBids);
+      setAsks(newAsks);
+    }
+  }, [l2update, snapshotProcessed]);
+
+  const getLatestEntries = (entries, isBid = true) => {
+    return useMemo(() => {
+      return Array.from(entries.entries())
+        .sort(([aPrice], [bPrice]) =>
+          isBid
+            ? parseFloat(bPrice) - parseFloat(aPrice)
+            : parseFloat(aPrice) - parseFloat(bPrice)
+        )
+        .slice(0, 10);
+    }, [entries]);
   };
-  const getAskLatestEntries = (entries) => {
-    return Array.from(entries.entries())
-      .sort((a, b) => parseFloat(a[0]) - parseFloat(b[0])) // Sort in descending order for bids
-      .slice(0, 10); // Limit to latest 10 entries
-  };
 
-  const bidArray = getLatestEntries(bids);
-  const askArray = getAskLatestEntries(asks);
+  const bidArray = getLatestEntries(bids, true);
+  const askArray = getLatestEntries(asks, false);
 
-  // Calculate average price based on last ask and first bid
-  const calculateAveragePrice = (bidArray, askArray) => {
+  const calculateAveragePrice = useMemo(() => {
     const lastAskPrice =
       askArray.length > 0 ? parseFloat(askArray[askArray.length - 1][0]) : 0;
     const firstBidPrice = bidArray.length > 0 ? parseFloat(bidArray[0][0]) : 0;
-
     return (lastAskPrice + firstBidPrice) / 2 || 0;
-  };
+  }, [bidArray, askArray]);
 
-  // Calculate spread between last ask and first bid
-  const calculateSpread = (bidArray, askArray) => {
+  const calculateSpread = useMemo(() => {
     const lastAskPrice =
       askArray.length > 0 ? parseFloat(askArray[askArray.length - 1][0]) : 0;
     const firstBidPrice = bidArray.length > 0 ? parseFloat(bidArray[0][0]) : 0;
-
     return lastAskPrice - firstBidPrice;
-  };
+  }, [bidArray, askArray]);
 
   return (
     <div className="table-container text-xs">
@@ -103,11 +100,8 @@ const OrderBook = () => {
             </tr>
           ))}
           <tr className="dark:text-slate-400 text-xs text-gray-800">
-            <td>
-              Average Price:{" "}
-              {calculateAveragePrice(bidArray, askArray).toFixed(2)}
-            </td>
-            <td>Spread: {calculateSpread(bidArray, askArray).toFixed(2)} </td>
+            <td>Average Price: {calculateAveragePrice.toFixed(2)}</td>
+            <td>Spread: {calculateSpread.toFixed(2)} </td>
           </tr>
           {bidArray.map(([price, size], index) => (
             <tr key={"bid" + index}>
