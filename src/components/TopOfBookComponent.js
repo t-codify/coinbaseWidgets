@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import PriceBoxComponent from "./PriceBoxComponent";
-import ProductContext from "../utils/ProductContext";
 const TopOfBookComponent = ({ ticker }) => {
   //const { ticker } = useContext(ProductContext);
   const color = ticker.side === "buy" ? "text-[#00ff00]" : "text-[#ff0000]";

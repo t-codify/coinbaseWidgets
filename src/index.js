@@ -3,8 +3,6 @@ import ReactDOM from "react-dom/client";
 import WebSocketComponent from "./components/WebsocketComponent";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import ProductContext from "./utils/ProductContext";
-import OrderBook from "./components/OrderBook";
-import useWebSocket from "./utils/customHooks/useWebSocket";
 const AppLayout = () => {
   const [tickerData, setTickerData] = useState();
   const [l2UpdateData, setl2UpdateData] = useState();
