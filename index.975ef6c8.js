@@ -2962,10 +2962,6 @@ var _websocketComponentDefault = parcelHelpers.interopDefault(_websocketComponen
 var _reactRouterDom = require("react-router-dom");
 var _productContext = require("./utils/ProductContext");
 var _productContextDefault = parcelHelpers.interopDefault(_productContext);
-var _orderBook = require("./components/OrderBook");
-var _orderBookDefault = parcelHelpers.interopDefault(_orderBook);
-var _useWebSocket = require("./utils/customHooks/useWebSocket");
-var _useWebSocketDefault = parcelHelpers.interopDefault(_useWebSocket);
 var _s = $RefreshSig$();
 const AppLayout = ()=>{
     _s();
@@ -2984,17 +2980,17 @@ const AppLayout = ()=>{
             },
             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _websocketComponentDefault.default), {}, void 0, false, {
                 fileName: "src/index.js",
-                lineNumber: 24,
+                lineNumber: 22,
                 columnNumber: 9
             }, undefined)
         }, void 0, false, {
             fileName: "src/index.js",
-            lineNumber: 14,
+            lineNumber: 12,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/index.js",
-        lineNumber: 13,
+        lineNumber: 11,
         columnNumber: 5
     }, undefined);
 };
@@ -3005,7 +3001,7 @@ const appRouter = (0, _reactRouterDom.createBrowserRouter)([
         path: "/",
         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(AppLayout, {}, void 0, false, {
             fileName: "src/index.js",
-            lineNumber: 34,
+            lineNumber: 32,
             columnNumber: 14
         }, undefined)
     },
@@ -3013,7 +3009,7 @@ const appRouter = (0, _reactRouterDom.createBrowserRouter)([
         path: "/coinbaseWidgets/",
         element: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(AppLayout, {}, void 0, false, {
             fileName: "src/index.js",
-            lineNumber: 38,
+            lineNumber: 36,
             columnNumber: 14
         }, undefined)
     }
@@ -3023,7 +3019,7 @@ rootEle.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Rout
     router: appRouter
 }, void 0, false, {
     fileName: "src/index.js",
-    lineNumber: 42,
+    lineNumber: 40,
     columnNumber: 16
 }, undefined));
 var _c;
@@ -3034,7 +3030,7 @@ $RefreshReg$(_c, "AppLayout");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./components/WebsocketComponent":"9Queg","react-router-dom":"9xmpe","./utils/ProductContext":"ah0dq","./components/OrderBook":"abTom","./utils/customHooks/useWebSocket":"f6ihu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./components/WebsocketComponent":"9Queg","react-router-dom":"9xmpe","./utils/ProductContext":"ah0dq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27530,11 +27526,6 @@ try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _react = require("react");
-var _priceBoxComponent = require("./PriceBoxComponent");
-var _priceBoxComponentDefault = parcelHelpers.interopDefault(_priceBoxComponent);
-var _productContext = require("../utils/ProductContext");
-var _productContextDefault = parcelHelpers.interopDefault(_productContext);
 const TopOfBookComponent = ({ ticker })=>{
     //const { ticker } = useContext(ProductContext);
     const color = ticker.side === "buy" ? "text-[#00ff00]" : "text-[#ff0000]";
@@ -27552,7 +27543,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: "Best Bid"
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 13,
+                                lineNumber: 10,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27560,7 +27551,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: "Bid Size"
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 14,
+                                lineNumber: 11,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27568,7 +27559,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: "Best Ask"
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 15,
+                                lineNumber: 12,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27576,7 +27567,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: "Ask Size"
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 16,
+                                lineNumber: 13,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27584,7 +27575,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: "Price"
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 17,
+                                lineNumber: 14,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27592,13 +27583,13 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: "24hr Volume"
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 18,
+                                lineNumber: 15,
                                 columnNumber: 13
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/TopOfBookComponent.js",
-                        lineNumber: 12,
+                        lineNumber: 9,
                         columnNumber: 11
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
@@ -27609,7 +27600,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: ticker.best_bid
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 21,
+                                lineNumber: 18,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27617,7 +27608,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: ticker.best_bid_size
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 22,
+                                lineNumber: 19,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27625,7 +27616,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: ticker.best_ask
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 23,
+                                lineNumber: 20,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27633,7 +27624,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: ticker.best_ask_size
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 24,
+                                lineNumber: 21,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27641,7 +27632,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: ticker.price
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 25,
+                                lineNumber: 22,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27649,29 +27640,29 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: ticker.volume_24h
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 26,
+                                lineNumber: 23,
                                 columnNumber: 13
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/TopOfBookComponent.js",
-                        lineNumber: 20,
+                        lineNumber: 17,
                         columnNumber: 11
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/TopOfBookComponent.js",
-                lineNumber: 11,
+                lineNumber: 8,
                 columnNumber: 9
             }, undefined)
         }, void 0, false, {
             fileName: "src/components/TopOfBookComponent.js",
-            lineNumber: 10,
+            lineNumber: 7,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/TopOfBookComponent.js",
-        lineNumber: 9,
+        lineNumber: 6,
         columnNumber: 5
     }, undefined);
 };
@@ -27681,138 +27672,6 @@ var _c;
 $RefreshReg$(_c, "TopOfBookComponent");
 
   $parcel$ReactRefreshHelpers$4e64.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./PriceBoxComponent":"2q56w","../utils/ProductContext":"ah0dq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"2q56w":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$a9cb = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$a9cb.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _jsxDevRuntime = require("react/jsx-dev-runtime");
-const PriceBoxComponent = ({ ticker })=>{
-    const { type, best, price, size } = ticker;
-    const bgColor = type.toUpperCase() === "ASK" ? "bg-green-800" : "bg-blue-800";
-    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "relative bg-white m-5 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:rounded-lg ",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-            className: "border-solid border-s-blue-500",
-            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "divide-y divide-gray-300/50",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "bg-blue-800 py-8 w-full text-basetext-gray-600",
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                            className: "px-4 text-lg font-extrabold text-white",
-                            children: [
-                                "Best ",
-                                type,
-                                ": ",
-                                best
-                            ]
-                        }, void 0, true, {
-                            fileName: "src/components/PriceBoxComponent.js",
-                            lineNumber: 9,
-                            columnNumber: 13
-                        }, undefined)
-                    }, void 0, false, {
-                        fileName: "src/components/PriceBoxComponent.js",
-                        lineNumber: 8,
-                        columnNumber: 11
-                    }, undefined),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                        className: "flex flex-row pt-4 text-base font-semibold leading-7 justify-between",
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "px-6",
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                        className: "text-gray-900",
-                                        children: price
-                                    }, void 0, false, {
-                                        fileName: "src/components/PriceBoxComponent.js",
-                                        lineNumber: 15,
-                                        columnNumber: 15
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                        className: "text-gray-400 text-sm",
-                                        children: [
-                                            type,
-                                            " Price"
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "src/components/PriceBoxComponent.js",
-                                        lineNumber: 16,
-                                        columnNumber: 15
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/PriceBoxComponent.js",
-                                lineNumber: 14,
-                                columnNumber: 13
-                            }, undefined),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "px-6 text-right",
-                                children: [
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                        className: "text-gray-900",
-                                        children: size
-                                    }, void 0, false, {
-                                        fileName: "src/components/PriceBoxComponent.js",
-                                        lineNumber: 19,
-                                        columnNumber: 15
-                                    }, undefined),
-                                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                        className: "text-gray-400 text-sm",
-                                        children: [
-                                            type,
-                                            " Quantity"
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "src/components/PriceBoxComponent.js",
-                                        lineNumber: 20,
-                                        columnNumber: 15
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/components/PriceBoxComponent.js",
-                                lineNumber: 18,
-                                columnNumber: 13
-                            }, undefined)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/components/PriceBoxComponent.js",
-                        lineNumber: 13,
-                        columnNumber: 11
-                    }, undefined)
-                ]
-            }, void 0, true, {
-                fileName: "src/components/PriceBoxComponent.js",
-                lineNumber: 7,
-                columnNumber: 9
-            }, undefined)
-        }, void 0, false, {
-            fileName: "src/components/PriceBoxComponent.js",
-            lineNumber: 6,
-            columnNumber: 7
-        }, undefined)
-    }, void 0, false, {
-        fileName: "src/components/PriceBoxComponent.js",
-        lineNumber: 5,
-        columnNumber: 5
-    }, undefined);
-};
-_c = PriceBoxComponent;
-exports.default = PriceBoxComponent;
-var _c;
-$RefreshReg$(_c, "PriceBoxComponent");
-
-  $parcel$ReactRefreshHelpers$a9cb.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
@@ -27955,29 +27814,7 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"7422ead32dcc1e6b":"786KC"}],"ah0dq":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$2a03 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$2a03.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _react = require("react");
-const ProductContext = /*#__PURE__*/ (0, _react.createContext)({
-    ticker: {},
-    snapshot: {},
-    l2update: {}
-});
-exports.default = ProductContext;
-
-  $parcel$ReactRefreshHelpers$2a03.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"abTom":[function(require,module,exports) {
+},{"7422ead32dcc1e6b":"786KC"}],"abTom":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$b76d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -28208,7 +28045,29 @@ $RefreshReg$(_c, "OrderBook");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/ProductContext":"ah0dq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"25Tos":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/ProductContext":"ah0dq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"ah0dq":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$2a03 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$2a03.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _react = require("react");
+const ProductContext = /*#__PURE__*/ (0, _react.createContext)({
+    ticker: {},
+    snapshot: {},
+    l2update: {}
+});
+exports.default = ProductContext;
+
+  $parcel$ReactRefreshHelpers$2a03.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"25Tos":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$d4a5 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -28230,33 +28089,54 @@ const formatDate = (0, _d3TimeFormat.timeFormat)("%Y-%m-%d %H:%M:%S");
 const RealTimePriceChart = ({ width, height })=>{
     _s();
     const { ticker } = (0, _react.useContext)((0, _productContextDefault.default));
-    const maxPoints = 100;
+    const maxPoints = 50;
+    const historyBuffer = 100; // Buffer size for historical data
     const [chartData, setChartData] = (0, _react.useState)([]);
+    const [displayData, setDisplayData] = (0, _react.useState)([]);
+    const [redrawKey, setRedrawKey] = (0, _react.useState)(false);
     (0, _react.useEffect)(()=>{
         if (ticker?.best_ask && ticker?.best_bid && ticker?.time) {
-            const newData = [
-                ...chartData,
-                {
-                    ask: parseFloat(ticker.best_ask),
-                    bid: parseFloat(ticker.best_bid),
-                    x: new Date(ticker.time)
-                }
-            ];
-            // Keep only the most recent `maxPoints` data points
-            if (newData.length > maxPoints) newData.shift(); // Remove the oldest data point
-            setChartData(newData);
-        // Trigger a redraw
-        // setRedrawKey((prevKey) => prevKey + 1);
-        } else setChartData([]);
+            setRedrawKey(false);
+            const newPoint = {
+                ask: parseFloat(ticker.best_ask),
+                bid: parseFloat(ticker.best_bid),
+                x: new Date(ticker.time)
+            };
+            setChartData((prevData)=>{
+                const updatedData = [
+                    ...prevData,
+                    newPoint
+                ];
+                // Keep a buffer of historical data
+                if (updatedData.length > historyBuffer) updatedData.shift();
+                return updatedData;
+            });
+        } else {
+            setChartData([]);
+            setRedrawKey(true);
+        }
     }, [
         ticker
     ]);
+    (0, _react.useEffect)(()=>{
+        if (chartData.length > 0) // Update displayData to show only the most recent `maxPoints` data points
+        setDisplayData((prevData)=>{
+            const endIndex = chartData.length;
+            const startIndex = Math.max(endIndex - maxPoints, 0);
+            return chartData.slice(startIndex, endIndex);
+        });
+    }, [
+        chartData
+    ]);
     const yAccessorBid = (d)=>d?.bid;
     const yAccessorAsk = (d)=>d?.ask;
-    const xExtents = [
-        chartData[0]?.x,
-        chartData[chartData.length - 1]?.x
-    ];
+    const xExtents = displayData.length > 0 ? [
+        displayData[0].x,
+        new Date(displayData[displayData.length - 1].x.getTime() + (displayData[displayData.length - 1].x.getTime() - displayData[0].x.getTime()) * 0.1)
+    ] : [
+        new Date(),
+        new Date()
+    ]; // Fallback to current date if no data
     const getXTicks = (data, tickCount)=>{
         if (data.length === 0) return [];
         const [minDate, maxDate] = [
@@ -28268,20 +28148,31 @@ const RealTimePriceChart = ({ width, height })=>{
         for(let i = 0; i < tickCount; i++)ticks.push(new Date(minDate + i * step));
         return ticks;
     };
+    const getYTicks = (data, tickCount)=>{
+        if (data.length === 0) return [];
+        const [minPrice, maxPrice] = [
+            Math.min(...data.map((d)=>d?.ask)),
+            Math.max(...data.map((d)=>d?.bid))
+        ];
+        const step = (maxPrice - minPrice) / (tickCount - 1);
+        const ticks = [];
+        for(let i = 0; i < tickCount; i++)ticks.push(minPrice + i * step);
+        return ticks;
+    };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "relative w-full h-full overflow-auto",
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.ChartCanvas), {
             height: height,
             width: width,
             margin: {
-                top: 0,
+                top: height ? 10 : 0,
                 right: 80,
-                bottom: 40,
+                bottom: height ? 40 : 0,
                 left: 20
             },
             ratio: 1,
             seriesName: "Real-Time Data",
-            data: chartData,
+            data: displayData,
             xAccessor: (d)=>d?.x,
             xScale: (0, _d3Scale.scaleTime)(),
             yScale: (0, _d3Scale.scaleLinear)(),
@@ -28298,8 +28189,7 @@ const RealTimePriceChart = ({ width, height })=>{
                         ],
                     children: [
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.XAxis), {
-                            showGridLines: true,
-                            tickValues: getXTicks(chartData, 5),
+                            tickValues: getXTicks(displayData, 5),
                             tickFormat: formatDate,
                             tickStrokeStyle: "#ff0000",
                             tickLabelFill: "#94a3b8",
@@ -28308,27 +28198,26 @@ const RealTimePriceChart = ({ width, height })=>{
                             tickSize: 5
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 95,
+                            lineNumber: 134,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.YAxis), {
-                            showGridLines: true,
                             tickStrokeStyle: "#00ff00",
                             tickLabelFill: "#94a3b8",
-                            tickSize: 5,
+                            tickValues: getYTicks(displayData, 5),
                             zoomEnabled: true
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 105,
+                            lineNumber: 143,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.LineSeries), {
                             yAccessor: yAccessorBid,
                             strokeStyle: "#00ff00",
-                            strokeWidth: 2
+                            strokeWidth: 1
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 112,
+                            lineNumber: 149,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CurrentCoordinate), {
@@ -28336,16 +28225,16 @@ const RealTimePriceChart = ({ width, height })=>{
                             fillStyle: "#00ff00"
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 117,
+                            lineNumber: 154,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.LineSeries), {
                             yAccessor: yAccessorAsk,
                             strokeStyle: "#ff0000",
-                            strokeWidth: 2
+                            strokeWidth: 1
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 118,
+                            lineNumber: 155,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CurrentCoordinate), {
@@ -28353,21 +28242,21 @@ const RealTimePriceChart = ({ width, height })=>{
                             fillStyle: "#ff0000"
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 123,
+                            lineNumber: 160,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MouseCoordinateX), {
                             displayFormat: formatDate
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 124,
+                            lineNumber: 161,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MouseCoordinateY), {
                             displayFormat: (d)=>d.toFixed(2)
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 127,
+                            lineNumber: 164,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MovingAverageTooltip), {
@@ -28392,38 +28281,38 @@ const RealTimePriceChart = ({ width, height })=>{
                             ]
                         }, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 130,
+                            lineNumber: 167,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.ZoomButtons), {}, void 0, false, {
                             fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 148,
+                            lineNumber: 185,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/RealTimePriceChart.js",
-                    lineNumber: 94,
+                    lineNumber: 133,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CrossHairCursor), {}, void 0, false, {
                     fileName: "src/components/RealTimePriceChart.js",
-                    lineNumber: 150,
+                    lineNumber: 187,
                     columnNumber: 9
                 }, undefined)
             ]
-        }, true, true, {
+        }, redrawKey, true, {
             fileName: "src/components/RealTimePriceChart.js",
-            lineNumber: 73,
+            lineNumber: 112,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/RealTimePriceChart.js",
-        lineNumber: 72,
+        lineNumber: 111,
         columnNumber: 5
     }, undefined);
 };
-_s(RealTimePriceChart, "i/qJi2yC1dCKLadj7EXEwPtIOpI=");
+_s(RealTimePriceChart, "NlSAV9xgCg0IyR57CNx2uOFKj0E=");
 _c = RealTimePriceChart;
 exports.default = RealTimePriceChart;
 var _c;
@@ -41980,7 +41869,364 @@ function formatUnixTimestampSeconds(d) {
     return Math.floor(+d / 1000);
 }
 
-},{"d3-time":"1UOEe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kAVeE":[function(require,module,exports) {
+},{"d3-time":"4giUZ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4giUZ":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "timeInterval", ()=>(0, _intervalJsDefault.default));
+parcelHelpers.export(exports, "timeMillisecond", ()=>(0, _millisecondJsDefault.default));
+parcelHelpers.export(exports, "timeMilliseconds", ()=>(0, _millisecondJs.milliseconds));
+parcelHelpers.export(exports, "utcMillisecond", ()=>(0, _millisecondJsDefault.default));
+parcelHelpers.export(exports, "utcMilliseconds", ()=>(0, _millisecondJs.milliseconds));
+parcelHelpers.export(exports, "timeSecond", ()=>(0, _secondJsDefault.default));
+parcelHelpers.export(exports, "timeSeconds", ()=>(0, _secondJs.seconds));
+parcelHelpers.export(exports, "utcSecond", ()=>(0, _secondJsDefault.default));
+parcelHelpers.export(exports, "utcSeconds", ()=>(0, _secondJs.seconds));
+parcelHelpers.export(exports, "timeMinute", ()=>(0, _minuteJsDefault.default));
+parcelHelpers.export(exports, "timeMinutes", ()=>(0, _minuteJs.minutes));
+parcelHelpers.export(exports, "timeHour", ()=>(0, _hourJsDefault.default));
+parcelHelpers.export(exports, "timeHours", ()=>(0, _hourJs.hours));
+parcelHelpers.export(exports, "timeDay", ()=>(0, _dayJsDefault.default));
+parcelHelpers.export(exports, "timeDays", ()=>(0, _dayJs.days));
+parcelHelpers.export(exports, "timeWeek", ()=>(0, _weekJs.sunday));
+parcelHelpers.export(exports, "timeWeeks", ()=>(0, _weekJs.sundays));
+parcelHelpers.export(exports, "timeSunday", ()=>(0, _weekJs.sunday));
+parcelHelpers.export(exports, "timeSundays", ()=>(0, _weekJs.sundays));
+parcelHelpers.export(exports, "timeMonday", ()=>(0, _weekJs.monday));
+parcelHelpers.export(exports, "timeMondays", ()=>(0, _weekJs.mondays));
+parcelHelpers.export(exports, "timeTuesday", ()=>(0, _weekJs.tuesday));
+parcelHelpers.export(exports, "timeTuesdays", ()=>(0, _weekJs.tuesdays));
+parcelHelpers.export(exports, "timeWednesday", ()=>(0, _weekJs.wednesday));
+parcelHelpers.export(exports, "timeWednesdays", ()=>(0, _weekJs.wednesdays));
+parcelHelpers.export(exports, "timeThursday", ()=>(0, _weekJs.thursday));
+parcelHelpers.export(exports, "timeThursdays", ()=>(0, _weekJs.thursdays));
+parcelHelpers.export(exports, "timeFriday", ()=>(0, _weekJs.friday));
+parcelHelpers.export(exports, "timeFridays", ()=>(0, _weekJs.fridays));
+parcelHelpers.export(exports, "timeSaturday", ()=>(0, _weekJs.saturday));
+parcelHelpers.export(exports, "timeSaturdays", ()=>(0, _weekJs.saturdays));
+parcelHelpers.export(exports, "timeMonth", ()=>(0, _monthJsDefault.default));
+parcelHelpers.export(exports, "timeMonths", ()=>(0, _monthJs.months));
+parcelHelpers.export(exports, "timeYear", ()=>(0, _yearJsDefault.default));
+parcelHelpers.export(exports, "timeYears", ()=>(0, _yearJs.years));
+parcelHelpers.export(exports, "utcMinute", ()=>(0, _utcMinuteJsDefault.default));
+parcelHelpers.export(exports, "utcMinutes", ()=>(0, _utcMinuteJs.utcMinutes));
+parcelHelpers.export(exports, "utcHour", ()=>(0, _utcHourJsDefault.default));
+parcelHelpers.export(exports, "utcHours", ()=>(0, _utcHourJs.utcHours));
+parcelHelpers.export(exports, "utcDay", ()=>(0, _utcDayJsDefault.default));
+parcelHelpers.export(exports, "utcDays", ()=>(0, _utcDayJs.utcDays));
+parcelHelpers.export(exports, "utcWeek", ()=>(0, _utcWeekJs.utcSunday));
+parcelHelpers.export(exports, "utcWeeks", ()=>(0, _utcWeekJs.utcSundays));
+parcelHelpers.export(exports, "utcSunday", ()=>(0, _utcWeekJs.utcSunday));
+parcelHelpers.export(exports, "utcSundays", ()=>(0, _utcWeekJs.utcSundays));
+parcelHelpers.export(exports, "utcMonday", ()=>(0, _utcWeekJs.utcMonday));
+parcelHelpers.export(exports, "utcMondays", ()=>(0, _utcWeekJs.utcMondays));
+parcelHelpers.export(exports, "utcTuesday", ()=>(0, _utcWeekJs.utcTuesday));
+parcelHelpers.export(exports, "utcTuesdays", ()=>(0, _utcWeekJs.utcTuesdays));
+parcelHelpers.export(exports, "utcWednesday", ()=>(0, _utcWeekJs.utcWednesday));
+parcelHelpers.export(exports, "utcWednesdays", ()=>(0, _utcWeekJs.utcWednesdays));
+parcelHelpers.export(exports, "utcThursday", ()=>(0, _utcWeekJs.utcThursday));
+parcelHelpers.export(exports, "utcThursdays", ()=>(0, _utcWeekJs.utcThursdays));
+parcelHelpers.export(exports, "utcFriday", ()=>(0, _utcWeekJs.utcFriday));
+parcelHelpers.export(exports, "utcFridays", ()=>(0, _utcWeekJs.utcFridays));
+parcelHelpers.export(exports, "utcSaturday", ()=>(0, _utcWeekJs.utcSaturday));
+parcelHelpers.export(exports, "utcSaturdays", ()=>(0, _utcWeekJs.utcSaturdays));
+parcelHelpers.export(exports, "utcMonth", ()=>(0, _utcMonthJsDefault.default));
+parcelHelpers.export(exports, "utcMonths", ()=>(0, _utcMonthJs.utcMonths));
+parcelHelpers.export(exports, "utcYear", ()=>(0, _utcYearJsDefault.default));
+parcelHelpers.export(exports, "utcYears", ()=>(0, _utcYearJs.utcYears));
+parcelHelpers.export(exports, "utcTicks", ()=>(0, _ticksJs.utcTicks));
+parcelHelpers.export(exports, "utcTickInterval", ()=>(0, _ticksJs.utcTickInterval));
+parcelHelpers.export(exports, "timeTicks", ()=>(0, _ticksJs.timeTicks));
+parcelHelpers.export(exports, "timeTickInterval", ()=>(0, _ticksJs.timeTickInterval));
+var _intervalJs = require("./interval.js");
+var _intervalJsDefault = parcelHelpers.interopDefault(_intervalJs);
+var _millisecondJs = require("./millisecond.js");
+var _millisecondJsDefault = parcelHelpers.interopDefault(_millisecondJs);
+var _secondJs = require("./second.js");
+var _secondJsDefault = parcelHelpers.interopDefault(_secondJs);
+var _minuteJs = require("./minute.js");
+var _minuteJsDefault = parcelHelpers.interopDefault(_minuteJs);
+var _hourJs = require("./hour.js");
+var _hourJsDefault = parcelHelpers.interopDefault(_hourJs);
+var _dayJs = require("./day.js");
+var _dayJsDefault = parcelHelpers.interopDefault(_dayJs);
+var _weekJs = require("./week.js");
+var _monthJs = require("./month.js");
+var _monthJsDefault = parcelHelpers.interopDefault(_monthJs);
+var _yearJs = require("./year.js");
+var _yearJsDefault = parcelHelpers.interopDefault(_yearJs);
+var _utcMinuteJs = require("./utcMinute.js");
+var _utcMinuteJsDefault = parcelHelpers.interopDefault(_utcMinuteJs);
+var _utcHourJs = require("./utcHour.js");
+var _utcHourJsDefault = parcelHelpers.interopDefault(_utcHourJs);
+var _utcDayJs = require("./utcDay.js");
+var _utcDayJsDefault = parcelHelpers.interopDefault(_utcDayJs);
+var _utcWeekJs = require("./utcWeek.js");
+var _utcMonthJs = require("./utcMonth.js");
+var _utcMonthJsDefault = parcelHelpers.interopDefault(_utcMonthJs);
+var _utcYearJs = require("./utcYear.js");
+var _utcYearJsDefault = parcelHelpers.interopDefault(_utcYearJs);
+var _ticksJs = require("./ticks.js");
+
+},{"./interval.js":false,"./millisecond.js":false,"./second.js":false,"./minute.js":false,"./hour.js":false,"./day.js":"73ZGz","./week.js":"c0PjD","./month.js":false,"./year.js":"1WMyN","./utcMinute.js":false,"./utcHour.js":false,"./utcDay.js":"2BgYG","./utcWeek.js":"1YfjU","./utcMonth.js":false,"./utcYear.js":"jAURK","./ticks.js":false,"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"22MVD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "default", ()=>newInterval);
+var t0 = new Date, t1 = new Date;
+function newInterval(floori, offseti, count, field) {
+    function interval(date) {
+        return floori(date = arguments.length === 0 ? new Date : new Date(+date)), date;
+    }
+    interval.floor = function(date) {
+        return floori(date = new Date(+date)), date;
+    };
+    interval.ceil = function(date) {
+        return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
+    };
+    interval.round = function(date) {
+        var d0 = interval(date), d1 = interval.ceil(date);
+        return date - d0 < d1 - date ? d0 : d1;
+    };
+    interval.offset = function(date, step) {
+        return offseti(date = new Date(+date), step == null ? 1 : Math.floor(step)), date;
+    };
+    interval.range = function(start, stop, step) {
+        var range = [], previous;
+        start = interval.ceil(start);
+        step = step == null ? 1 : Math.floor(step);
+        if (!(start < stop) || !(step > 0)) return range; // also handles Invalid Date
+        do range.push(previous = new Date(+start)), offseti(start, step), floori(start);
+        while (previous < start && start < stop);
+        return range;
+    };
+    interval.filter = function(test) {
+        return newInterval(function(date) {
+            if (date >= date) while(floori(date), !test(date))date.setTime(date - 1);
+        }, function(date, step) {
+            if (date >= date) {
+                if (step < 0) while(++step <= 0){
+                    while(offseti(date, -1), !test(date)); // eslint-disable-line no-empty
+                }
+                else while(--step >= 0){
+                    while(offseti(date, 1), !test(date)); // eslint-disable-line no-empty
+                }
+            }
+        });
+    };
+    if (count) {
+        interval.count = function(start, end) {
+            t0.setTime(+start), t1.setTime(+end);
+            floori(t0), floori(t1);
+            return Math.floor(count(t0, t1));
+        };
+        interval.every = function(step) {
+            step = Math.floor(step);
+            return !isFinite(step) || !(step > 0) ? null : !(step > 1) ? interval : interval.filter(field ? function(d) {
+                return field(d) % step === 0;
+            } : function(d) {
+                return interval.count(0, d) % step === 0;
+            });
+        };
+    }
+    return interval;
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"73ZGz":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "days", ()=>days);
+var _intervalJs = require("./interval.js");
+var _intervalJsDefault = parcelHelpers.interopDefault(_intervalJs);
+var _durationJs = require("./duration.js");
+var day = (0, _intervalJsDefault.default)((date)=>date.setHours(0, 0, 0, 0), (date, step)=>date.setDate(date.getDate() + step), (start, end)=>(end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * (0, _durationJs.durationMinute)) / (0, _durationJs.durationDay), (date)=>date.getDate() - 1);
+exports.default = day;
+var days = day.range;
+
+},{"./interval.js":"22MVD","./duration.js":"49PlV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"49PlV":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "durationSecond", ()=>durationSecond);
+parcelHelpers.export(exports, "durationMinute", ()=>durationMinute);
+parcelHelpers.export(exports, "durationHour", ()=>durationHour);
+parcelHelpers.export(exports, "durationDay", ()=>durationDay);
+parcelHelpers.export(exports, "durationWeek", ()=>durationWeek);
+parcelHelpers.export(exports, "durationMonth", ()=>durationMonth);
+parcelHelpers.export(exports, "durationYear", ()=>durationYear);
+const durationSecond = 1000;
+const durationMinute = durationSecond * 60;
+const durationHour = durationMinute * 60;
+const durationDay = durationHour * 24;
+const durationWeek = durationDay * 7;
+const durationMonth = durationDay * 30;
+const durationYear = durationDay * 365;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"c0PjD":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "sunday", ()=>sunday);
+parcelHelpers.export(exports, "monday", ()=>monday);
+parcelHelpers.export(exports, "tuesday", ()=>tuesday);
+parcelHelpers.export(exports, "wednesday", ()=>wednesday);
+parcelHelpers.export(exports, "thursday", ()=>thursday);
+parcelHelpers.export(exports, "friday", ()=>friday);
+parcelHelpers.export(exports, "saturday", ()=>saturday);
+parcelHelpers.export(exports, "sundays", ()=>sundays);
+parcelHelpers.export(exports, "mondays", ()=>mondays);
+parcelHelpers.export(exports, "tuesdays", ()=>tuesdays);
+parcelHelpers.export(exports, "wednesdays", ()=>wednesdays);
+parcelHelpers.export(exports, "thursdays", ()=>thursdays);
+parcelHelpers.export(exports, "fridays", ()=>fridays);
+parcelHelpers.export(exports, "saturdays", ()=>saturdays);
+var _intervalJs = require("./interval.js");
+var _intervalJsDefault = parcelHelpers.interopDefault(_intervalJs);
+var _durationJs = require("./duration.js");
+function weekday(i) {
+    return (0, _intervalJsDefault.default)(function(date) {
+        date.setDate(date.getDate() - (date.getDay() + 7 - i) % 7);
+        date.setHours(0, 0, 0, 0);
+    }, function(date, step) {
+        date.setDate(date.getDate() + step * 7);
+    }, function(start, end) {
+        return (end - start - (end.getTimezoneOffset() - start.getTimezoneOffset()) * (0, _durationJs.durationMinute)) / (0, _durationJs.durationWeek);
+    });
+}
+var sunday = weekday(0);
+var monday = weekday(1);
+var tuesday = weekday(2);
+var wednesday = weekday(3);
+var thursday = weekday(4);
+var friday = weekday(5);
+var saturday = weekday(6);
+var sundays = sunday.range;
+var mondays = monday.range;
+var tuesdays = tuesday.range;
+var wednesdays = wednesday.range;
+var thursdays = thursday.range;
+var fridays = friday.range;
+var saturdays = saturday.range;
+
+},{"./interval.js":"22MVD","./duration.js":"49PlV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1WMyN":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "years", ()=>years);
+var _intervalJs = require("./interval.js");
+var _intervalJsDefault = parcelHelpers.interopDefault(_intervalJs);
+var year = (0, _intervalJsDefault.default)(function(date) {
+    date.setMonth(0, 1);
+    date.setHours(0, 0, 0, 0);
+}, function(date, step) {
+    date.setFullYear(date.getFullYear() + step);
+}, function(start, end) {
+    return end.getFullYear() - start.getFullYear();
+}, function(date) {
+    return date.getFullYear();
+});
+// An optimized implementation for this simple case.
+year.every = function(k) {
+    return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : (0, _intervalJsDefault.default)(function(date) {
+        date.setFullYear(Math.floor(date.getFullYear() / k) * k);
+        date.setMonth(0, 1);
+        date.setHours(0, 0, 0, 0);
+    }, function(date, step) {
+        date.setFullYear(date.getFullYear() + step * k);
+    });
+};
+exports.default = year;
+var years = year.range;
+
+},{"./interval.js":"22MVD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2BgYG":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "utcDays", ()=>utcDays);
+var _intervalJs = require("./interval.js");
+var _intervalJsDefault = parcelHelpers.interopDefault(_intervalJs);
+var _durationJs = require("./duration.js");
+var utcDay = (0, _intervalJsDefault.default)(function(date) {
+    date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+    date.setUTCDate(date.getUTCDate() + step);
+}, function(start, end) {
+    return (end - start) / (0, _durationJs.durationDay);
+}, function(date) {
+    return date.getUTCDate() - 1;
+});
+exports.default = utcDay;
+var utcDays = utcDay.range;
+
+},{"./interval.js":"22MVD","./duration.js":"49PlV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1YfjU":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "utcSunday", ()=>utcSunday);
+parcelHelpers.export(exports, "utcMonday", ()=>utcMonday);
+parcelHelpers.export(exports, "utcTuesday", ()=>utcTuesday);
+parcelHelpers.export(exports, "utcWednesday", ()=>utcWednesday);
+parcelHelpers.export(exports, "utcThursday", ()=>utcThursday);
+parcelHelpers.export(exports, "utcFriday", ()=>utcFriday);
+parcelHelpers.export(exports, "utcSaturday", ()=>utcSaturday);
+parcelHelpers.export(exports, "utcSundays", ()=>utcSundays);
+parcelHelpers.export(exports, "utcMondays", ()=>utcMondays);
+parcelHelpers.export(exports, "utcTuesdays", ()=>utcTuesdays);
+parcelHelpers.export(exports, "utcWednesdays", ()=>utcWednesdays);
+parcelHelpers.export(exports, "utcThursdays", ()=>utcThursdays);
+parcelHelpers.export(exports, "utcFridays", ()=>utcFridays);
+parcelHelpers.export(exports, "utcSaturdays", ()=>utcSaturdays);
+var _intervalJs = require("./interval.js");
+var _intervalJsDefault = parcelHelpers.interopDefault(_intervalJs);
+var _durationJs = require("./duration.js");
+function utcWeekday(i) {
+    return (0, _intervalJsDefault.default)(function(date) {
+        date.setUTCDate(date.getUTCDate() - (date.getUTCDay() + 7 - i) % 7);
+        date.setUTCHours(0, 0, 0, 0);
+    }, function(date, step) {
+        date.setUTCDate(date.getUTCDate() + step * 7);
+    }, function(start, end) {
+        return (end - start) / (0, _durationJs.durationWeek);
+    });
+}
+var utcSunday = utcWeekday(0);
+var utcMonday = utcWeekday(1);
+var utcTuesday = utcWeekday(2);
+var utcWednesday = utcWeekday(3);
+var utcThursday = utcWeekday(4);
+var utcFriday = utcWeekday(5);
+var utcSaturday = utcWeekday(6);
+var utcSundays = utcSunday.range;
+var utcMondays = utcMonday.range;
+var utcTuesdays = utcTuesday.range;
+var utcWednesdays = utcWednesday.range;
+var utcThursdays = utcThursday.range;
+var utcFridays = utcFriday.range;
+var utcSaturdays = utcSaturday.range;
+
+},{"./interval.js":"22MVD","./duration.js":"49PlV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jAURK":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "utcYears", ()=>utcYears);
+var _intervalJs = require("./interval.js");
+var _intervalJsDefault = parcelHelpers.interopDefault(_intervalJs);
+var utcYear = (0, _intervalJsDefault.default)(function(date) {
+    date.setUTCMonth(0, 1);
+    date.setUTCHours(0, 0, 0, 0);
+}, function(date, step) {
+    date.setUTCFullYear(date.getUTCFullYear() + step);
+}, function(start, end) {
+    return end.getUTCFullYear() - start.getUTCFullYear();
+}, function(date) {
+    return date.getUTCFullYear();
+});
+// An optimized implementation for this simple case.
+utcYear.every = function(k) {
+    return !isFinite(k = Math.floor(k)) || !(k > 0) ? null : (0, _intervalJsDefault.default)(function(date) {
+        date.setUTCFullYear(Math.floor(date.getUTCFullYear() / k) * k);
+        date.setUTCMonth(0, 1);
+        date.setUTCHours(0, 0, 0, 0);
+    }, function(date, step) {
+        date.setUTCFullYear(date.getUTCFullYear() + step * k);
+    });
+};
+exports.default = utcYear;
+var utcYears = utcYear.range;
+
+},{"./interval.js":"22MVD","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"kAVeE":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>nice);
