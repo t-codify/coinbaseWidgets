@@ -7,8 +7,9 @@ const AppLayout = () => {
   const [tickerData, setTickerData] = useState();
   const [l2UpdateData, setl2UpdateData] = useState();
   const [snapshotData, setSnapshotData] = useState();
+  const [isExpanded, setIsExpanded] = useState();
   return (
-    <div>
+    <div className="p-0 m-0 min-h-screen">
       <ProductContext.Provider
         value={{
           ticker: tickerData,
@@ -17,10 +18,11 @@ const AppLayout = () => {
           setl2UpdateData,
           snapshot: snapshotData,
           setSnapshotData,
+          isExpanded: isExpanded,
+          setIsExpanded,
         }}
       >
         <WebSocketComponent />
-        {/* <OrderBook /> */}
       </ProductContext.Provider>
     </div>
   );

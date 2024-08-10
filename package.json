@@ -20,6 +20,8 @@
   },
   "homepage": "https://t-codify.github.io/coinbaseWidgets/#",
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "d3-scale": "^4.0.2",
     "d3-time-format": "^3.0.0",
     "moment": "^2.30.1",

@@ -5,7 +5,8 @@ const OrderBook = ({ processSnapshot, curr }) => {
   const [bids, setBids] = useState(new Map());
   const [asks, setAsks] = useState(new Map());
   const [snapshotProcessed, setSnapshotProcessed] = useState(!processSnapshot); // Track if snapshot has been processed
-  const { l2update, snapshot } = useContext(ProductContext);
+  const [aggregation, setAggregation] = useState(0.001); // Default aggregation level
+  const { l2update, snapshot, setl2UpdateData } = useContext(ProductContext);
 
   useEffect(() => {
     // Initialize the order book with snapshot data
@@ -27,7 +28,8 @@ const OrderBook = ({ processSnapshot, curr }) => {
       setAsks(newAsks);
       setSnapshotProcessed(true); // Mark snapshot as processed
     }
-  }, [snapshot, snapshotProcessed]);
+    //setl2UpdateData({});
+  }, [snapshot]);
   useEffect(() => {
     // Apply l2 updates
     if (snapshotProcessed && l2update) {
@@ -51,19 +53,40 @@ const OrderBook = ({ processSnapshot, curr }) => {
       });
       setBids(newBids);
       setAsks(newAsks);
+    } else {
+      setBids([]);
+      setAsks([]);
     }
   }, [l2update, snapshotProcessed]);
+  useEffect(() => {
+    setBids([]);
+    setAsks([]);
+  }, [curr]);
+  const aggregateEntries = (entries) => {
+    const aggregated = new Map();
+
+    entries.forEach((size, price) => {
+      const roundedPrice = (
+        Math.floor(parseFloat(price) / aggregation) * aggregation
+      ).toFixed(3);
+      const existingSize = aggregated.get(roundedPrice) || 0;
+      aggregated.set(roundedPrice, parseFloat(existingSize) + parseFloat(size));
+    });
+
+    return aggregated;
+  };
 
   const getLatestEntries = (entries, isBid = true) => {
     return useMemo(() => {
-      return Array.from(entries.entries())
+      const aggregatedEntries = aggregateEntries(entries);
+      return Array.from(aggregatedEntries.entries())
         .sort(([aPrice], [bPrice]) =>
           isBid
             ? parseFloat(bPrice) - parseFloat(aPrice)
             : parseFloat(aPrice) - parseFloat(bPrice)
         )
         .slice(0, 10);
-    }, [entries]);
+    }, [entries, aggregation]);
   };
 
   const bidArray = getLatestEntries(bids, true);
@@ -85,6 +108,18 @@ const OrderBook = ({ processSnapshot, curr }) => {
 
   return (
     <div className="table-container text-xs">
+      <div className="p-2 w-full flex flex-row justify-between">
+        <label>Aggregation Level: </label>
+        <select
+          className="w-3/6 bg-transparent dark:text-slate-400 text-xs text-gray-800"
+          value={aggregation}
+          onChange={(e) => setAggregation(parseFloat(e.target.value))}
+        >
+          <option value={0.001}>0.001</option>
+          <option value={0.01}>0.01</option>
+          <option value={1}>1</option>
+        </select>
+      </div>
       <table className="table-fixed">
         <thead>
           <tr>
