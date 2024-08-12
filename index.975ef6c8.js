@@ -27358,12 +27358,12 @@ const DashboardComponent = ()=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "flex flex-row mt-5 justify-normal align-middle content-evenly",
+                className: "flex flex-row justify-normal align-middle content-evenly",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
                         className: "mx-2 w-3/12 font-bold dark:text-white text-gray-400",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
-                            className: "px-3 py-2 w-40 bg-white dark:bg-inherit shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block rounded-md sm:text-sm focus:ring-1",
+                            className: "px-3 py-2 w-40 bg-white dark:bg-inherit shadow-lg border-slate-300 placeholder-slate-400 focus:outline-none block rounded-md sm:text-sm focus:ring-1",
                             value: selectedCurr,
                             onChange: (e)=>{
                                 setSelectedCurr(e.target.value);
@@ -27396,7 +27396,7 @@ const DashboardComponent = ()=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
                         className: "mx-2 w-3/12 text-sm dark:text-white text-gray-400",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
-                            className: "rounded-md px-3 py-2 w-40 bg-sky-500 hover:bg-sky-700",
+                            className: "px-3 py-2 w-40 bg-white dark:bg-inherit shadow-lg border-slate-300 placeholder-slate-400 focus:outline-none block rounded-md sm:text-sm focus:ring-1",
                             defaultValue: "add",
                             onChange: (e)=>{
                                 const selected = e.target.value;
@@ -27976,14 +27976,15 @@ const OrderBookComponent = ({ curr })=>{
                 className: "p-2 w-full flex flex-row justify-between",
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
-                        children: "Aggregation Level: "
+                        className: " dark:text-slate-400 text-xs text-gray-800",
+                        children: "Aggregation Level:"
                     }, void 0, false, {
                         fileName: "src/components/OrderBookComponent.js",
                         lineNumber: 107,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
-                        className: "w-3/6 bg-transparent dark:text-slate-400 text-xs text-gray-800",
+                        className: "w-3/6 bg-transparent dark:text-slate-400 text-xs rounded-md shadow-sm text-gray-800",
                         value: aggregation,
                         onChange: (e)=>setAggregation(parseFloat(e.target.value)),
                         children: [
@@ -27992,7 +27993,7 @@ const OrderBookComponent = ({ curr })=>{
                                 children: "0.001"
                             }, void 0, false, {
                                 fileName: "src/components/OrderBookComponent.js",
-                                lineNumber: 113,
+                                lineNumber: 115,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
@@ -28000,7 +28001,7 @@ const OrderBookComponent = ({ curr })=>{
                                 children: "0.01"
                             }, void 0, false, {
                                 fileName: "src/components/OrderBookComponent.js",
-                                lineNumber: 114,
+                                lineNumber: 116,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
@@ -28008,13 +28009,13 @@ const OrderBookComponent = ({ curr })=>{
                                 children: "1"
                             }, void 0, false, {
                                 fileName: "src/components/OrderBookComponent.js",
-                                lineNumber: 115,
+                                lineNumber: 117,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/OrderBookComponent.js",
-                        lineNumber: 108,
+                        lineNumber: 110,
                         columnNumber: 9
                     }, undefined)
                 ]
@@ -28030,30 +28031,30 @@ const OrderBookComponent = ({ curr })=>{
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
                             children: [
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
-                                    className: "bg-inherit",
+                                    className: "bg-inherit dark:text-slate-400 text-xs text-gray-800",
                                     children: "Price"
                                 }, void 0, false, {
                                     fileName: "src/components/OrderBookComponent.js",
-                                    lineNumber: 121,
+                                    lineNumber: 123,
                                     columnNumber: 13
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
-                                    className: "bg-transparent",
+                                    className: "bg-transparent  dark:text-slate-400 text-xs text-gray-800",
                                     children: "Size"
                                 }, void 0, false, {
                                     fileName: "src/components/OrderBookComponent.js",
-                                    lineNumber: 122,
+                                    lineNumber: 126,
                                     columnNumber: 13
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/OrderBookComponent.js",
-                            lineNumber: 120,
+                            lineNumber: 122,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/OrderBookComponent.js",
-                        lineNumber: 119,
+                        lineNumber: 121,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tbody", {
@@ -28065,20 +28066,21 @@ const OrderBookComponent = ({ curr })=>{
                                             children: parseFloat(price)
                                         }, void 0, false, {
                                             fileName: "src/components/OrderBookComponent.js",
-                                            lineNumber: 128,
+                                            lineNumber: 134,
                                             columnNumber: 15
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                            className: " dark:text-slate-400 text-xs text-gray-800",
                                             children: parseFloat(size)
                                         }, void 0, false, {
                                             fileName: "src/components/OrderBookComponent.js",
-                                            lineNumber: 129,
+                                            lineNumber: 135,
                                             columnNumber: 15
                                         }, undefined)
                                     ]
                                 }, "ask" + index, true, {
                                     fileName: "src/components/OrderBookComponent.js",
-                                    lineNumber: 127,
+                                    lineNumber: 133,
                                     columnNumber: 13
                                 }, undefined)),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
@@ -28091,7 +28093,7 @@ const OrderBookComponent = ({ curr })=>{
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/OrderBookComponent.js",
-                                        lineNumber: 133,
+                                        lineNumber: 141,
                                         columnNumber: 13
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -28102,48 +28104,49 @@ const OrderBookComponent = ({ curr })=>{
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/OrderBookComponent.js",
-                                        lineNumber: 134,
+                                        lineNumber: 142,
                                         columnNumber: 13
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/OrderBookComponent.js",
-                                lineNumber: 132,
+                                lineNumber: 140,
                                 columnNumber: 11
                             }, undefined),
                             bidArray.map(([price, size], index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
                                     children: [
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
-                                            className: "text-[#00ff00]",
+                                            className: "dark:text-[#00ff00] text-[#05AF05]",
                                             children: parseFloat(price)
                                         }, void 0, false, {
                                             fileName: "src/components/OrderBookComponent.js",
-                                            lineNumber: 138,
+                                            lineNumber: 146,
                                             columnNumber: 15
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
+                                            className: " dark:text-slate-400 text-xs text-gray-800",
                                             children: parseFloat(size)
                                         }, void 0, false, {
                                             fileName: "src/components/OrderBookComponent.js",
-                                            lineNumber: 139,
+                                            lineNumber: 149,
                                             columnNumber: 15
                                         }, undefined)
                                     ]
                                 }, "bid" + index, true, {
                                     fileName: "src/components/OrderBookComponent.js",
-                                    lineNumber: 137,
+                                    lineNumber: 145,
                                     columnNumber: 13
                                 }, undefined))
                         ]
                     }, void 0, true, {
                         fileName: "src/components/OrderBookComponent.js",
-                        lineNumber: 125,
+                        lineNumber: 131,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/OrderBookComponent.js",
-                lineNumber: 118,
+                lineNumber: 120,
                 columnNumber: 7
             }, undefined)
         ]
@@ -28262,8 +28265,8 @@ const PriceChartComponent = ()=>{
             width: canvasRef.current.clientWidth,
             margin: {
                 top: 10,
-                right: 80,
-                bottom: 40,
+                right: 60,
+                bottom: 60,
                 left: 20
             },
             ratio: 1,
@@ -28285,7 +28288,7 @@ const PriceChartComponent = ()=>{
                             showGridLines: true,
                             gridLinesStrokeWidth: 0.15,
                             tickFormat: formatDate,
-                            tickLabelFill: "#94a3b8",
+                            tickLabelFill: "#4682B4",
                             gridLinesStrokeStyle: "#94a3b8",
                             fontSize: 11
                         }, void 0, false, {
@@ -28296,7 +28299,7 @@ const PriceChartComponent = ()=>{
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.YAxis), {
                             showGridLines: true,
                             gridLinesStrokeWidth: 0.15,
-                            tickLabelFill: "#94a3b8",
+                            tickLabelFill: "#4682B4",
                             ticks: 8,
                             fontSize: 11
                         }, void 0, false, {
@@ -42186,7 +42189,7 @@ const WidgetBoxComponent = ({ heading, children, id, layoutHeight, isVisible, se
     };
     if (!isVisible) return null;
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: ` dark:bg-slate-800 bg-white dark:text-white text-gray-400 layout-container ${isExpanded?.[id] ? "expanded" : ""}`,
+        className: ` shadow-lg dark:bg-slate-800 bg-white dark:text-white text-gray-400 layout-container ${isExpanded?.[id] ? "expanded" : ""}`,
         style: {
             height: isExpanded?.[id] ? layoutHeight : "",
             maxHeight: "calc(-100px + 100vh)"
@@ -42231,6 +42234,7 @@ const WidgetBoxComponent = ({ heading, children, id, layoutHeight, isVisible, se
                         className: "icon cursor-pointer text-sm",
                         onClick: ()=>setExpandedValue(id, false),
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFontawesome.FontAwesomeIcon), {
+                            className: "dark:bg-[#2C3A52] bg:white",
                             icon: (0, _freeSolidSvgIcons.faMinus)
                         }, void 0, false, {
                             fileName: "src/components/WidgetBoxComponent.js",
@@ -42248,12 +42252,12 @@ const WidgetBoxComponent = ({ heading, children, id, layoutHeight, isVisible, se
                             icon: (0, _freeSolidSvgIcons.faExpand)
                         }, void 0, false, {
                             fileName: "src/components/WidgetBoxComponent.js",
-                            lineNumber: 56,
+                            lineNumber: 59,
                             columnNumber: 13
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/WidgetBoxComponent.js",
-                        lineNumber: 52,
+                        lineNumber: 55,
                         columnNumber: 11
                     }, undefined)
                 ]

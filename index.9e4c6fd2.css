@@ -266,10 +266,6 @@ img, video {
   margin-bottom: .5rem;
 }
 
-.mt-5 {
-  margin-top: 1.25rem;
-}
-
 .block {
   display: block;
 }
@@ -383,11 +379,6 @@ img, video {
   background-color: inherit;
 }
 
-.bg-sky-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(14 165 233 / var(--tw-bg-opacity));
-}
-
 .bg-slate-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(100 116 139 / var(--tw-bg-opacity));
@@ -455,6 +446,11 @@ img, video {
   color: rgb(0 255 0 / var(--tw-text-opacity));
 }
 
+.text-\[\#05AF05\] {
+  --tw-text-opacity: 1;
+  color: rgb(5 175 5 / var(--tw-text-opacity));
+}
+
 .text-\[\#ff0000\] {
   --tw-text-opacity: 1;
   color: rgb(255 0 0 / var(--tw-text-opacity));
@@ -478,6 +474,12 @@ img, video {
 .placeholder-slate-400::placeholder {
   --tw-placeholder-opacity: 1;
   color: rgb(148 163 184 / var(--tw-placeholder-opacity));
+}
+
+.shadow-lg {
+  --tw-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
 .shadow-sm {
@@ -520,7 +522,7 @@ th {
 body {
   -webkit-font-smoothing: antialiased;
   margin: 0;
-  padding: 0;
+  padding: 20px;
   overflow-x: hidden;
 }
 
@@ -554,22 +556,17 @@ body {
 .icon {
   text-align: center;
   color: #767777;
-  background: none;
+  background-color: #fff;
   border-radius: 50%;
   justify-content: center;
   align-items: center;
-  padding: 6px;
+  padding: 4px;
   transition: background-color .3s;
   display: inline-flex;
 }
 
 .icon:hover {
   background-color: #ffffff14;
-}
-
-.hover\:bg-sky-700:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(3 105 161 / var(--tw-bg-opacity));
 }
 
 .focus\:outline-none:focus {
@@ -621,6 +618,11 @@ body {
   .dark\:bg-slate-800 {
     --tw-bg-opacity: 1;
     background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+  }
+
+  .dark\:text-\[\#00ff00\] {
+    --tw-text-opacity: 1;
+    color: rgb(0 255 0 / var(--tw-text-opacity));
   }
 
   .dark\:text-slate-400 {
