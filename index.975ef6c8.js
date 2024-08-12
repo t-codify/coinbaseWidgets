@@ -2957,8 +2957,8 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _client = require("react-dom/client");
 var _clientDefault = parcelHelpers.interopDefault(_client);
-var _websocketComponent = require("./components/WebsocketComponent");
-var _websocketComponentDefault = parcelHelpers.interopDefault(_websocketComponent);
+var _dashboardComponent = require("./components/DashboardComponent");
+var _dashboardComponentDefault = parcelHelpers.interopDefault(_dashboardComponent);
 var _reactRouterDom = require("react-router-dom");
 var _productContext = require("./utils/ProductContext");
 var _productContextDefault = parcelHelpers.interopDefault(_productContext);
@@ -2982,7 +2982,7 @@ const AppLayout = ()=>{
                 isExpanded: isExpanded,
                 setIsExpanded
             },
-            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _websocketComponentDefault.default), {}, void 0, false, {
+            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _dashboardComponentDefault.default), {}, void 0, false, {
                 fileName: "src/index.js",
                 lineNumber: 25,
                 columnNumber: 9
@@ -3034,7 +3034,7 @@ $RefreshReg$(_c, "AppLayout");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./components/WebsocketComponent":"9Queg","react-router-dom":"9xmpe","./utils/ProductContext":"ah0dq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-dom/client":"lOjBx","./components/DashboardComponent":"37sV5","react-router-dom":"9xmpe","./utils/ProductContext":"ah0dq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27277,11 +27277,11 @@ module.exports = require("ef03b89c8fe2794e");
     /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */ if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop === "function") __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(new Error());
 })();
 
-},{}],"9Queg":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$f3e5 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{}],"37sV5":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$6e68 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$f3e5.prelude(module);
+$parcel$ReactRefreshHelpers$6e68.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -27292,10 +27292,10 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _constants = require("../utils/constants");
 var _topOfBookComponent = require("./TopOfBookComponent");
 var _topOfBookComponentDefault = parcelHelpers.interopDefault(_topOfBookComponent);
-var _orderBook = require("./OrderBook");
-var _orderBookDefault = parcelHelpers.interopDefault(_orderBook);
-var _realTimePriceChart = require("./RealTimePriceChart");
-var _realTimePriceChartDefault = parcelHelpers.interopDefault(_realTimePriceChart);
+var _orderBookComponent = require("./OrderBookComponent");
+var _orderBookComponentDefault = parcelHelpers.interopDefault(_orderBookComponent);
+var _priceChartComponent = require("./PriceChartComponent");
+var _priceChartComponentDefault = parcelHelpers.interopDefault(_priceChartComponent);
 var _productContext = require("../utils/ProductContext");
 var _productContextDefault = parcelHelpers.interopDefault(_productContext);
 var _useWebSocket = require("../utils/customHooks/useWebSocket");
@@ -27303,7 +27303,7 @@ var _useWebSocketDefault = parcelHelpers.interopDefault(_useWebSocket);
 var _widgetBoxComponent = require("./WidgetBoxComponent");
 var _widgetBoxComponentDefault = parcelHelpers.interopDefault(_widgetBoxComponent);
 var _s = $RefreshSig$();
-const WebSocketComponent = ()=>{
+const DashboardComponent = ()=>{
     _s();
     const { ticker, setTickerData, l2update, setl2UpdateData, snapshot, setSnapshotData } = (0, _react.useContext)((0, _productContextDefault.default));
     const [selectedCurr, setSelectedCurr] = (0, _react.useState)("BTC-USD");
@@ -27349,15 +27349,11 @@ const WebSocketComponent = ()=>{
                 [selectedCurr]: {}
             }));
         setl2UpdateData({});
-        setProcessSnapshot(true);
+        //setProcessSnapshot(true);
         if (selectedCurr) setSelectedSubs("subscribe");
     }, [
         selectedCurr
     ]);
-    // Handle subscription/unsubscription
-    const handleSubscriptionChange = (0, _react.useCallback)((action)=>{
-        setSelectedSubs(action);
-    }, []);
     if (!ticker && !snapshot && !l2update) return null; // Avoid rendering if data is missing
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
         children: [
@@ -27376,62 +27372,76 @@ const WebSocketComponent = ()=>{
                                     value: opts,
                                     children: opts
                                 }, opts, false, {
-                                    fileName: "src/components/WebsocketComponent.js",
-                                    lineNumber: 100,
+                                    fileName: "src/components/DashboardComponent.js",
+                                    lineNumber: 88,
                                     columnNumber: 15
                                 }, undefined))
                         }, void 0, false, {
-                            fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 92,
+                            fileName: "src/components/DashboardComponent.js",
+                            lineNumber: 80,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
-                        fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 91,
+                        fileName: "src/components/DashboardComponent.js",
+                        lineNumber: 79,
                         columnNumber: 9
                     }, undefined),
                     ticker && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _topOfBookComponentDefault.default), {
                         ticker
                     }, void 0, false, {
-                        fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 106,
+                        fileName: "src/components/DashboardComponent.js",
+                        lineNumber: 94,
                         columnNumber: 20
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
                         className: "mx-2 w-3/12 text-sm dark:text-white text-gray-400",
                         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
                             className: "rounded-md px-3 py-2 w-40 bg-sky-500 hover:bg-sky-700",
+                            defaultValue: "add",
                             onChange: (e)=>{
                                 const selected = e.target.value;
                                 selected === "Chart" ? setIsChartVisible(true) : setIsOrderBookVisible(true);
-                            //setIsChartVisible(selected === "Chart");
-                            //setIsOrderBookVisible(selected === "Order Book");
                             },
                             children: [
-                                "Chart",
-                                "Order Book"
-                            ].map((opts)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                                    value: opts,
-                                    children: opts
-                                }, opts, false, {
-                                    fileName: "src/components/WebsocketComponent.js",
-                                    lineNumber: 120,
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                    value: "add",
+                                    children: "Add Widget.."
+                                }, void 0, false, {
+                                    fileName: "src/components/DashboardComponent.js",
+                                    lineNumber: 106,
+                                    columnNumber: 13
+                                }, undefined),
+                                !isChartVisible && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                    value: "Chart",
+                                    children: "Chart"
+                                }, "Chart", false, {
+                                    fileName: "src/components/DashboardComponent.js",
+                                    lineNumber: 108,
                                     columnNumber: 15
-                                }, undefined))
-                        }, void 0, false, {
-                            fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 108,
+                                }, undefined),
+                                !isOrderBookVisible && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                    value: "Order",
+                                    children: "Order-Book"
+                                }, "Order", false, {
+                                    fileName: "src/components/DashboardComponent.js",
+                                    lineNumber: 113,
+                                    columnNumber: 15
+                                }, undefined)
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/components/DashboardComponent.js",
+                            lineNumber: 96,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
-                        fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 107,
+                        fileName: "src/components/DashboardComponent.js",
+                        lineNumber: 95,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
-                fileName: "src/components/WebsocketComponent.js",
-                lineNumber: 90,
+                fileName: "src/components/DashboardComponent.js",
+                lineNumber: 78,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27449,19 +27459,19 @@ const WebSocketComponent = ()=>{
                             layoutHeight: "100%",
                             isVisible: isChartVisible,
                             setIsVisible: setIsChartVisible,
-                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _realTimePriceChartDefault.default), {}, void 0, false, {
-                                fileName: "src/components/WebsocketComponent.js",
-                                lineNumber: 146,
+                            children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _priceChartComponentDefault.default), {}, void 0, false, {
+                                fileName: "src/components/DashboardComponent.js",
+                                lineNumber: 139,
                                 columnNumber: 15
                             }, undefined)
                         }, void 0, false, {
-                            fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 139,
+                            fileName: "src/components/DashboardComponent.js",
+                            lineNumber: 132,
                             columnNumber: 13
                         }, undefined)
                     }, void 0, false, {
-                        fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 132,
+                        fileName: "src/components/DashboardComponent.js",
+                        lineNumber: 125,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27472,53 +27482,53 @@ const WebSocketComponent = ()=>{
                             layoutHeight: "100%",
                             isVisible: isOrderBookVisible,
                             setIsVisible: setIsOrderBookVisible,
-                            children: snapshot?.[selectedCurr] && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _orderBookDefault.default), {
-                                processSnapshot: processSnapshot,
+                            children: snapshot?.[selectedCurr] && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _orderBookComponentDefault.default), {
                                 curr: selectedCurr
                             }, void 0, false, {
-                                fileName: "src/components/WebsocketComponent.js",
-                                lineNumber: 163,
+                                fileName: "src/components/DashboardComponent.js",
+                                lineNumber: 156,
                                 columnNumber: 15
                             }, undefined)
                         }, void 0, false, {
-                            fileName: "src/components/WebsocketComponent.js",
-                            lineNumber: 155,
+                            fileName: "src/components/DashboardComponent.js",
+                            lineNumber: 148,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
-                        fileName: "src/components/WebsocketComponent.js",
-                        lineNumber: 150,
+                        fileName: "src/components/DashboardComponent.js",
+                        lineNumber: 143,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
-                fileName: "src/components/WebsocketComponent.js",
-                lineNumber: 128,
+                fileName: "src/components/DashboardComponent.js",
+                lineNumber: 121,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true);
 };
-_s(WebSocketComponent, "JQZax9sFBouzGnQjnRw948W656A=", false, function() {
+_s(DashboardComponent, "y6q7ehcUQ5lY9R2wbZdnUCd7BqE=", false, function() {
     return [
         (0, _useWebSocketDefault.default)
     ];
 });
-_c = WebSocketComponent;
-exports.default = WebSocketComponent;
+_c = DashboardComponent;
+exports.default = DashboardComponent;
 var _c;
-$RefreshReg$(_c, "WebSocketComponent");
+$RefreshReg$(_c, "DashboardComponent");
 
-  $parcel$ReactRefreshHelpers$f3e5.postlude(module);
+  $parcel$ReactRefreshHelpers$6e68.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/constants":"hB8jg","./TopOfBookComponent":"Pff3S","./OrderBook":"abTom","./RealTimePriceChart":"25Tos","../utils/ProductContext":"ah0dq","../utils/customHooks/useWebSocket":"f6ihu","./WidgetBoxComponent":"gIqNe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hB8jg":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../utils/constants":"hB8jg","./TopOfBookComponent":"Pff3S","./OrderBookComponent":"1BcSZ","./PriceChartComponent":"amEbO","../utils/ProductContext":"ah0dq","../utils/customHooks/useWebSocket":"f6ihu","./WidgetBoxComponent":"gIqNe","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hB8jg":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "selectOptions", ()=>selectOptions);
 parcelHelpers.export(exports, "GET_PRODUCTS_URL", ()=>GET_PRODUCTS_URL);
+parcelHelpers.export(exports, "wsURI", ()=>wsURI);
 const selectOptions = [
     "BTC-USD",
     "ETH-USD",
@@ -27526,6 +27536,7 @@ const selectOptions = [
     "BCH-USD"
 ];
 const GET_PRODUCTS_URL = "https://api.exchange.coinbase.com/products?type=online";
+const wsURI = "wss://ws-feed.exchange.coinbase.com";
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
@@ -27570,10 +27581,9 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 const TopOfBookComponent = ({ ticker })=>{
     //const { ticker } = useContext(ProductContext);
     const color = ticker.side === "buy" ? "text-[#00ff00]" : "text-[#ff0000]";
-    if (!ticker) return;
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("table", {
-            className: "table-fixed text-xs border-none w-8/12 ",
+            className: "table-fixed text-xs border-none w-9/12 ",
             children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tbody", {
                 children: [
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
@@ -27584,7 +27594,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: "Best Bid"
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 10,
+                                lineNumber: 9,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27592,7 +27602,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: "Bid Size"
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 11,
+                                lineNumber: 10,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27600,7 +27610,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: "Best Ask"
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 12,
+                                lineNumber: 11,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27608,7 +27618,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: "Ask Size"
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 13,
+                                lineNumber: 12,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27616,7 +27626,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: "Price"
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 14,
+                                lineNumber: 13,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27624,13 +27634,13 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: "24hr Volume"
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 15,
+                                lineNumber: 14,
                                 columnNumber: 13
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/TopOfBookComponent.js",
-                        lineNumber: 9,
+                        lineNumber: 8,
                         columnNumber: 11
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
@@ -27641,7 +27651,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: ticker.best_bid
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 18,
+                                lineNumber: 17,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27649,7 +27659,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: ticker.best_bid_size
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 19,
+                                lineNumber: 18,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27657,7 +27667,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: ticker.best_ask
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 20,
+                                lineNumber: 19,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27665,7 +27675,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: ticker.best_ask_size
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 21,
+                                lineNumber: 20,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27673,7 +27683,7 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: ticker.price
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 22,
+                                lineNumber: 21,
                                 columnNumber: 13
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27681,29 +27691,29 @@ const TopOfBookComponent = ({ ticker })=>{
                                 children: ticker.volume_24h
                             }, void 0, false, {
                                 fileName: "src/components/TopOfBookComponent.js",
-                                lineNumber: 23,
+                                lineNumber: 22,
                                 columnNumber: 13
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/TopOfBookComponent.js",
-                        lineNumber: 17,
+                        lineNumber: 16,
                         columnNumber: 11
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/TopOfBookComponent.js",
-                lineNumber: 8,
+                lineNumber: 7,
                 columnNumber: 9
             }, undefined)
         }, void 0, false, {
             fileName: "src/components/TopOfBookComponent.js",
-            lineNumber: 7,
+            lineNumber: 6,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/TopOfBookComponent.js",
-        lineNumber: 6,
+        lineNumber: 5,
         columnNumber: 5
     }, undefined);
 };
@@ -27855,11 +27865,11 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"7422ead32dcc1e6b":"786KC"}],"abTom":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$b76d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{"7422ead32dcc1e6b":"786KC"}],"1BcSZ":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$0e1f = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$b76d.prelude(module);
+$parcel$ReactRefreshHelpers$0e1f.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -27870,30 +27880,27 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _productContext = require("../utils/ProductContext");
 var _productContextDefault = parcelHelpers.interopDefault(_productContext);
 var _s = $RefreshSig$();
-const OrderBook = ({ processSnapshot, curr })=>{
+const OrderBookComponent = ({ curr })=>{
     _s();
     var _s1 = $RefreshSig$();
     const [bids, setBids] = (0, _react.useState)(new Map());
     const [asks, setAsks] = (0, _react.useState)(new Map());
-    const [snapshotProcessed, setSnapshotProcessed] = (0, _react.useState)(!processSnapshot); // Track if snapshot has been processed
+    const [snapshotProcessed, setSnapshotProcessed] = (0, _react.useState)(true); // Track if snapshot has been processed
     const [aggregation, setAggregation] = (0, _react.useState)(0.001); // Default aggregation level
-    const { l2update, snapshot, setl2UpdateData } = (0, _react.useContext)((0, _productContextDefault.default));
+    const { l2update, snapshot } = (0, _react.useContext)((0, _productContextDefault.default));
     (0, _react.useEffect)(()=>{
         // Initialize the order book with snapshot data
-        if (processSnapshot) {
-            const newBids = new Map();
-            const newAsks = new Map();
-            snapshot?.[curr]?.bids?.forEach(([price, size])=>{
-                if (parseFloat(size) > 0) newBids.set(price, size);
-            });
-            snapshot?.[curr]?.asks?.forEach(([price, size])=>{
-                if (parseFloat(size) > 0) newAsks.set(price, size);
-            });
-            setBids(newBids);
-            setAsks(newAsks);
-            setSnapshotProcessed(true); // Mark snapshot as processed
-        }
-    //setl2UpdateData({});
+        const newBids = new Map();
+        const newAsks = new Map();
+        snapshot?.[curr]?.bids?.forEach(([price, size])=>{
+            if (parseFloat(size) > 0) newBids.set(price, size);
+        });
+        snapshot?.[curr]?.asks?.forEach(([price, size])=>{
+            if (parseFloat(size) > 0) newAsks.set(price, size);
+        });
+        setBids(newBids);
+        setAsks(newAsks);
+        setSnapshotProcessed(true); // Mark snapshot as processed
     }, [
         snapshot
     ]);
@@ -27913,17 +27920,14 @@ const OrderBook = ({ processSnapshot, curr })=>{
             });
             setBids(newBids);
             setAsks(newAsks);
-        } else {
-            setBids([]);
-            setAsks([]);
         }
     }, [
         l2update,
         snapshotProcessed
     ]);
     (0, _react.useEffect)(()=>{
-        setBids([]);
-        setAsks([]);
+        setBids(new Map());
+        setAsks(new Map());
     }, [
         curr
     ]);
@@ -27974,8 +27978,8 @@ const OrderBook = ({ processSnapshot, curr })=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
                         children: "Aggregation Level: "
                     }, void 0, false, {
-                        fileName: "src/components/OrderBook.js",
-                        lineNumber: 112,
+                        fileName: "src/components/OrderBookComponent.js",
+                        lineNumber: 107,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
@@ -27987,36 +27991,36 @@ const OrderBook = ({ processSnapshot, curr })=>{
                                 value: 0.001,
                                 children: "0.001"
                             }, void 0, false, {
-                                fileName: "src/components/OrderBook.js",
-                                lineNumber: 118,
+                                fileName: "src/components/OrderBookComponent.js",
+                                lineNumber: 113,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
                                 value: 0.01,
                                 children: "0.01"
                             }, void 0, false, {
-                                fileName: "src/components/OrderBook.js",
-                                lineNumber: 119,
+                                fileName: "src/components/OrderBookComponent.js",
+                                lineNumber: 114,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
                                 value: 1,
                                 children: "1"
                             }, void 0, false, {
-                                fileName: "src/components/OrderBook.js",
-                                lineNumber: 120,
+                                fileName: "src/components/OrderBookComponent.js",
+                                lineNumber: 115,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
-                        fileName: "src/components/OrderBook.js",
-                        lineNumber: 113,
+                        fileName: "src/components/OrderBookComponent.js",
+                        lineNumber: 108,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
-                fileName: "src/components/OrderBook.js",
-                lineNumber: 111,
+                fileName: "src/components/OrderBookComponent.js",
+                lineNumber: 106,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("table", {
@@ -28029,27 +28033,27 @@ const OrderBook = ({ processSnapshot, curr })=>{
                                     className: "bg-inherit",
                                     children: "Price"
                                 }, void 0, false, {
-                                    fileName: "src/components/OrderBook.js",
-                                    lineNumber: 126,
+                                    fileName: "src/components/OrderBookComponent.js",
+                                    lineNumber: 121,
                                     columnNumber: 13
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
                                     className: "bg-transparent",
                                     children: "Size"
                                 }, void 0, false, {
-                                    fileName: "src/components/OrderBook.js",
-                                    lineNumber: 127,
+                                    fileName: "src/components/OrderBookComponent.js",
+                                    lineNumber: 122,
                                     columnNumber: 13
                                 }, undefined)
                             ]
                         }, void 0, true, {
-                            fileName: "src/components/OrderBook.js",
-                            lineNumber: 125,
+                            fileName: "src/components/OrderBookComponent.js",
+                            lineNumber: 120,
                             columnNumber: 11
                         }, undefined)
                     }, void 0, false, {
-                        fileName: "src/components/OrderBook.js",
-                        lineNumber: 124,
+                        fileName: "src/components/OrderBookComponent.js",
+                        lineNumber: 119,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tbody", {
@@ -28060,21 +28064,21 @@ const OrderBook = ({ processSnapshot, curr })=>{
                                             className: "text-[#ff0000]",
                                             children: parseFloat(price)
                                         }, void 0, false, {
-                                            fileName: "src/components/OrderBook.js",
-                                            lineNumber: 133,
+                                            fileName: "src/components/OrderBookComponent.js",
+                                            lineNumber: 128,
                                             columnNumber: 15
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                             children: parseFloat(size)
                                         }, void 0, false, {
-                                            fileName: "src/components/OrderBook.js",
-                                            lineNumber: 134,
+                                            fileName: "src/components/OrderBookComponent.js",
+                                            lineNumber: 129,
                                             columnNumber: 15
                                         }, undefined)
                                     ]
                                 }, "ask" + index, true, {
-                                    fileName: "src/components/OrderBook.js",
-                                    lineNumber: 132,
+                                    fileName: "src/components/OrderBookComponent.js",
+                                    lineNumber: 127,
                                     columnNumber: 13
                                 }, undefined)),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
@@ -28086,8 +28090,8 @@ const OrderBook = ({ processSnapshot, curr })=>{
                                             calculateAveragePrice.toFixed(2)
                                         ]
                                     }, void 0, true, {
-                                        fileName: "src/components/OrderBook.js",
-                                        lineNumber: 138,
+                                        fileName: "src/components/OrderBookComponent.js",
+                                        lineNumber: 133,
                                         columnNumber: 13
                                     }, undefined),
                                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -28097,14 +28101,14 @@ const OrderBook = ({ processSnapshot, curr })=>{
                                             " "
                                         ]
                                     }, void 0, true, {
-                                        fileName: "src/components/OrderBook.js",
-                                        lineNumber: 139,
+                                        fileName: "src/components/OrderBookComponent.js",
+                                        lineNumber: 134,
                                         columnNumber: 13
                                     }, undefined)
                                 ]
                             }, void 0, true, {
-                                fileName: "src/components/OrderBook.js",
-                                lineNumber: 137,
+                                fileName: "src/components/OrderBookComponent.js",
+                                lineNumber: 132,
                                 columnNumber: 11
                             }, undefined),
                             bidArray.map(([price, size], index)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
@@ -28113,49 +28117,49 @@ const OrderBook = ({ processSnapshot, curr })=>{
                                             className: "text-[#00ff00]",
                                             children: parseFloat(price)
                                         }, void 0, false, {
-                                            fileName: "src/components/OrderBook.js",
-                                            lineNumber: 143,
+                                            fileName: "src/components/OrderBookComponent.js",
+                                            lineNumber: 138,
                                             columnNumber: 15
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                             children: parseFloat(size)
                                         }, void 0, false, {
-                                            fileName: "src/components/OrderBook.js",
-                                            lineNumber: 144,
+                                            fileName: "src/components/OrderBookComponent.js",
+                                            lineNumber: 139,
                                             columnNumber: 15
                                         }, undefined)
                                     ]
                                 }, "bid" + index, true, {
-                                    fileName: "src/components/OrderBook.js",
-                                    lineNumber: 142,
+                                    fileName: "src/components/OrderBookComponent.js",
+                                    lineNumber: 137,
                                     columnNumber: 13
                                 }, undefined))
                         ]
                     }, void 0, true, {
-                        fileName: "src/components/OrderBook.js",
-                        lineNumber: 130,
+                        fileName: "src/components/OrderBookComponent.js",
+                        lineNumber: 125,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
-                fileName: "src/components/OrderBook.js",
-                lineNumber: 123,
+                fileName: "src/components/OrderBookComponent.js",
+                lineNumber: 118,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
-        fileName: "src/components/OrderBook.js",
-        lineNumber: 110,
+        fileName: "src/components/OrderBookComponent.js",
+        lineNumber: 105,
         columnNumber: 5
     }, undefined);
 };
-_s(OrderBook, "Mp+Sv7bBoLfpj8rQhfmtYsTWbyQ=");
-_c = OrderBook;
-exports.default = OrderBook;
+_s(OrderBookComponent, "vqmtrINQennxTNEz9uA+5uQPlVM=");
+_c = OrderBookComponent;
+exports.default = OrderBookComponent;
 var _c;
-$RefreshReg$(_c, "OrderBook");
+$RefreshReg$(_c, "OrderBookComponent");
 
-  $parcel$ReactRefreshHelpers$b76d.postlude(module);
+  $parcel$ReactRefreshHelpers$0e1f.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
@@ -28186,11 +28190,11 @@ exports.default = ProductContext;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"25Tos":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$d4a5 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"amEbO":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$c839 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$d4a5.prelude(module);
+$parcel$ReactRefreshHelpers$c839.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -28205,11 +28209,10 @@ var _productContext = require("../utils/ProductContext");
 var _productContextDefault = parcelHelpers.interopDefault(_productContext);
 var _s = $RefreshSig$();
 const formatDate = (0, _d3TimeFormat.timeFormat)("%H:%M:%S");
-const RealTimePriceChart = ({ width, height })=>{
+const PriceChartComponent = ()=>{
     _s();
     const { ticker } = (0, _react.useContext)((0, _productContextDefault.default));
     const maxPoints = 100;
-    const historyBuffer = 100; // Buffer size for historical data
     const [chartData, setChartData] = (0, _react.useState)([]);
     const [displayData, setDisplayData] = (0, _react.useState)([]);
     const [redrawKey, setRedrawKey] = (0, _react.useState)(false);
@@ -28227,26 +28230,20 @@ const RealTimePriceChart = ({ width, height })=>{
                     ...prevData,
                     newPoint
                 ];
-                // Keep a buffer of historical data
-                if (updatedData.length > historyBuffer) updatedData.shift();
                 return updatedData;
+            });
+            setDisplayData(()=>{
+                const endIndex = chartData.length;
+                const startIndex = Math.max(endIndex - maxPoints, 0);
+                return chartData.slice(startIndex, endIndex);
             });
         } else {
             setChartData([]);
+            setDisplayData([]);
             setRedrawKey(true);
         }
     }, [
         ticker
-    ]);
-    (0, _react.useEffect)(()=>{
-        if (chartData.length > 0) // Update displayData to show only the most recent `maxPoints` data points
-        setDisplayData((prevData)=>{
-            const endIndex = chartData.length;
-            const startIndex = Math.max(endIndex - maxPoints, 0);
-            return chartData.slice(startIndex, endIndex);
-        });
-    }, [
-        chartData
     ]);
     const yAccessorBid = (d)=>d?.bid;
     const yAccessorAsk = (d)=>d?.ask;
@@ -28292,8 +28289,8 @@ const RealTimePriceChart = ({ width, height })=>{
                             gridLinesStrokeStyle: "#94a3b8",
                             fontSize: 11
                         }, void 0, false, {
-                            fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 104,
+                            fileName: "src/components/PriceChartComponent.js",
+                            lineNumber: 90,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.YAxis), {
@@ -28303,8 +28300,8 @@ const RealTimePriceChart = ({ width, height })=>{
                             ticks: 8,
                             fontSize: 11
                         }, void 0, false, {
-                            fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 114,
+                            fileName: "src/components/PriceChartComponent.js",
+                            lineNumber: 98,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.LineSeries), {
@@ -28312,16 +28309,16 @@ const RealTimePriceChart = ({ width, height })=>{
                             strokeStyle: "#00ff00",
                             strokeWidth: 1
                         }, void 0, false, {
-                            fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 121,
+                            fileName: "src/components/PriceChartComponent.js",
+                            lineNumber: 105,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CurrentCoordinate), {
                             yAccessor: yAccessorBid,
                             fillStyle: "#00ff00"
                         }, void 0, false, {
-                            fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 126,
+                            fileName: "src/components/PriceChartComponent.js",
+                            lineNumber: 110,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.LineSeries), {
@@ -28329,30 +28326,30 @@ const RealTimePriceChart = ({ width, height })=>{
                             strokeStyle: "#ff0000",
                             strokeWidth: 1
                         }, void 0, false, {
-                            fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 127,
+                            fileName: "src/components/PriceChartComponent.js",
+                            lineNumber: 111,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CurrentCoordinate), {
                             yAccessor: yAccessorAsk,
                             fillStyle: "#ff0000"
                         }, void 0, false, {
-                            fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 132,
+                            fileName: "src/components/PriceChartComponent.js",
+                            lineNumber: 116,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MouseCoordinateX), {
                             displayFormat: formatDate
                         }, void 0, false, {
-                            fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 133,
+                            fileName: "src/components/PriceChartComponent.js",
+                            lineNumber: 117,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MouseCoordinateY), {
                             displayFormat: (d)=>d.toFixed(2)
                         }, void 0, false, {
-                            fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 136,
+                            fileName: "src/components/PriceChartComponent.js",
+                            lineNumber: 120,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.MovingAverageTooltip), {
@@ -28366,50 +28363,50 @@ const RealTimePriceChart = ({ width, height })=>{
                                     yAccessor: yAccessorBid,
                                     type: "Bid",
                                     stroke: "#00ff00",
-                                    windowSize: 2
+                                    windowSize: ""
                                 },
                                 {
                                     yAccessor: yAccessorAsk,
                                     type: "Ask",
                                     stroke: "#ff0000",
-                                    windowSize: 2
+                                    windowSize: ""
                                 }
                             ]
                         }, void 0, false, {
-                            fileName: "src/components/RealTimePriceChart.js",
-                            lineNumber: 139,
+                            fileName: "src/components/PriceChartComponent.js",
+                            lineNumber: 123,
                             columnNumber: 13
                         }, undefined)
                     ]
                 }, void 0, true, {
-                    fileName: "src/components/RealTimePriceChart.js",
-                    lineNumber: 103,
+                    fileName: "src/components/PriceChartComponent.js",
+                    lineNumber: 89,
                     columnNumber: 11
                 }, undefined),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactFinancialCharts.CrossHairCursor), {}, void 0, false, {
-                    fileName: "src/components/RealTimePriceChart.js",
-                    lineNumber: 158,
+                    fileName: "src/components/PriceChartComponent.js",
+                    lineNumber: 142,
                     columnNumber: 11
                 }, undefined)
             ]
         }, redrawKey, true, {
-            fileName: "src/components/RealTimePriceChart.js",
-            lineNumber: 85,
+            fileName: "src/components/PriceChartComponent.js",
+            lineNumber: 71,
             columnNumber: 9
         }, undefined)
     }, void 0, false, {
-        fileName: "src/components/RealTimePriceChart.js",
-        lineNumber: 83,
+        fileName: "src/components/PriceChartComponent.js",
+        lineNumber: 69,
         columnNumber: 5
     }, undefined);
 };
-_s(RealTimePriceChart, "gAZEKKJTOIXt3nOxlhvmSMnp/YM=");
-_c = RealTimePriceChart;
-exports.default = RealTimePriceChart;
+_s(PriceChartComponent, "D8yqBRolime06J+MVIWDVU+hxCM=");
+_c = PriceChartComponent;
+exports.default = PriceChartComponent;
 var _c;
-$RefreshReg$(_c, "RealTimePriceChart");
+$RefreshReg$(_c, "PriceChartComponent");
 
-  $parcel$ReactRefreshHelpers$d4a5.postlude(module);
+  $parcel$ReactRefreshHelpers$c839.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
@@ -42096,18 +42093,18 @@ try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _react = require("react");
+var _constants = require("../constants");
 var _s = $RefreshSig$();
-const URI = "wss://ws-feed.exchange.coinbase.com";
 const useWebSocket = (selectedCurr, selectedSubs)=>{
     _s();
     const [data, setData] = (0, _react.useState)(null);
     const [isConnected, setIsConnected] = (0, _react.useState)(false);
     const wsRef = (0, _react.useRef)(null);
     (0, _react.useEffect)(()=>{
+        if (!selectedCurr || !selectedSubs) return;
         // Initialize WebSocket connection
-        wsRef.current = new WebSocket(URI);
+        wsRef.current = new WebSocket((0, _constants.wsURI));
         const ws = wsRef.current;
-        // Handle WebSocket events directly
         ws.onopen = ()=>{
             const subscriptionType = selectedSubs;
             const subscribeMessage = JSON.stringify({
@@ -42138,7 +42135,7 @@ const useWebSocket = (selectedCurr, selectedSubs)=>{
         ws.onerror = (error)=>{
             console.error("WebSocket error", error);
         };
-        // Clean up WebSocket connection on component unmount
+        // Clean up WebSocket connection on component unmount or when selectedCurr/subscription changes
         return ()=>{
             if (wsRef.current) wsRef.current.close();
         };
@@ -42159,7 +42156,7 @@ exports.default = useWebSocket;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"gIqNe":[function(require,module,exports) {
+},{"react":"21dqq","../constants":"hB8jg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"gIqNe":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$aa48 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
