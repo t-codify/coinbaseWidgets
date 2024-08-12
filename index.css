@@ -10,7 +10,6 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
 }
 
 table,
@@ -33,14 +32,13 @@ th {
   z-index: 1; /* Ensure header is above the rest of the table content */
 }
 
-/* Optional: Add some padding to the bottom of tables to avoid content hiding under the scrollbar */
 .table-container {
   padding-bottom: 20px;
 }
 
 body {
   margin: 0;
-  padding: 0;
+  padding: 20px;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -75,18 +73,14 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px;
+  padding: 4px;
   text-align: center;
   border-radius: 50%;
-  background: transparent;
+  background-color: white;
   color: #767777;
   transition: background-color 0.3s;
 }
 
 .icon:hover {
   background-color: rgba(255, 255, 255, 0.08);
-}
-
-#tv-attr-logo {
-  display: none !important;
 }

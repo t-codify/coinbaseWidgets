@@ -1,6 +1,5 @@
-const URI = "wss://ws-feed.exchange.coinbase.com";
-
 import { useState, useEffect, useRef } from "react";
+import { wsURI } from "../constants";
 
 const useWebSocket = (selectedCurr, selectedSubs) => {
   const [data, setData] = useState(null);
@@ -8,12 +7,11 @@ const useWebSocket = (selectedCurr, selectedSubs) => {
   const wsRef = useRef(null);
 
   useEffect(() => {
+    if (!selectedCurr || !selectedSubs) return;
     // Initialize WebSocket connection
-    wsRef.current = new WebSocket(URI);
-
+    wsRef.current = new WebSocket(wsURI);
     const ws = wsRef.current;
 
-    // Handle WebSocket events directly
     ws.onopen = () => {
       const subscriptionType = selectedSubs;
       const subscribeMessage = JSON.stringify({
@@ -45,14 +43,13 @@ const useWebSocket = (selectedCurr, selectedSubs) => {
       console.error("WebSocket error", error);
     };
 
-    // Clean up WebSocket connection on component unmount
+    // Clean up WebSocket connection on component unmount or when selectedCurr/subscription changes
     return () => {
       if (wsRef.current) {
         wsRef.current.close();
       }
     };
   }, [selectedCurr, selectedSubs]);
-
   return { data, isConnected };
 };
 

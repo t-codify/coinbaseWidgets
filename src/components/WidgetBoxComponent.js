@@ -23,7 +23,7 @@ const WidgetBoxComponent = ({
 
   return (
     <div
-      className={` dark:bg-slate-800 bg-white dark:text-white text-gray-400 layout-container ${
+      className={` shadow-lg dark:bg-slate-800 bg-white dark:text-white text-gray-400 layout-container ${
         isExpanded?.[id] ? "expanded" : ""
       }`}
       style={{
@@ -46,7 +46,10 @@ const WidgetBoxComponent = ({
             className="icon cursor-pointer text-sm"
             onClick={() => setExpandedValue(id, false)}
           >
-            <FontAwesomeIcon icon={faMinus} />
+            <FontAwesomeIcon
+              className="dark:bg-[#2C3A52] bg:white"
+              icon={faMinus}
+            />
           </span>
         ) : (
           <span

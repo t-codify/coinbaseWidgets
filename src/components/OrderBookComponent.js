@@ -1,34 +1,31 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
 import ProductContext from "../utils/ProductContext";
 
-const OrderBook = ({ processSnapshot, curr }) => {
+const OrderBookComponent = ({ curr }) => {
   const [bids, setBids] = useState(new Map());
   const [asks, setAsks] = useState(new Map());
-  const [snapshotProcessed, setSnapshotProcessed] = useState(!processSnapshot); // Track if snapshot has been processed
+  const [snapshotProcessed, setSnapshotProcessed] = useState(true); // Track if snapshot has been processed
   const [aggregation, setAggregation] = useState(0.001); // Default aggregation level
-  const { l2update, snapshot, setl2UpdateData } = useContext(ProductContext);
+  const { l2update, snapshot } = useContext(ProductContext);
 
   useEffect(() => {
     // Initialize the order book with snapshot data
-    if (processSnapshot) {
-      const newBids = new Map();
-      const newAsks = new Map();
+    const newBids = new Map();
+    const newAsks = new Map();
 
-      snapshot?.[curr]?.bids?.forEach(([price, size]) => {
-        if (parseFloat(size) > 0) {
-          newBids.set(price, size);
-        }
-      });
-      snapshot?.[curr]?.asks?.forEach(([price, size]) => {
-        if (parseFloat(size) > 0) {
-          newAsks.set(price, size);
-        }
-      });
-      setBids(newBids);
-      setAsks(newAsks);
-      setSnapshotProcessed(true); // Mark snapshot as processed
-    }
-    //setl2UpdateData({});
+    snapshot?.[curr]?.bids?.forEach(([price, size]) => {
+      if (parseFloat(size) > 0) {
+        newBids.set(price, size);
+      }
+    });
+    snapshot?.[curr]?.asks?.forEach(([price, size]) => {
+      if (parseFloat(size) > 0) {
+        newAsks.set(price, size);
+      }
+    });
+    setBids(newBids);
+    setAsks(newAsks);
+    setSnapshotProcessed(true); // Mark snapshot as processed
   }, [snapshot]);
   useEffect(() => {
     // Apply l2 updates
@@ -53,14 +50,12 @@ const OrderBook = ({ processSnapshot, curr }) => {
       });
       setBids(newBids);
       setAsks(newAsks);
-    } else {
-      setBids([]);
-      setAsks([]);
     }
   }, [l2update, snapshotProcessed]);
+
   useEffect(() => {
-    setBids([]);
-    setAsks([]);
+    setBids(new Map());
+    setAsks(new Map());
   }, [curr]);
   const aggregateEntries = (entries) => {
     const aggregated = new Map();
@@ -109,9 +104,11 @@ const OrderBook = ({ processSnapshot, curr }) => {
   return (
     <div className="table-container text-xs">
       <div className="p-2 w-full flex flex-row justify-between">
-        <label>Aggregation Level: </label>
+        <label className=" dark:text-slate-400 text-xs text-gray-800">
+          Aggregation Level:
+        </label>
         <select
-          className="w-3/6 bg-transparent dark:text-slate-400 text-xs text-gray-800"
+          className="w-3/6 bg-transparent dark:text-slate-400 text-xs rounded-md shadow-sm text-gray-800"
           value={aggregation}
           onChange={(e) => setAggregation(parseFloat(e.target.value))}
         >
@@ -123,15 +120,21 @@ const OrderBook = ({ processSnapshot, curr }) => {
       <table className="table-fixed">
         <thead>
           <tr>
-            <th className="bg-inherit">Price</th>
-            <th className="bg-transparent">Size</th>
+            <th className="bg-inherit dark:text-slate-400 text-xs text-gray-800">
+              Price
+            </th>
+            <th className="bg-transparent  dark:text-slate-400 text-xs text-gray-800">
+              Size
+            </th>
           </tr>
         </thead>
         <tbody>
           {askArray.map(([price, size], index) => (
             <tr key={"ask" + index}>
               <td className="text-[#ff0000]">{parseFloat(price)}</td>
-              <td>{parseFloat(size)}</td>
+              <td className=" dark:text-slate-400 text-xs text-gray-800">
+                {parseFloat(size)}
+              </td>
             </tr>
           ))}
           <tr className="dark:text-slate-400 text-xs text-gray-800">
@@ -140,8 +143,12 @@ const OrderBook = ({ processSnapshot, curr }) => {
           </tr>
           {bidArray.map(([price, size], index) => (
             <tr key={"bid" + index}>
-              <td className="text-[#00ff00]">{parseFloat(price)}</td>
-              <td>{parseFloat(size)}</td>
+              <td className="dark:text-[#00ff00] text-[#05AF05]">
+                {parseFloat(price)}
+              </td>
+              <td className=" dark:text-slate-400 text-xs text-gray-800">
+                {parseFloat(size)}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -150,4 +157,4 @@ const OrderBook = ({ processSnapshot, curr }) => {
   );
 };
 
-export default OrderBook;
+export default OrderBookComponent;

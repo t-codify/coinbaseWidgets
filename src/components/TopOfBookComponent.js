@@ -1,10 +1,9 @@
 const TopOfBookComponent = ({ ticker }) => {
   //const { ticker } = useContext(ProductContext);
   const color = ticker.side === "buy" ? "text-[#00ff00]" : "text-[#ff0000]";
-  if (!ticker) return;
   return (
     <div>
-      <table className="table-fixed text-xs border-none w-8/12 ">
+      <table className="table-fixed text-xs border-none w-9/12 ">
         <tbody>
           <tr className="font-semibold dark:text-white text-gray-400">
             <td className="border-none">Best Bid</td>

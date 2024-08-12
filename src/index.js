@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-import WebSocketComponent from "./components/WebsocketComponent";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import DashboardComponent from "./components/DashboardComponent";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProductContext from "./utils/ProductContext";
 const AppLayout = () => {
   const [tickerData, setTickerData] = useState();
@@ -22,7 +22,7 @@ const AppLayout = () => {
           setIsExpanded,
         }}
       >
-        <WebSocketComponent />
+        <DashboardComponent />
       </ProductContext.Provider>
     </div>
   );

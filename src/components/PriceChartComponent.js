@@ -10,8 +10,6 @@ import {
   MouseCoordinateY,
   MovingAverageTooltip,
   CurrentCoordinate,
-  lastVisibleItemBasedZoomAnchor,
-  ZoomButtons,
 } from "react-financial-charts";
 import { scaleTime, scaleLinear } from "d3-scale";
 import { timeFormat } from "d3-time-format";
@@ -19,10 +17,9 @@ import ProductContext from "../utils/ProductContext";
 
 const formatDate = timeFormat("%H:%M:%S");
 
-const RealTimePriceChart = ({ width, height }) => {
+const PriceChartComponent = () => {
   const { ticker } = useContext(ProductContext);
   const maxPoints = 100;
-  const historyBuffer = 100; // Buffer size for historical data
   const [chartData, setChartData] = useState([]);
   const [displayData, setDisplayData] = useState([]);
   const [redrawKey, setRedrawKey] = useState(false);
@@ -38,30 +35,19 @@ const RealTimePriceChart = ({ width, height }) => {
 
       setChartData((prevData) => {
         const updatedData = [...prevData, newPoint];
-
-        // Keep a buffer of historical data
-        if (updatedData.length > historyBuffer) {
-          updatedData.shift();
-        }
-
         return updatedData;
       });
-    } else {
-      setChartData([]);
-      setRedrawKey(true);
-    }
-  }, [ticker]);
-
-  useEffect(() => {
-    if (chartData.length > 0) {
-      // Update displayData to show only the most recent `maxPoints` data points
-      setDisplayData((prevData) => {
+      setDisplayData(() => {
         const endIndex = chartData.length;
         const startIndex = Math.max(endIndex - maxPoints, 0);
         return chartData.slice(startIndex, endIndex);
       });
+    } else {
+      setChartData([]);
+      setDisplayData([]);
+      setRedrawKey(true);
     }
-  }, [chartData]);
+  }, [ticker]);
 
   const yAccessorBid = (d) => d?.bid;
   const yAccessorAsk = (d) => d?.ask;
@@ -88,8 +74,8 @@ const RealTimePriceChart = ({ width, height }) => {
           width={canvasRef.current.clientWidth}
           margin={{
             top: 10,
-            right: 80,
-            bottom: 40,
+            right: 60,
+            bottom: 60,
             left: 20,
           }}
           ratio={1}
@@ -105,16 +91,14 @@ const RealTimePriceChart = ({ width, height }) => {
               showGridLines={true}
               gridLinesStrokeWidth={0.15}
               tickFormat={formatDate}
-              tickLabelFill="#94a3b8"
+              tickLabelFill="#4682B4"
               gridLinesStrokeStyle="#94a3b8"
               fontSize={11}
-
-              //ticks={5}
             />
             <YAxis
               showGridLines={true}
               gridLinesStrokeWidth={0.15}
-              tickLabelFill="#94a3b8"
+              tickLabelFill="#4682B4"
               ticks={8}
               fontSize={11}
             />
@@ -144,13 +128,13 @@ const RealTimePriceChart = ({ width, height }) => {
                   yAccessor: yAccessorBid,
                   type: "Bid",
                   stroke: "#00ff00",
-                  windowSize: 2,
+                  windowSize: "",
                 },
                 {
                   yAccessor: yAccessorAsk,
                   type: "Ask",
                   stroke: "#ff0000",
-                  windowSize: 2,
+                  windowSize: "",
                 },
               ]}
             />
@@ -162,4 +146,4 @@ const RealTimePriceChart = ({ width, height }) => {
   );
 };
 
-export default RealTimePriceChart;
+export default PriceChartComponent;

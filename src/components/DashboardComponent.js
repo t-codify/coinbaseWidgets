@@ -1,19 +1,12 @@
-import React, {
-  useState,
-  useEffect,
-  useContext,
-  useRef,
-  useCallback,
-} from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { selectOptions } from "../utils/constants";
 import TopOfBookComponent from "./TopOfBookComponent";
-import OrderBook from "./OrderBook";
-import RealTimePriceChart from "./RealTimePriceChart";
+import OrderBookComponent from "./OrderBookComponent";
+import PriceChartComponent from "./PriceChartComponent";
 import ProductContext from "../utils/ProductContext";
 import useWebSocket from "../utils/customHooks/useWebSocket";
 import WidgetBoxComponent from "./WidgetBoxComponent";
-
-const WebSocketComponent = () => {
+const DashboardComponent = () => {
   const {
     ticker,
     setTickerData,
@@ -72,25 +65,20 @@ const WebSocketComponent = () => {
       [selectedCurr]: {},
     }));
     setl2UpdateData({});
-    setProcessSnapshot(true);
+    //setProcessSnapshot(true);
     if (selectedCurr) {
       setSelectedSubs("subscribe");
     }
   }, [selectedCurr]);
 
-  // Handle subscription/unsubscription
-  const handleSubscriptionChange = useCallback((action) => {
-    setSelectedSubs(action);
-  }, []);
-
   if (!ticker && !snapshot && !l2update) return null; // Avoid rendering if data is missing
 
   return (
     <>
-      <div className="flex flex-row mt-5 justify-normal align-middle content-evenly">
+      <div className="flex flex-row justify-normal align-middle content-evenly">
         <label className="mx-2 w-3/12 font-bold dark:text-white text-gray-400">
           <select
-            className="px-3 py-2 w-40 bg-white dark:bg-inherit shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none block rounded-md sm:text-sm focus:ring-1"
+            className="px-3 py-2 w-40 bg-white dark:bg-inherit shadow-lg border-slate-300 placeholder-slate-400 focus:outline-none block rounded-md sm:text-sm focus:ring-1"
             value={selectedCurr}
             onChange={(e) => {
               setSelectedCurr(e.target.value);
@@ -106,21 +94,26 @@ const WebSocketComponent = () => {
         {ticker && <TopOfBookComponent {...{ ticker }} />}
         <label className="mx-2 w-3/12 text-sm dark:text-white text-gray-400">
           <select
-            className="rounded-md px-3 py-2 w-40 bg-sky-500 hover:bg-sky-700"
+            className="px-3 py-2 w-40 bg-white dark:bg-inherit shadow-lg border-slate-300 placeholder-slate-400 focus:outline-none block rounded-md sm:text-sm focus:ring-1"
+            defaultValue={"add"}
             onChange={(e) => {
               const selected = e.target.value;
               selected === "Chart"
                 ? setIsChartVisible(true)
                 : setIsOrderBookVisible(true);
-              //setIsChartVisible(selected === "Chart");
-              //setIsOrderBookVisible(selected === "Order Book");
             }}
           >
-            {["Chart", "Order Book"].map((opts) => (
-              <option key={opts} value={opts}>
-                {opts}
+            <option value="add">Add Widget..</option>
+            {!isChartVisible && (
+              <option key="Chart" value="Chart">
+                Chart
               </option>
-            ))}
+            )}
+            {!isOrderBookVisible && (
+              <option key="Order" value="Order">
+                Order-Book
+              </option>
+            )}
           </select>
         </label>
       </div>
@@ -143,7 +136,7 @@ const WebSocketComponent = () => {
               isVisible={isChartVisible}
               setIsVisible={setIsChartVisible}
             >
-              <RealTimePriceChart />
+              <PriceChartComponent />
             </WidgetBoxComponent>
           )}
         </div>
@@ -160,10 +153,7 @@ const WebSocketComponent = () => {
             setIsVisible={setIsOrderBookVisible}
           >
             {snapshot?.[selectedCurr] && (
-              <OrderBook
-                processSnapshot={processSnapshot}
-                curr={selectedCurr}
-              />
+              <OrderBookComponent curr={selectedCurr} />
             )}
           </WidgetBoxComponent>
         </div>
@@ -172,4 +162,4 @@ const WebSocketComponent = () => {
   );
 };
 
-export default WebSocketComponent;
+export default DashboardComponent;
